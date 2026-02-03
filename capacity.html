@@ -161,101 +161,39 @@
             box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
         }
 
-        .policy-card.expanded {
-            grid-column: 1 / -1;
-            transform: none;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
-        }
-
-        .policy-header {
-            background: var(--primary);
-            color: #fff;
-            padding: 30px;
+        .policy-card a {
             display: flex;
             align-items: center;
             gap: 15px;
+            background: var(--primary);
+            color: #fff;
+            padding: 50px 30px;
+            text-decoration: none;
+            transition: background 0.3s ease;
+            border-radius: 15px;
+            justify-content: center;
+            flex-direction: column;
+            text-align: center;
         }
 
-        .policy-header h3 {
+        .policy-card:hover a {
+            background: var(--primary-dark);
+        }
+
+        .policy-icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+
+        .policy-card h3 {
             font-size: 20px;
             margin: 0;
         }
 
-        .policy-header .arrow {
-            font-size: 20px;
-            transition: transform 0.3s ease;
-        }
-
-        .policy-card.expanded .policy-header .arrow {
-            transform: rotate(180deg);
-        }
-
-        .policy-body {
-            padding: 30px;
-            display: none;
-        }
-
-        .policy-card.expanded .policy-body {
-            display: block;
-            animation: fadeIn 0.3s ease;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .policy-body p {
-            margin-bottom: 15px;
-            line-height: 2;
-            color: var(--text-light);
-        }
-
-        .policy-body ul {
-            list-style: none;
-            padding-left: 20px;
-        }
-
-        .policy-body li {
-            padding: 8px 0;
-            border-bottom: 1px solid var(--bg-light);
-            position: relative;
-        }
-
-        .policy-body li::before {
-            content: '•';
-            color: var(--primary);
-            position: absolute;
-            left: 0;
-            font-weight: bold;
-        }
-
-        .policy-footer {
-            background: var(--bg-light);
-            padding: 20px 30px;
-            border-top: 1px solid var(--border);
-        }
-
-        .contact-info {
-            display: flex;
-            gap: 30px;
-            flex-wrap: wrap;
-        }
-
-        .contact-item {
-            flex: 1;
-            min-width: 200px;
-        }
-
-        .contact-item h4 {
-            font-size: 12px;
-            color: var(--text-light);
-            margin-bottom: 8px;
-        }
-
-        .contact-item p {
+        .policy-description {
             font-size: 14px;
-            color: var(--primary-dark);
+            opacity: 0.9;
+            margin-top: 10px;
         }
 
         /* Footer */
@@ -272,6 +210,7 @@
             grid-template-columns: 2fr 1fr 1fr;
             gap: 40px;
             padding-bottom: 30px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .footer-brand h3 {
@@ -355,16 +294,8 @@
                 font-size: 24px;
             }
 
-            .policy-header h3 {
-                font-size: 16px;
-            }
-
-            .policy-card.expanded {
-                grid-column: 1 / -1;
-            }
-
-            .contact-info {
-                flex-direction: column;
+            .policy-card h3 {
+                font-size: 18px;
             }
         }
     </style>
@@ -398,177 +329,61 @@
     <main class="main">
         <!-- Page Header -->
         <div class="page-header">
-            <h1>資格情報</h1>
+            <h1>資格情報・ポリシー</h1>
             <p>Certifications & Policies</p>
         </div>
 
         <div class="content">
-            <!-- Policy 1: プライバシーポリシー -->
-            <div class="policy-card" data-policy="privacy">
-                <div class="policy-header">
-                    <h3>🔒 プライバシーポリシー</h3>
-                    <span class="arrow">▼</span>
+            <p style="text-align: center; color: var(--text-light); margin-bottom: 40px; font-size: 16px;">
+                各ポリシーの詳細は以下のリンクからご確認いただけます。
+            </p>
+
+            <div class="policies-grid">
+                <!-- Policy 1: プライバシーポリシー -->
+                <div class="policy-card">
+                    <a href="policies/privacy.html">
+                        <span class="policy-icon">🔒</span>
+                        <h3>プライバシーポリシー</h3>
+                        <span class="policy-description">個人情報の取り扱いについて</span>
+                    </a>
                 </div>
-                <div class="policy-body">
-                    <p>フォレストソフト株式会社は、IT関連サービスの事業活動を行なっています。個人情報は重要な情報であり、その保護は重要な社会的責務と認識しております。</p>
 
-                    <h4>個人情報の取得、利用及び提供に関して</h4>
-                    <ul>
-                        <li>適法、公正な手段で個人情報を取得</li>
-                        <li>利用目的の達成に必要な範囲内で利用</li>
-                        <li>第三者提供は事前に本人の同意を取る</li>
-                    </ul>
-
-                    <h4>法令等に関して</h4>
-                    <p>関連する法令等を常に把握し、周知・遵守いたします。</p>
-
-                    <h4>個人情報の安全管理に関して</h4>
-                    <ul>
-                        <li>不正アクセス、漏えい等のリスクを防止する体制を構築</li>
-                        <li>継持いたします。</li>
-                    </ul>
-
-                    <h4>苦情・相談に関して</h4>
-                    <p>個人情報問合せ窓口を設け、迅速な対応が可能な体制を構築します。</p>
-
-                    <h4>継続的改善に関して</h4>
-                    <p>個人情報保護マネジメントシステムの継続的改善に努めます。</p>
-
-                    <div class="policy-footer">
-                        <div class="contact-info">
-                            <div class="contact-item">
-                                <h4>制定日</h4>
-                                <p>2017年7月1日</p>
-                            </div>
-                            <div class="contact-item">
-                                <h4>改定日</h4>
-                                <p>2021年5月24日</p>
-                            </div>
-                            <div class="contact-item">
-                                <h4>代表者</h4>
-                                <p>代表取締役社長　朱傑</p>
-                            </div>
-                        </div>
-                    </div>
+                <!-- Policy 2: 情報セキュリティ基本方針 -->
+                <div class="policy-card">
+                    <a href="policies/security.html">
+                        <span class="policy-icon">🛡️</span>
+                        <h3>情報セキュリティ基本方針</h3>
+                        <span class="policy-description">情報資産の保護と安全管理</span>
+                    </a>
                 </div>
-            </div>
 
-            <!-- Policy 2: 情報セキュリティ方針 -->
-            <div class="policy-card" data-policy="security">
-                <div class="policy-header">
-                    <h3>🛡️ 情報セキュリティ方針</h3>
-                    <span class="arrow">▼</span>
+                <!-- Policy 3: 品質方針 -->
+                <div class="policy-card">
+                    <a href="policies/quality.html">
+                        <span class="policy-icon">🎯</span>
+                        <h3>品質方針</h3>
+                        <span class="policy-description">高品質なサービスの提供</span>
+                    </a>
                 </div>
-                <div class="policy-body">
-                    <p>ForestSoft Co., Ltd. is dedicated to protecting information assets through proper security measures. The company has established an information security management system to ensure reliability and safety while maintaining confidentiality.</p>
 
-                    <h4>組織的安全管理措置</h4>
-                    <ul>
-                        <li>社内のセキュリティマネジメントシステムの整備</li>
-                        <li>定期的な教育・研修の実施</li>
-                        <li>秘密保持誓約書の取得</li>
-                    </ul>
+                <!-- Policy 4: 個人情報の取り扱い -->
+                <div class="policy-card">
+                    <a href="policies/usage.html">
+                        <span class="policy-icon">📋</span>
+                        <h3>個人情報の取り扱い</h3>
+                        <span class="policy-description">利用目的の詳細について</span>
+                    </a>
+                </div>
 
-                    <h4>人的安全管理措置</h4>
-                    <ul>
-                        <li>定期的なセキュリティ教育の実施</li>
-                        <li>入退時のセキュリティチェック</li>
-                    </ul>
-
-                    <h4>物理的安全管理措置</h4>
-                    <ul>
-                        <li>個人情報を取り扱う区域の管理等</li>
-                        <li>ハードウェア・記録媒体の物理的破棄</li>
-                    </ul>
-
-                    <h4>技術的安全管理措置</h4>
-                    <ul>
-                        <li>アクセス制御</li>
-                        <li>不正アクセス防止</li>
-                        <li>マルウェア対策</li>
-                    </ul>
-
-                    <div class="policy-footer">
-                        <div class="contact-info">
-                            <div class="contact-item">
-                                <h4>制定日</h4>
-                                <p>2021年11月1日</p>
-                            </div>
-                            <div class="contact-item">
-                                <h4>代表者</h4>
-                                <p>代表取締役社長　朱傑</p>
-                            </div>
-                        </div>
-                    </div>
+                <!-- Policy 5: 環境方針・社会貢献 -->
+                <div class="policy-card">
+                    <a href="policies/environment.html">
+                        <span class="policy-icon">🌱</span>
+                        <h3>環境方針・社会貢献</h3>
+                        <span class="policy-description">環境保護と社会貢献活動</span>
+                    </a>
                 </div>
             </div>
-
-            <!-- Policy 3: グリーンIT -->
-            <div class="policy-card" data-policy="greenit">
-                <div class="policy-header">
-                    <h3>🌱 グリーンIT</h3>
-                    <span class="arrow">▼</span>
-                </div>
-                <div class="policy-body">
-                    <p>ソリューション・ITサービスの提供にてお客様先での業務効率を向上させ、また社内でも業務の効率化を図り環境改善へ繋がります。</p>
-
-                    <h4>１. ビジネスを通しての環境改善の推進</h4>
-                    <p>IT機器の省電力化やリサイクル性向上などの「ITそのものの環境負荷低減」</p>
-
-                    <h4>２. 環境負荷低減の推進</h4>
-                    <p>ITを利用して生産や物流の最適化するといった「IT活用による環境負荷低減」</p>
-
-                    <h4>３. 環境関連法規制への適切な対応</h4>
-                    <p>環境保護や資源の有効活用につながるIT利用を指し、主に以下の２つからなります：</p>
-                    <ul>
-                        <li style="color: var(--primary);">Green of IT</li>
-                        <li>IT機器の省電力化やリサイクル性向上</li>
-                    </ul>
-
-                    <div class="policy-footer">
-                        <p class="text" style="font-size: 13px; color: var(--text-light);">
-                            （注）グリーンＴＬＲ：地球環境に配慣したIT製品やIT基盤のこと。あるいは環境保護や資源の有効活用につながるIT利用を指し、主に以下の２つからなります。
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Policy 4: 社会貢献活動 -->
-            <div class="policy-card" data-policy="contribution">
-                <div class="policy-header">
-                    <h3>🌍 社会貢献活動</h3>
-                    <span class="arrow">▼</span>
-                </div>
-                <div class="policy-body">
-                    <p>よりよい企業市民となることを目指すために、地域社会などとコミュニケーションを図り、地域貢献活動を行っています。また、地球環境を守る活動や地球にやさしい活動にも取り組んでいます。</p>
-
-                    <h4>事業活動を通じた貢献</h4>
-                    <p>ITサービスの提供によりお客様先での業務効率向上を図り、地域経済の発展に貢献しています。</p>
-
-                    <h4>従業員育成</h4>
-                    <p>技術者育成に力を入れ、地域社会に貢献できる人材の輩出を図っています。</p>
-                </div>
-            </div>
-
-            <!-- Policy 5: 環境意識の向上 -->
-            <div class="policy-card" data-policy="awareness">
-                <div class="policy-header">
-                    <h3>📚 環境意識の向上</h3>
-                    <span class="arrow">▼</span>
-                </div>
-                <div class="policy-body">
-                    <p>LWに勤務する者すべてに環境方針を周知徹底し、全従業員参加の継続的な環境活動を図ります。</p>
-
-                    <h4>１. 品質目標の設定</h4>
-                    <p>社内の品質マネジメントを全社員が理解し、共有する事で継続的業務改善に努めます。</p>
-
-                    <h4>２. お客様からの信頼を第一に重視</h4>
-                    <p>お客様からの信頼を第一に誠意をもって行動します。</p>
-
-                    <h4>３. 法令、規制、その他の社会的規範及びお客様からの要求事項を遵守します</h4>
-                </div>
-            </div>
-
         </div>
     </main>
 
@@ -624,25 +439,6 @@
         document.querySelectorAll('.nav a').forEach(link => {
             link.addEventListener('click', () => {
                 nav.classList.remove('active');
-            });
-        });
-
-        // Policy Card Toggle
-        document.querySelectorAll('.policy-card').forEach(card => {
-            card.addEventListener('click', function() {
-                const isExpanded = this.classList.contains('expanded');
-
-                // Close all other cards
-                document.querySelectorAll('.policy-card').forEach(c => {
-                    if (c !== card) {
-                        c.classList.remove('expanded');
-                    }
-                });
-
-                // Toggle current card
-                if (!isExpanded) {
-                    this.classList.add('expanded');
-                }
             });
         });
     </script>

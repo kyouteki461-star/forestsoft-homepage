@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>プライバシーポリシー - フォレストソフト株式会社</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: "Noto Sans JP", "Hiragino Kaku Gothic ProN", "Meiryo", "MS Gothic", sans-serif;
+            line-height: 1.7;
+            color: #333;
+            background: #fff;
+            font-size: 15px;
+        }
+
+        :root {
+            --primary: #4a9c7d;
+            --primary-dark: #2d6a4f;
+            --secondary: #6bc4a0;
+            --accent: #e8f7f0;
+            --text: #333333;
+            --text-light: #666666;
+            --bg-light: #f5f5f5;
+            --white: #ffffff;
+            --border: #e0e0e0;
+        }
+
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: #fff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+            z-index: 1000;
+        }
+
+        .header-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .logo img {
+            height: 50px;
+            width: auto;
+        }
+
+        .nav {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+
+        .nav a {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 14px;
+            transition: color 0.3s ease;
+        }
+
+        .nav a:hover {
+            color: var(--primary);
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            width: 30px;
+        }
+
+        .menu-toggle span {
+            width: 100%;
+            height: 3px;
+            background: var(--primary);
+            transition: all 0.3s ease;
+        }
+
+        /* Main Content */
+        .main {
+            padding-top: 100px;
+            min-height: 100vh;
+        }
+
+        .page-header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: #fff;
+            padding: 80px 20px;
+            text-align: center;
+        }
+
+        .page-header h1 {
+            font-size: 36px;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .page-header p {
+            opacity: 0.9;
+            font-size: 15px;
+        }
+
+        .content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-title h2 {
+            font-size: 28px;
+            color: var(--primary-dark);
+            margin-bottom: 30px;
+            font-weight: 700;
+        }
+
+        .content-block {
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 35px;
+            margin-bottom: 30px;
+        }
+
+        .content-block h3 {
+            font-size: 20px;
+            color: var(--primary-dark);
+            margin-bottom: 15px;
+        }
+
+        .content-block h4 {
+            font-size: 16px;
+            color: var(--primary-dark);
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .content-block p {
+            color: var(--text-light);
+            margin-bottom: 15px;
+            line-height: 1.8;
+        }
+
+        .content-block ul {
+            list-style: none;
+            padding-left: 25px;
+        }
+
+        .content-block li {
+            padding: 12px 0;
+            border-bottom: 1px solid var(--bg-light);
+        }
+
+        .content-block li:last-child {
+            border-bottom: none;
+        }
+
+        .content-block li::before {
+            content: '•';
+            color: var(--primary);
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .contact-box {
+            background: var(--accent);
+            padding: 25px;
+            border-radius: 10px;
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .contact-box h4 {
+            color: var(--primary-dark);
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--primary-dark);
+            color: #fff;
+            padding: 50px 20px 20px;
+        }
+
+        .footer-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 40px;
+        }
+
+        .footer-item {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .footer-item a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .footer-item a:hover {
+            opacity: 1;
+        }
+
+        .copyright {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            font-size: 13px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: #fff;
+                flex-direction: column;
+                padding: 20px;
+                box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            }
+
+            .nav.active {
+                display: flex;
+            }
+
+            .menu-toggle {
+                display: flex;
+            }
+
+            .content-block {
+                padding: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .page-header h1 {
+                font-size: 28px;
+            }
+
+            .content-block h3 {
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-inner">
+            <a href="../index.html" class="logo">
+                <img src="https://www.forestsoft.jp/web/images/logo-black.png" alt="ForestSoft Logo" onerror="this.style.display='none'">
+            </a>
+            <ul class="nav">
+                <li><a href="../index.html">ホーム</a></li>
+                <li><a href="../about.html">企業紹介</a></li>
+                <li><a href="../index.html#company">会社情報</a></li>
+                <li><a href="../index.html#news">ニュース</a></li>
+                <li><a href="../business.html">開発事例</a></li>
+                <li><a href="../partner.html">ビジネスパートナー</a></li>
+                <li><a href="../recruit.html">採用情報</a></li>
+                <li><a href="../capacity.html">資格情報</a></li>
+            </ul>
+            <div class="menu-toggle" id="menuToggle">
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+        <div class="page-header">
+            <h1>プライバシーポリシー</h1>
+            <p>Privacy Policy</p>
+        </div>
+
+        <div class="content">
+            <div class="content-block">
+                <h3>🔒 プライバシーポリシー</h3>
+
+                <h4>個人情報の取得、利用及び提供に関して</h4>
+                <p>フォレストソフト株式会社は、IT関連サービスの事業活動を行なっています。個人情報は重要な情報であり、その保護は重要な社会的責務と認識しております。</p>
+
+                <ul>
+                    <li>適法、公正な手段で個人情報を取得</li>
+                    <li>利用目的の達成に必要な範囲内で利用</li>
+                    <li>第三者提供は事前に本人の同意を取る</li>
+                </ul>
+
+                <h4>法令等に関して</h4>
+                <p>関連する法令等を常に把握し、周知・遵守いたします。</p>
+
+                <ul>
+                    <li>不正アクセス、漏えい等のリスクを防止する体制を構築</li>
+                    <li>継持いたします。</li>
+                </ul>
+
+                <div class="contact-box">
+                    <h4>苦情・相談に関して</h4>
+                    <p>個人情報問合せ窓口を設け、迅速な対応が可能な体制を構築します。</p>
+                </div>
+
+                <h4>継続的改善に関して</h4>
+                <p>個人情報保護マネジメントシステムの継続的改善に努めます。</p>
+                </div>
+
+                <div class="policy-footer">
+                    <p>制定日：2017年7月1日</p>
+                    <p>改定日：2021年5月24日</p>
+                    <p>代表者：代表取締役社長　朱傑</p>
+                </div>
+            </div>
+            </div>
+        </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-inner">
+            <div class="footer-item">
+                <a href="../index.html">ホーム</a>
+                </div>
+            <div class="footer-item">
+                <a href="../index.html">企業紹介</a>
+                </div>
+            <div class="footer-item">
+                <a href="../index.html#company">会社情報</a>
+                </div>
+            <div class="footer-item">
+                <a href="../index.html#news">ニュース</a>
+                </div>
+            <div class="footer-item">
+                <a href="../index.html#business">開発事例</a>
+                </div>
+            <div class="footer-item">
+                <a href="../index.html#business">労働者派遣事業</a>
+                </div>
+            <div class="footer-item">
+                <a href="../index.html#partner.html">ビジネスパートナー</a>
+                </div>
+            <div class="footer-item">
+                <a href="../recruit.html">採用情報</a>
+                </div>
+            <div class="footer-item">
+                <a href="../capacity.html">資格情報</a>
+                </div>
+        </div>
+        <div class="copyright">
+            <p>Copyright(c) 2019 ForestSoft Co., Ltd. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        const menuToggle = document.getElementById('menuToggle');
+        const nav = document.getElementById('nav');
+
+        menuToggle.addEventListener('click', () => {
+            nav.classList.toggle('active');
+        });
+
+        document.querySelectorAll('.nav a').forEach(link => {
+            link.addEventListener('click', () => {
+                nav.classList.remove('active');
+            });
+        });
+    </script>
+</body>
+</html>
