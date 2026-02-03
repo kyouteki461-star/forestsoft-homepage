@@ -96,6 +96,7 @@
             width: 100%;
             height: 3px;
             background: var(--primary);
+            transition: all 0.3s ease;
         }
 
         /* Main Content */
@@ -122,31 +123,31 @@
         }
 
         .content {
-            max-width: 1000px;
+            max-width: 1200px;
             margin: 0 auto;
             padding: 60px 20px;
         }
 
         .section {
-            margin-bottom: 50px;
+            margin-bottom: 60px;
         }
 
         .section h2 {
             font-size: 24px;
             color: var(--primary-dark);
-            margin-bottom: 25px;
-            padding-bottom: 10px;
-            border-bottom: 3px solid var(--primary);
+            margin-bottom: 30px;
+            text-align: center;
+            font-weight: 700;
         }
 
-        /* Certificates Grid */
-        .cert-grid {
+        /* Policies Grid */
+        .policies-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
         }
 
-        .cert-card {
+        .policy-card {
             background: #fff;
             border-radius: 15px;
             overflow: hidden;
@@ -155,139 +156,106 @@
             border: 1px solid var(--border);
         }
 
-        .cert-card:hover {
-            transform: translateY(-8px);
+        .policy-card:hover {
+            transform: translateY(-5px);
             box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
         }
 
-        .cert-icon {
-            height: 120px;
-            background: linear-gradient(135deg, var(--accent), #fff);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 50px;
+        .policy-card.expanded {
+            grid-column: 1 / -1;
+            transform: none;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
         }
 
-        .cert-content {
-            padding: 25px;
-        }
-
-        .cert-content h3 {
-            color: var(--primary-dark);
-            margin-bottom: 10px;
-            font-size: 18px;
-        }
-
-        .cert-content .cert-no {
-            display: inline-block;
-            background: var(--accent);
-            color: var(--primary);
-            padding: 4px 10px;
-            border-radius: 5px;
-            font-size: 12px;
-            font-weight: 600;
-            margin-bottom: 10px;
-        }
-
-        .cert-content p {
-            color: var(--text-light);
-            font-size: 14px;
-            margin-bottom: 8px;
-        }
-
-        /* Policy Cards */
-        .policy-list {
-            display: grid;
-            gap: 20px;
-        }
-
-        .policy-card {
-            background: var(--bg-light);
-            padding: 25px;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            transition: all 0.3s ease;
-        }
-
-        .policy-card:hover {
-            background: var(--accent);
-            transform: translateX(10px);
-        }
-
-        .policy-icon {
-            font-size: 40px;
-        }
-
-        .policy-info h4 {
-            color: var(--primary-dark);
-            margin-bottom: 5px;
-            font-size: 18px;
-        }
-
-        .policy-info p {
-            color: var(--text-light);
-            font-size: 14px;
-        }
-
-        .policy-link {
-            display: inline-block;
-            margin-top: 10px;
-            color: var(--primary);
-            text-decoration: none;
-            font-weight: 600;
-        }
-
-        .policy-link:hover {
-            text-decoration: underline;
-        }
-
-        /* Download Section */
-        .download-section {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
+        .policy-header {
+            background: var(--primary);
             color: #fff;
             padding: 30px;
-            border-radius: 15px;
-            text-align: center;
-        }
-
-        .download-section h3 {
-            margin-bottom: 20px;
-            font-size: 20px;
-        }
-
-        .download-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            display: flex;
+            align-items: center;
             gap: 15px;
         }
 
-        .download-item {
-            background: rgba(255, 255, 255, 0.2);
-            padding: 20px;
-            border-radius: 10px;
-            transition: all 0.3s ease;
+        .policy-header h3 {
+            font-size: 20px;
+            margin: 0;
         }
 
-        .download-item:hover {
-            background: rgba(255, 255, 255, 0.3);
+        .policy-header .arrow {
+            font-size: 20px;
+            transition: transform 0.3s ease;
         }
 
-        .download-item .icon {
-            font-size: 30px;
-            margin-bottom: 10px;
+        .policy-card.expanded .policy-header .arrow {
+            transform: rotate(180deg);
         }
 
-        .download-item h4 {
-            font-size: 14px;
+        .policy-body {
+            padding: 30px;
+            display: none;
+        }
+
+        .policy-card.expanded .policy-body {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .policy-body p {
+            margin-bottom: 15px;
+            line-height: 2;
+            color: var(--text-light);
+        }
+
+        .policy-body ul {
+            list-style: none;
+            padding-left: 20px;
+        }
+
+        .policy-body li {
+            padding: 8px 0;
+            border-bottom: 1px solid var(--bg-light);
+            position: relative;
+        }
+
+        .policy-body li::before {
+            content: '•';
+            color: var(--primary);
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+
+        .policy-footer {
+            background: var(--bg-light);
+            padding: 20px 30px;
+            border-top: 1px solid var(--border);
+        }
+
+        .contact-info {
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .contact-item {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .contact-item h4 {
+            font-size: 12px;
+            color: var(--text-light);
             margin-bottom: 8px;
         }
 
-        .download-item span {
-            font-size: 12px;
-            opacity: 0.8;
+        .contact-item p {
+            font-size: 14px;
+            color: var(--primary-dark);
         }
 
         /* Footer */
@@ -301,10 +269,9 @@
             max-width: 1200px;
             margin: 0 auto;
             display: grid;
-            grid-template-columns: 2fr 1fr 1fr 1fr;
+            grid-template-columns: 2fr 1fr 1fr;
             gap: 40px;
             padding-bottom: 30px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .footer-brand h3 {
@@ -374,22 +341,30 @@
                 display: flex;
             }
 
-            .page-header h1 {
-                font-size: 24px;
-            }
-
-            .download-grid {
+            .policies-grid {
                 grid-template-columns: 1fr;
             }
 
             .footer-inner {
-                grid-template-columns: 1fr 1fr;
+                grid-template-columns: 1fr;
             }
         }
 
         @media (max-width: 480px) {
-            .footer-inner {
-                grid-template-columns: 1fr;
+            .page-header h1 {
+                font-size: 24px;
+            }
+
+            .policy-header h3 {
+                font-size: 16px;
+            }
+
+            .policy-card.expanded {
+                grid-column: 1 / -1;
+            }
+
+            .contact-info {
+                flex-direction: column;
             }
         }
     </style>
@@ -421,131 +396,179 @@
 
     <!-- Main Content -->
     <main class="main">
+        <!-- Page Header -->
         <div class="page-header">
             <h1>資格情報</h1>
             <p>Certifications & Policies</p>
         </div>
 
         <div class="content">
-            <!-- Certifications -->
-            <section class="section">
-                <h2>認証・許可</h2>
-                <div class="cert-grid">
-                    <div class="cert-card">
-                        <div class="cert-icon">🏆</div>
-                        <div class="cert-content">
-                            <span class="cert-no">JIS Q 27001:2014</span>
-                            <h3>ISO/IEC 27001:2013</h3>
-                            <p>情報セキュリティマネジメントシステム(ISMS)</p>
-                            <p>取得日：2020年12月</p>
-                        </div>
-                    </div>
-                    <div class="cert-card">
-                        <div class="cert-icon">🔒</div>
-                        <div class="cert-content">
-                            <span class="cert-no">JIPDEC認定</span>
-                            <h3>プライバシーマーク</h3>
-                            <p>個人情報保護体制の認定</p>
-                            <p>取得日：2018年8月21日</p>
-                        </div>
-                    </div>
-                    <div class="cert-card">
-                        <div class="cert-icon">🎯</div>
-                        <div class="cert-content">
-                            <span class="cert-no">東京都承認</span>
-                            <h3>経営革新計画</h3>
-                            <p>FMSサービス事業の開発と販売</p>
-                            <p>承認日：2022年6月</p>
-                        </div>
-                    </div>
-                    <div class="cert-card">
-                        <div class="cert-icon">👥</div>
-                        <div class="cert-content">
-                            <span class="cert-no">派13-307799</span>
-                            <h3>労働者派遣事業許可</h3>
-                            <p>有料職業紹介事業許可も取得</p>
-                            <p>取得日：2018年8月1日</p>
-                        </div>
-                    </div>
+            <!-- Policy 1: プライバシーポリシー -->
+            <div class="policy-card" data-policy="privacy">
+                <div class="policy-header">
+                    <h3>🔒 プライバシーポリシー</h3>
+                    <span class="arrow">▼</span>
                 </div>
-            </section>
+                <div class="policy-body">
+                    <p>フォレストソフト株式会社は、IT関連サービスの事業活動を行なっています。個人情報は重要な情報であり、その保護は重要な社会的責務と認識しております。</p>
 
-            <!-- Policies -->
-            <section class="section">
-                <h2>ポリシー</h2>
-                <div class="policy-list">
-                    <div class="policy-card">
-                        <div class="policy-icon">📋</div>
-                        <div class="policy-info">
-                            <h4>プライバシーポリシー</h4>
-                            <p>個人情報の保護と適切な取扱いに関する方針</p>
-                        </div>
-                    </div>
-                    <div class="policy-card">
-                        <div class="policy-icon">🛡️</div>
-                        <div class="policy-info">
-                            <h4>情報セキュリティポリシー</h4>
-                            <p>情報資産の保護と安全管理に関する方針</p>
-                        </div>
-                    </div>
-                    <div class="policy-card">
-                        <div class="policy-icon">🌱</div>
-                        <div class="policy-info">
-                            <h4>環境への取り組み</h4>
-                            <p>環境保護と持続可能な社会への貢献</p>
-                        </div>
-                    </div>
-                    <div class="policy-card">
-                        <div class="policy-icon">✅</div>
-                        <div class="policy-info">
-                            <h4>品質方針</h4>
-                            <p>品質の向上と顧客満足の追求</p>
-                        </div>
-                    </div>
-                    <div class="policy-card">
-                        <div class="policy-icon">📝</div>
-                        <div class="policy-info">
-                            <h4>個人情報の利用目的</h4>
-                            <p>個人情報の具体的な利用目的について</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
+                    <h4>個人情報の取得、利用及び提供に関して</h4>
+                    <ul>
+                        <li>適法、公正な手段で個人情報を取得</li>
+                        <li>利用目的の達成に必要な範囲内で利用</li>
+                        <li>第三者提供は事前に本人の同意を取る</li>
+                    </ul>
 
-            <!-- Downloads -->
-            <section class="section">
-                <h2>資料ダウンロード</h2>
-                <div class="download-section">
-                    <h3>各種資料のPDFダウンロード</h3>
-                    <div class="download-grid">
-                        <div class="download-item">
-                            <div class="icon">📄</div>
-                            <h4>個人情報保護方針</h4>
-                            <span>PDF</span>
-                        </div>
-                        <div class="download-item">
-                            <div class="icon">📄</div>
-                            <h4>個人情報の取り扱い</h4>
-                            <span>PDF</span>
-                        </div>
-                        <div class="download-item">
-                            <div class="icon">📄</div>
-                            <h4>情報セキュリティ方針</h4>
-                            <span>PDF</span>
-                        </div>
-                        <div class="download-item">
-                            <div class="icon">📄</div>
-                            <h4>労働者派遣事業許可</h4>
-                            <span>PDF</span>
-                        </div>
-                        <div class="download-item">
-                            <div class="icon">🔐</div>
-                            <h4>CA証明書</h4>
-                            <span>CRT (2019-2029)</span>
+                    <h4>法令等に関して</h4>
+                    <p>関連する法令等を常に把握し、周知・遵守いたします。</p>
+
+                    <h4>個人情報の安全管理に関して</h4>
+                    <ul>
+                        <li>不正アクセス、漏えい等のリスクを防止する体制を構築</li>
+                        <li>継持いたします。</li>
+                    </ul>
+
+                    <h4>苦情・相談に関して</h4>
+                    <p>個人情報問合せ窓口を設け、迅速な対応が可能な体制を構築します。</p>
+
+                    <h4>継続的改善に関して</h4>
+                    <p>個人情報保護マネジメントシステムの継続的改善に努めます。</p>
+
+                    <div class="policy-footer">
+                        <div class="contact-info">
+                            <div class="contact-item">
+                                <h4>制定日</h4>
+                                <p>2017年7月1日</p>
+                            </div>
+                            <div class="contact-item">
+                                <h4>改定日</h4>
+                                <p>2021年5月24日</p>
+                            </div>
+                            <div class="contact-item">
+                                <h4>代表者</h4>
+                                <p>代表取締役社長　朱傑</p>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </section>
+            </div>
+
+            <!-- Policy 2: 情報セキュリティ方針 -->
+            <div class="policy-card" data-policy="security">
+                <div class="policy-header">
+                    <h3>🛡️ 情報セキュリティ方針</h3>
+                    <span class="arrow">▼</span>
+                </div>
+                <div class="policy-body">
+                    <p>ForestSoft Co., Ltd. is dedicated to protecting information assets through proper security measures. The company has established an information security management system to ensure reliability and safety while maintaining confidentiality.</p>
+
+                    <h4>組織的安全管理措置</h4>
+                    <ul>
+                        <li>社内のセキュリティマネジメントシステムの整備</li>
+                        <li>定期的な教育・研修の実施</li>
+                        <li>秘密保持誓約書の取得</li>
+                    </ul>
+
+                    <h4>人的安全管理措置</h4>
+                    <ul>
+                        <li>定期的なセキュリティ教育の実施</li>
+                        <li>入退時のセキュリティチェック</li>
+                    </ul>
+
+                    <h4>物理的安全管理措置</h4>
+                    <ul>
+                        <li>個人情報を取り扱う区域の管理等</li>
+                        <li>ハードウェア・記録媒体の物理的破棄</li>
+                    </ul>
+
+                    <h4>技術的安全管理措置</h4>
+                    <ul>
+                        <li>アクセス制御</li>
+                        <li>不正アクセス防止</li>
+                        <li>マルウェア対策</li>
+                    </ul>
+
+                    <div class="policy-footer">
+                        <div class="contact-info">
+                            <div class="contact-item">
+                                <h4>制定日</h4>
+                                <p>2021年11月1日</p>
+                            </div>
+                            <div class="contact-item">
+                                <h4>代表者</h4>
+                                <p>代表取締役社長　朱傑</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Policy 3: グリーンIT -->
+            <div class="policy-card" data-policy="greenit">
+                <div class="policy-header">
+                    <h3>🌱 グリーンIT</h3>
+                    <span class="arrow">▼</span>
+                </div>
+                <div class="policy-body">
+                    <p>ソリューション・ITサービスの提供にてお客様先での業務効率を向上させ、また社内でも業務の効率化を図り環境改善へ繋がります。</p>
+
+                    <h4>１. ビジネスを通しての環境改善の推進</h4>
+                    <p>IT機器の省電力化やリサイクル性向上などの「ITそのものの環境負荷低減」</p>
+
+                    <h4>２. 環境負荷低減の推進</h4>
+                    <p>ITを利用して生産や物流の最適化するといった「IT活用による環境負荷低減」</p>
+
+                    <h4>３. 環境関連法規制への適切な対応</h4>
+                    <p>環境保護や資源の有効活用につながるIT利用を指し、主に以下の２つからなります：</p>
+                    <ul>
+                        <li style="color: var(--primary);">Green of IT</li>
+                        <li>IT機器の省電力化やリサイクル性向上</li>
+                    </ul>
+
+                    <div class="policy-footer">
+                        <p class="text" style="font-size: 13px; color: var(--text-light);">
+                            （注）グリーンＴＬＲ：地球環境に配慣したIT製品やIT基盤のこと。あるいは環境保護や資源の有効活用につながるIT利用を指し、主に以下の２つからなります。
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Policy 4: 社会貢献活動 -->
+            <div class="policy-card" data-policy="contribution">
+                <div class="policy-header">
+                    <h3>🌍 社会貢献活動</h3>
+                    <span class="arrow">▼</span>
+                </div>
+                <div class="policy-body">
+                    <p>よりよい企業市民となることを目指すために、地域社会などとコミュニケーションを図り、地域貢献活動を行っています。また、地球環境を守る活動や地球にやさしい活動にも取り組んでいます。</p>
+
+                    <h4>事業活動を通じた貢献</h4>
+                    <p>ITサービスの提供によりお客様先での業務効率向上を図り、地域経済の発展に貢献しています。</p>
+
+                    <h4>従業員育成</h4>
+                    <p>技術者育成に力を入れ、地域社会に貢献できる人材の輩出を図っています。</p>
+                </div>
+            </div>
+
+            <!-- Policy 5: 環境意識の向上 -->
+            <div class="policy-card" data-policy="awareness">
+                <div class="policy-header">
+                    <h3>📚 環境意識の向上</h3>
+                    <span class="arrow">▼</span>
+                </div>
+                <div class="policy-body">
+                    <p>LWに勤務する者すべてに環境方針を周知徹底し、全従業員参加の継続的な環境活動を図ります。</p>
+
+                    <h4>１. 品質目標の設定</h4>
+                    <p>社内の品質マネジメントを全社員が理解し、共有する事で継続的業務改善に努めます。</p>
+
+                    <h4>２. お客様からの信頼を第一に重視</h4>
+                    <p>お客様からの信頼を第一に誠意をもって行動します。</p>
+
+                    <h4>３. 法令、規制、その他の社会的規範及びお客様からの要求事項を遵守します</h4>
+                </div>
+            </div>
+
         </div>
     </main>
 
@@ -577,7 +600,9 @@
             <div class="footer-nav">
                 <h4>お問い合わせ</h4>
                 <ul>
-                    <li><a href="index.html#contact">お問い合わせ</a></li>
+                    <li><a href="index.html#contact">電話</a></li>
+                    <li><a href="index.html#contact">メール</a></li>
+                    <li><a href="index.html#contact">所在地</a></li>
                 </ul>
             </div>
         </div>
@@ -587,11 +612,38 @@
     </footer>
 
     <script>
+        // Mobile Menu Toggle
         const menuToggle = document.getElementById('menuToggle');
         const nav = document.getElementById('nav');
 
         menuToggle.addEventListener('click', () => {
             nav.classList.toggle('active');
+        });
+
+        // Close menu when clicking a link
+        document.querySelectorAll('.nav a').forEach(link => {
+            link.addEventListener('click', () => {
+                nav.classList.remove('active');
+            });
+        });
+
+        // Policy Card Toggle
+        document.querySelectorAll('.policy-card').forEach(card => {
+            card.addEventListener('click', function() {
+                const isExpanded = this.classList.contains('expanded');
+
+                // Close all other cards
+                document.querySelectorAll('.policy-card').forEach(c => {
+                    if (c !== card) {
+                        c.classList.remove('expanded');
+                    }
+                });
+
+                // Toggle current card
+                if (!isExpanded) {
+                    this.classList.add('expanded');
+                }
+            });
         });
     </script>
 </body>
