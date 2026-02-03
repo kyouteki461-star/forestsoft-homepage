@@ -243,6 +243,153 @@
             margin-bottom: 20px;
         }
 
+        /* Company Information Styles */
+        #company-info {
+            margin-bottom: 60px;
+        }
+
+        .company-info-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+        }
+
+        .info-block {
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 20px;
+        }
+
+        .info-block h3 {
+            font-size: 20px;
+            color: var(--primary-dark);
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .info-block p {
+            color: var(--text-light);
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+
+        .info-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 10px;
+        }
+
+        .info-table th,
+        .info-table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .info-table th {
+            background: var(--bg-light);
+            color: var(--primary-dark);
+            font-weight: 600;
+            width: 40%;
+        }
+
+        .info-table td {
+            color: var(--text-light);
+        }
+
+        .clients-list p {
+            color: var(--text-light);
+            line-height: 2;
+        }
+
+        .access-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .access-item {
+            background: var(--bg-light);
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .access-item h4 {
+            color: var(--primary-dark);
+            font-size: 16px;
+            margin-bottom: 15px;
+        }
+
+        .access-list {
+            list-style: none;
+            margin-bottom: 10px;
+        }
+
+        .access-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid var(--border);
+            color: var(--text-light);
+        }
+
+        .access-list li:last-child {
+            border-bottom: none;
+        }
+
+        .contact-detail {
+            color: var(--text-light);
+            font-size: 14px;
+        }
+
+        .contact-detail .label {
+            font-weight: 600;
+            color: var(--primary-dark);
+        }
+
+        .bank-list {
+            list-style: none;
+        }
+
+        .bank-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid var(--border);
+            color: var(--text-light);
+        }
+
+        .bank-list li:last-child {
+            border-bottom: none;
+        }
+
+        .licenses {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .license-item {
+            background: var(--bg-light);
+            padding: 25px;
+            border-radius: 8px;
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+
+        .license-icon {
+            font-size: 32px;
+        }
+
+        .license-item strong {
+            color: var(--primary-dark);
+            display: block;
+        }
+
+        .license-item p {
+            color: var(--text-light);
+            margin: 0;
+        }
+
         /* Footer */
         .footer {
             background: var(--primary-dark);
@@ -384,6 +531,159 @@
                 </div>
             </section>
 
+            <!-- Company Information -->
+            <section class="section" id="company-info">
+                <h2>会社情報</h2>
+                <div class="company-info-grid">
+                    <!-- Basic Info -->
+                    <div class="info-block">
+                        <h3>基本情報</h3>
+                        <table class="info-table">
+                            <tr>
+                                <th>会社名</th>
+                                <td>フォレストソフト株式会社</td>
+                            </tr>
+                            <tr>
+                                <th>設立</th>
+                                <td>2012年10月1日</td>
+                            </tr>
+                            <tr>
+                                <th>資本金</th>
+                                <td>5,000万円</td>
+                            </tr>
+                            <tr>
+                                <th>代表取締役</th>
+                                <td>朱 傑</td>
+                            </tr>
+                            <tr>
+                                <th>取締役</th>
+                                <td>魏 書興</td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <!-- Business Overview -->
+                    <div class="info-block">
+                        <h3>事業内容</h3>
+                        <p>コンピューターシステム・ソフトウェアの企画、開発、販売、保守および労働者派遣事業</p>
+                    </div>
+
+                    <!-- Major Clients -->
+                    <div class="info-block">
+                        <h3>主要取引先</h3>
+                        <div class="clients-list">
+                            <p>景鋼サミット株式会社、株式会社DTS、株式会社SHIFT、株式会社フォーカスシステムズ、株式会社ISB、株式会社ifront、株式会社YSL Solution、エス・ディ・シー株式会社、株式会社BASE、株式会社TOWAコンピューターマネジメント株式会社、株式会社オリゾンシステムズ、株式会社CAICA Technologies、株式会社日情オフィスサービス、その他</p>
+                        </div>
+                    </div>
+
+                    <!-- Financial Performance -->
+                    <div class="info-block">
+                        <h3>業績</h3>
+                        <table class="info-table">
+                            <tr>
+                                <th>2022年9月期</th>
+                                <td>96億円</td>
+                            </tr>
+                            <tr>
+                                <th>2023年9月期</th>
+                                <td>118億円</td>
+                            </tr>
+                            <tr>
+                                <th>2024年9月期</th>
+                                <td>105億円</td>
+                            </tr>
+                            <tr>
+                                <th>2025年9月期</th>
+                                <td>121億円</td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <!-- Access & Contact -->
+                    <div class="info-block">
+                        <h3>アクセス・連絡先</h3>
+                        <div class="access-info">
+                            <div class="access-item">
+                                <h4>所在地</h4>
+                                <p>〒103-0023<br>東京都中央区日本橋本町4-5-13<br>日本橋本町THビル7F</p>
+                            </div>
+                            <div class="access-item">
+                                <h4>アクセス</h4>
+                                <ul class="access-list">
+                                    <li>地下鉄 日本橋駅 徒歩3分</li>
+                                    <li>地下鉄 神田町駅 徒歩5分</li>
+                                    <li>地下鉄 神田駅 徒歩6分</li>
+                                    <li>地下鉄 岩本町駅 徒歩7分</li>
+                                    <li>地下鉄 三越前駅 徒歩8分</li>
+                                </ul>
+                            </div>
+                            <div class="access-item">
+                                <h4>取引金融機関</h4>
+                                <ul class="bank-list">
+                                    <li>りそな銀行 神田支店</li>
+                                    <li>みずほ銀行 小伝通支店</li>
+                                    <li>楽天銀行 第一営業支店</li>
+                                </ul>
+                            </div>
+                            <div class="access-item">
+                                <h4>連絡先</h4>
+                                <p class="contact-detail">
+                                    <span class="label">TEL:</span> 03-3527-3652<br>
+                                    <span class="label">E-mail:</span> info@forestsoft.jp
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Licenses -->
+                    <div class="info-block">
+                        <h3>許認証</h3>
+                        <div class="licenses">
+                            <div class="license-item">
+                                <span class="license-icon">📋</span>
+                                <div>
+                                    <strong>労働者派遣事業許可証</strong>
+                                    <p>許可番号：H13-310968</p>
+                                </div>
+                            </div>
+                            <div class="license-item">
+                                <span class="license-icon">🏢</span>
+                                <div>
+                                    <strong>法人番号</strong>
+                                    <p>9-0105-0103-4462</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Mission -->
+            <section class="section">
+                <h2>使命</h2>
+                <p>一人ひとりの従業員が確実な成長を遂げ、より良いシステム開発に貢献し、お客様より多くの信頼を得ること。</p>
+            </section>
+
+            <!-- Culture & Vision -->
+            <section class="section">
+                <h2>文化・ビジョン</h2>
+                <p>革新的技術で世の中を動かし、夢を必ず手にして見せます。地域社会との調和・貢献に努め、未知の可能性に挑戦し、未来につながる世界を創造します。</p>
+                <div class="vision-section">
+                    <div class="vision-item">
+                        <h4>🌱 文化</h4>
+                        <p>社会への貢献を通じて、自身の夢を叶える</p>
+                    </div>
+                    <div class="vision-item">
+                        <h4>🚀 挑戦</h4>
+                        <p>未知の可能性に挑戦する</p>
+                    </div>
+                    <div class="vision-item">
+                        <h4>🌍 創造</h4>
+                        <p>未来につながる世界を創造する</p>
+                    </div>
+                </div>
+            </section>
+
             <!-- What We Can Do -->
             <section class="section">
                 <h2>私たちができること</h2>
@@ -457,7 +757,7 @@
                 <h4>会社情報</h4>
                 <ul>
                     <li><a href="about.html">企業紹介</a></li>
-                    <li><a href="index.html#company">会社情報</a></li>
+                    <li><a href="about.html#company-info">会社情報</a></li>
                     <li><a href="recruit.html">採用情報</a></li>
                     <li><a href="index.html#news">ニュース</a></li>
                 </ul>
