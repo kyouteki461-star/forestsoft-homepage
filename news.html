@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>資格情報 - フォレストソフト株式会社</title>
+    <title>ニュース - フォレストソフト株式会社</title>
     <style>
         * {
             margin: 0;
@@ -123,77 +123,65 @@
         }
 
         .content {
-            max-width: 1200px;
+            max-width: 1000px;
             margin: 0 auto;
             padding: 60px 20px;
         }
 
-        .section {
-            margin-bottom: 60px;
-        }
-
-        .section h2 {
-            font-size: 24px;
-            color: var(--primary-dark);
-            margin-bottom: 30px;
-            text-align: center;
-            font-weight: 700;
-        }
-
-        /* Policies Grid */
-        .policies-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 30px;
-        }
-
-        .policy-card {
-            background: #fff;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
-            transition: all 0.3s ease;
-            border: 1px solid var(--border);
-        }
-
-        .policy-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
-        }
-
-        .policy-card a {
+        /* News List */
+        .news-list {
             display: flex;
-            align-items: center;
-            gap: 15px;
-            background: var(--primary);
-            color: #fff;
-            padding: 50px 30px;
-            text-decoration: none;
-            transition: background 0.3s ease;
-            border-radius: 15px;
-            justify-content: center;
             flex-direction: column;
-            text-align: center;
+            gap: 25px;
         }
 
-        .policy-card:hover a {
-            background: var(--primary-dark);
+        .news-item {
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 30px;
+            transition: all 0.3s ease;
         }
 
-        .policy-icon {
-            font-size: 48px;
+        .news-item:hover {
+            transform: translateX(10px);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .news-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
             margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--accent);
         }
 
-        .policy-card h3 {
-            font-size: 20px;
-            margin: 0;
-        }
-
-        .policy-description {
+        .news-date {
+            background: var(--accent);
+            color: var(--primary-dark);
+            padding: 8px 16px;
+            border-radius: 6px;
             font-size: 14px;
-            opacity: 0.9;
-            margin-top: 10px;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .news-title {
+            font-size: 22px;
+            color: var(--primary-dark);
+            font-weight: 700;
+            flex: 1;
+            padding-left: 20px;
+        }
+
+        .news-description {
+            color: var(--text-light);
+            line-height: 1.9;
+        }
+
+        .news-description p {
+            margin-bottom: 12px;
         }
 
         /* Footer */
@@ -280,8 +268,9 @@
                 display: flex;
             }
 
-            .policies-grid {
-                grid-template-columns: 1fr;
+            .news-header {
+                flex-direction: column;
+                gap: 10px;
             }
 
             .footer-inner {
@@ -294,8 +283,12 @@
                 font-size: 24px;
             }
 
-            .policy-card h3 {
+            .news-title {
                 font-size: 18px;
+            }
+
+            .news-date {
+                font-size: 12px;
             }
         }
     </style>
@@ -310,12 +303,12 @@
             <ul class="nav" id="nav">
                 <li><a href="index.html">ホーム</a></li>
                 <li><a href="about.html">企業紹介</a></li>
-                <li><a href="index.html#company">会社情報</a></li>
-                <li><a href="news.html">ニュース</a></li>
+                <li><a href="about.html#company-info">会社情報</a></li>
+                <li><a href="news.html" class="active">ニュース</a></li>
                 <li><a href="business.html">開発事例</a></li>
                 <li><a href="partner.html">ビジネスパートナー</a></li>
                 <li><a href="recruit.html">採用情報</a></li>
-                <li><a href="capacity.html" class="active">資格情報</a></li>
+                <li><a href="capacity.html">資格情報</a></li>
             </ul>
             <div class="menu-toggle" id="menuToggle">
                 <span></span>
@@ -327,62 +320,99 @@
 
     <!-- Main Content -->
     <main class="main">
-        <!-- Page Header -->
         <div class="page-header">
-            <h1>資格情報・ポリシー</h1>
-            <p>Certifications & Policies</p>
+            <h1>ニュース</h1>
+            <p>News</p>
         </div>
 
         <div class="content">
-            <p style="text-align: center; color: var(--text-light); margin-bottom: 40px; font-size: 16px;">
-                各ポリシーの詳細は以下のリンクからご確認いただけます。
-            </p>
+            <div class="news-list">
+                <!-- News 1 -->
+                <article class="news-item">
+                    <div class="news-header">
+                        <span class="news-date">2024年1月1日</span>
+                        <h2 class="news-title">ベース株式会社 ベストパートナー賞を受賞しました</h2>
+                    </div>
+                    <div class="news-description">
+                        <p>フォレストソフト株式会社が提供してきたサービスを高く評価いただいておりますこと。この度は、お客様の皆様に日頃よりのご厚情とご支援を賜り、心より感謝申し上げます。</p>
+                    </div>
+                </article>
 
-            <div class="policies-grid">
-                <!-- Policy 1: プライバシーポリシー -->
-                <div class="policy-card">
-                    <a href="policies/privacy.html">
-                        <span class="policy-icon">🔒</span>
-                        <h3>プライバシーポリシー</h3>
-                        <span class="policy-description">個人情報の取り扱いについて</span>
-                    </a>
-                </div>
+                <!-- News 2 -->
+                <article class="news-item">
+                    <div class="news-header">
+                        <span class="news-date">2023年11月30日</span>
+                        <h2 class="news-title">年末年始休業のお知らせ</h2>
+                    </div>
+                    <div class="news-description">
+                        <p>平素は格別のお引立てを賜り、厚く御礼申し上げます。</p>
+                        <p>【期間】2023年12月29日（金）～2024年1月5日（金）</p>
+                        <p>【期間中の連絡先】03-3527-3652（月～金 9:00～18:00）</p>
+                    </div>
+                </article>
 
-                <!-- Policy 2: 情報セキュリティ基本方針 -->
-                <div class="policy-card">
-                    <a href="policies/security.html">
-                        <span class="policy-icon">🛡️</span>
-                        <h3>情報セキュリティ基本方針</h3>
-                        <span class="policy-description">情報資産の保護と安全管理</span>
-                    </a>
-                </div>
+                <!-- News 3 -->
+                <article class="news-item">
+                    <div class="news-header">
+                        <span class="news-date">2022年7月6日</span>
+                        <h2 class="news-title">2022年度 当社の「経営革新計画」が東京都に承認されました</h2>
+                    </div>
+                    <div class="news-description">
+                        <p>当社は、経営革新計画の承認を受けました。東京都より中小企業経営革新計画の承認企業として選定されましたのであり、今後もさらなる経営の充実と事業の拡大に努めてまいります。</p>
+                        <p>詳細は以下のURLをご覧ください。</p>
+                        <p style="color: var(--primary);">https://www.metro.tokyo.lg.jp/management/innovation/2022/</p>
+                    </div>
+                </article>
 
-                <!-- Policy 3: 品質方針 -->
-                <div class="policy-card">
-                    <a href="policies/quality.html">
-                        <span class="policy-icon">🎯</span>
-                        <h3>品質方針</h3>
-                        <span class="policy-description">高品質なサービスの提供</span>
-                    </a>
-                </div>
+                <!-- News 4 -->
+                <article class="news-item">
+                    <div class="news-header">
+                        <span class="news-date">2021年2月27日</span>
+                        <h2 class="news-title">JIS Q 27001:2014 (ISO/IEC 27001:2013)の認証取得（移転）</h2>
+                    </div>
+                    <div class="news-description">
+                        <p>当社は、2020年12月に情報セキュリティマネジメントシステム（ISMS）の国際規格である「ISO/IEC 27001:2013」を取得しました。この認証は、組織が情報セキュリティを体系的に管理・運用するための国際規格であり、第三者機関による審査を受けています。</p>
+                        <p>これにより、お客様の情報資産をより保護し、信頼性の高いサービスを提供できる体制が整いました。今後も継続的な改善に努めてまいります。</p>
+                    </div>
+                </article>
 
-                <!-- Policy 4: 個人情報の取り扱い -->
-                <div class="policy-card">
-                    <a href="policies/usage.html">
-                        <span class="policy-icon">📋</span>
-                        <h3>個人情報の取り扱い</h3>
-                        <span class="policy-description">利用目的の詳細について</span>
-                    </a>
-                </div>
+                <!-- News 5 -->
+                <article class="news-item">
+                    <div class="news-header">
+                        <span class="news-date">2022年10月5日</span>
+                        <h2 class="news-title">2022年9月 資本金5000万に増資しました</h2>
+                    </div>
+                    <div class="news-description">
+                        <p>この度、2022年9月期決算において、資本金を5000万円に増資いたしました。</p>
+                        <p>これにより、資本金は1億2000万円となりました。皆様のご支援のおかげで感謝申し上げますとともに、今後も事業拡大に向けたさらなる努力を続けてまいります。</p>
+                    </div>
+                </article>
 
-                <!-- Policy 5: 環境方針・社会貢献 -->
-                <div class="policy-card">
-                    <a href="policies/environment.html">
-                        <span class="policy-icon">🌱</span>
-                        <h3>環境方針・社会貢献</h3>
-                        <span class="policy-description">環境保護と社会貢献活動</span>
-                    </a>
-                </div>
+                <!-- News 6 -->
+                <article class="news-item">
+                    <div class="news-header">
+                        <span class="news-date">2018年8月21日</span>
+                        <h2 class="news-title">プライバシーマークを取得しました</h2>
+                    </div>
+                    <div class="news-description">
+                        <p>当社は、平成30年8月21日、一般財団法人日本情報経済社会推進協会（JIPDEC）より、プライバシーマークを取得いたしました。</p>
+                        <p>プライバシーマーク（Pマーク）とは、個人情報保護法および関連法規を遵守し、適切な個人情報保護措置を講じている事業者に対して付与されるマークです。</p>
+                        <p>当社は、このマーク取得を機に、お客様の個人情報の保護に一層の努めてまいります。</p>
+                    </div>
+                </article>
+
+                <!-- News 7 -->
+                <article class="news-item">
+                    <div class="news-header">
+                        <span class="news-date">2018年8月1日</span>
+                        <h2 class="news-title">労働者派遣事業許可を取得しました</h2>
+                    </div>
+                    <div class="news-description">
+                        <p>この度、フォレストソフト株式会社は2018年8月1日付で、労働者派遣事業許可（許可番号：H13-310968）を取得いたしました。</p>
+                        <p>これにより、当社は労働者派遣法に基づいた適切な事業運営を行うことが可能となりました。お客様の皆様におきましては、より広範囲なサービスを提供できる体制が整いました。</p>
+                        <p>今後も、高品質なサービスの提供とお客様満足度の向上に努めてまいりますので、何卒ご愛顧引き立てお願い申し上げます。</p>
+                    </div>
+                </article>
             </div>
         </div>
     </main>
@@ -398,7 +428,7 @@
                 <h4>会社情報</h4>
                 <ul>
                     <li><a href="about.html">企業紹介</a></li>
-                    <li><a href="index.html#company">会社情報</a></li>
+                    <li><a href="about.html#company-info">会社情報</a></li>
                     <li><a href="recruit.html">採用情報</a></li>
                     <li><a href="news.html">ニュース</a></li>
                 </ul>
@@ -427,7 +457,6 @@
     </footer>
 
     <script>
-        // Mobile Menu Toggle
         const menuToggle = document.getElementById('menuToggle');
         const nav = document.getElementById('nav');
 
@@ -435,7 +464,6 @@
             nav.classList.toggle('active');
         });
 
-        // Close menu when clicking a link
         document.querySelectorAll('.nav a').forEach(link => {
             link.addEventListener('click', () => {
                 nav.classList.remove('active');
