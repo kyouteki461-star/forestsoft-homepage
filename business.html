@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>開発事例 - フォレストソフト株式会社</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: "Noto Sans JP", "Hiragino Kaku Gothic ProN", "Meiryo", "MS Gothic", sans-serif;
+            line-height: 1.7;
+            color: #333;
+            background: #fff;
+            font-size: 15px;
+        }
+
+        :root {
+            --primary: #4a9c7d;
+            --primary-dark: #2d6a4f;
+            --secondary: #6bc4a0;
+            --accent: #e8f7f0;
+            --text: #333333;
+            --text-light: #666666;
+            --bg-light: #f5f5f5;
+            --white: #ffffff;
+            --border: #e0e0e0;
+        }
+
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: #fff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+            z-index: 1000;
+        }
+
+        .header-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .logo img {
+            height: 50px;
+            width: auto;
+        }
+
+        .nav {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+
+        .nav a {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 14px;
+            transition: color 0.3s ease;
+        }
+
+        .nav a:hover, .nav a.active {
+            color: var(--primary);
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            width: 30px;
+        }
+
+        .menu-toggle span {
+            width: 100%;
+            height: 3px;
+            background: var(--primary);
+        }
+
+        /* Main Content */
+        .main {
+            padding-top: 100px;
+            min-height: 100vh;
+        }
+
+        .page-header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: #fff;
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        .page-header h1 {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .page-header p {
+            opacity: 0.9;
+            font-size: 14px;
+        }
+
+        .content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+
+        .intro {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 50px;
+            color: var(--text-light);
+            line-height: 2;
+        }
+
+        /* Cases Grid */
+        .cases-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .case-card {
+            background: #fff;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        .case-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .case-image {
+            height: 220px;
+            background: var(--bg-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 80px;
+            color: var(--primary);
+            overflow: hidden;
+        }
+
+        .case-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .case-content {
+            padding: 25px;
+        }
+
+        .case-tag {
+            display: inline-block;
+            background: var(--accent);
+            color: var(--primary);
+            padding: 5px 12px;
+            border-radius: 5px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .case-content h3 {
+            font-size: 20px;
+            color: var(--primary-dark);
+            margin-bottom: 10px;
+        }
+
+        .case-content p {
+            color: var(--text-light);
+            font-size: 14px;
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        .case-developer {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .case-developer::before {
+            content: '🏢';
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--primary-dark);
+            color: #fff;
+            padding: 50px 20px 20px;
+        }
+
+        .footer-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-brand h3 {
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+
+        .footer-brand p {
+            opacity: 0.8;
+            font-size: 13px;
+            line-height: 1.8;
+        }
+
+        .footer-nav h4 {
+            margin-bottom: 15px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .footer-nav ul {
+            list-style: none;
+        }
+
+        .footer-nav li {
+            margin-bottom: 10px;
+        }
+
+        .footer-nav a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            font-size: 13px;
+            transition: color 0.3s ease;
+        }
+
+        .footer-nav a:hover {
+            color: #fff;
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-top: 20px;
+            text-align: center;
+            opacity: 0.6;
+            font-size: 12px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: #fff;
+                flex-direction: column;
+                padding: 20px;
+                box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            }
+
+            .nav.active {
+                display: flex;
+            }
+
+            .menu-toggle {
+                display: flex;
+            }
+
+            .page-header h1 {
+                font-size: 24px;
+            }
+
+            .cases-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-inner {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .footer-inner {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-inner">
+            <a href="index.html" class="logo">
+                <img src="https://www.forestsoft.jp/web/images/logo-black.png" alt="ForestSoft Logo" onerror="this.style.display='none'">
+            </a>
+            <ul class="nav" id="nav">
+                <li><a href="index.html">ホーム</a></li>
+                <li><a href="about.html">企業紹介</a></li>
+                <li><a href="index.html#company">会社情報</a></li>
+                <li><a href="index.html#news">ニュース</a></li>
+                <li><a href="business.html" class="active">開発事例</a></li>
+                <li><a href="partner.html">ビジネスパートナー</a></li>
+                <li><a href="recruit.html">採用情報</a></li>
+                <li><a href="capacity.html">資格情報</a></li>
+            </ul>
+            <div class="menu-toggle" id="menuToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+        <div class="page-header">
+            <h1>開発事例</h1>
+            <p>Development Cases</p>
+        </div>
+
+        <div class="content">
+            <p class="intro">
+                フォレストソフトは、お客様のビジネス課題を解決するためのシステム開発を数多く手がけてまいりました。
+                ここでは、代表的な開発事例をご紹介いたします。
+            </p>
+
+            <div class="cases-grid">
+                <!-- Case 1: CardBox -->
+                <div class="case-card">
+                    <div class="case-image">
+                        📦
+                    </div>
+                    <div class="case-content">
+                        <span class="case-tag">Webアプリ</span>
+                        <h3>CardBox</h3>
+                        <p>クラウドベースのカード管理システム。カード情報の一元管理やステータス追跡、レポート出力など、効率的な運用を実現します。</p>
+                        <div class="case-developer">FORESTSOFT 開発</div>
+                    </div>
+                </div>
+
+                <!-- Case 2: 建築管理システム -->
+                <div class="case-card">
+                    <div class="case-image">
+                        🏗️
+                    </div>
+                    <div class="case-content">
+                        <span class="case-tag">建築業</span>
+                        <h3>建築管理システム</h3>
+                        <p>建設プロジェクトの進捗管理、現場報告、資材管理を一元化。スマートフォンからの現場入力にも対応し、業務効率を大幅に向上させました。</p>
+                        <div class="case-developer">FORESTSOFT 開発</div>
+                    </div>
+                </div>
+
+                <!-- Case 3: 機械加工データ管理システム -->
+                <div class="case-card">
+                    <div class="case-image">
+                        ⚙️
+                    </div>
+                    <div class="case-content">
+                        <span class="case-tag">製造業</span>
+                        <h3>機械加工データ管理システム</h3>
+                        <p>NC加工データの管理、工程の可視化、品質管理を統合。生産性向上と品質安定化に大きく貢献しました。</p>
+                        <div class="case-developer">FORESTSOFT 開発</div>
+                    </div>
+                </div>
+
+                <!-- Case 4: オークション管理システム -->
+                <div class="case-card">
+                    <div class="case-image">
+                        🏷️
+                    </div>
+                    <div class="case-content">
+                        <span class="case-tag">EC / オークション</span>
+                        <h3>オークション管理システム</h3>
+                        <p>商品登録、入札管理、落札処理までの一連のオークション業務をシステム化。リアルタイム更新とセキュリティ機能を備えています。</p>
+                        <div class="case-developer">FORESTSOFT 開発</div>
+                    </div>
+                </div>
+
+                <!-- Case 5: FMSサービス -->
+                <div class="case-card">
+                    <div class="case-image">
+                        🏢
+                    </div>
+                    <div class="case-content">
+                        <span class="case-tag">施設管理</span>
+                        <h3>FMSサービス</h3>
+                        <p>Facility Management Systemの開発と販売。施設管理の効率化、コスト削減、サービス品質向上を支援する包括的ソリューションです。</p>
+                        <div class="case-developer">FORESTSOFT 開発</div>
+                    </div>
+                </div>
+
+                <!-- Case 6: 金融系システム -->
+                <div class="case-card">
+                    <div class="case-image">
+                        💰
+                    </div>
+                    <div class="case-content">
+                        <span class="case-tag">金融業</span>
+                        <h3>金融系業務システム</h3>
+                        <p>会計、証券、保険等の金融関連システム開発。厳格なセキュリティ要件と法規制対応を満たした高信頼性システムです。</p>
+                        <div class="case-developer">FORESTSOFT 開発</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-inner">
+            <div class="footer-brand">
+                <h3>🌲 フォレストソフト株式会社</h3>
+                <p>革新技術で世の中を動かす企業を目指します。<br>地域社会との調和・貢献に努めます。</p>
+            </div>
+            <div class="footer-nav">
+                <h4>会社情報</h4>
+                <ul>
+                    <li><a href="about.html">企業紹介</a></li>
+                    <li><a href="index.html#company">会社情報</a></li>
+                    <li><a href="recruit.html">採用情報</a></li>
+                    <li><a href="index.html#news">ニュース</a></li>
+                </ul>
+            </div>
+            <div class="footer-nav">
+                <h4>事業内容</h4>
+                <ul>
+                    <li><a href="index.html#business">FMSサービス事業</a></li>
+                    <li><a href="index.html#business">労働者派遣事業</a></li>
+                    <li><a href="partner.html">ビジネスパートナー</a></li>
+                    <li><a href="business.html">開発事例</a></li>
+                </ul>
+            </div>
+            <div class="footer-nav">
+                <h4>ポリシー・資料</h4>
+                <ul>
+                    <li><a href="#">個人情報保護方針</a></li>
+                    <li><a href="#">情報セキュリティ方針</a></li>
+                    <li><a href="#">個人情報の取り扱い</a></li>
+                    <li><a href="#">労働者派遣事業許可</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>Copyright(c) 2019 ForestSoft Co., Ltd. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        const menuToggle = document.getElementById('menuToggle');
+        const nav = document.getElementById('nav');
+
+        menuToggle.addEventListener('click', () => {
+            nav.classList.toggle('active');
+        });
+    </script>
+</body>
+</html>
