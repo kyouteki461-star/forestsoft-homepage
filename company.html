@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="https://www.forestsoft.jp/favicon.ico">
+    <title>会社情報 - フォレストソフト株式会社</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: "Noto Sans JP", "Hiragino Kaku Gothic ProN", "Meiryo", "MS Gothic", sans-serif;
+            line-height: 1.7;
+            color: #333;
+            background: #fff;
+            font-size: 15px;
+        }
+
+        :root {
+            --primary: #4a9c7d;
+            --primary-dark: #2d6a4f;
+            --secondary: #6bc4a0;
+            --accent: #e8f7f0;
+            --text: #333333;
+            --text-light: #666666;
+            --bg-light: #f5f5f5;
+            --white: #ffffff;
+            --border: #e0e0e0;
+        }
+
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: #fff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+            z-index: 1000;
+        }
+
+        .header-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .logo img {
+            height: 50px;
+            width: auto;
+        }
+
+        .nav {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+
+        .nav a {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 14px;
+            transition: color 0.3s ease;
+        }
+
+        .nav a:hover, .nav a.active {
+            color: var(--primary);
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            width: 30px;
+        }
+
+        .menu-toggle span {
+            width: 100%;
+            height: 3px;
+            background: var(--primary);
+            transition: all 0.3s ease;
+        }
+
+        /* Main Content */
+        .main {
+            padding-top: 100px;
+            min-height: 100vh;
+        }
+
+        .page-header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: #fff;
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        .page-header h1 {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .page-header p {
+            opacity: 0.9;
+            font-size: 14px;
+        }
+
+        .content {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+
+        .section {
+            margin-bottom: 60px;
+        }
+
+        .section h2 {
+            font-size: 24px;
+            color: var(--primary-dark);
+            margin-bottom: 30px;
+            text-align: center;
+            font-weight: 700;
+            padding-bottom: 10px;
+            border-bottom: 3px solid var(--primary);
+        }
+
+        .section p {
+            color: var(--text-light);
+            line-height: 2;
+            margin-bottom: 20px;
+        }
+
+        /* Company Info Styles */
+        .company-info-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+        }
+
+        .info-block {
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 20px;
+        }
+
+        .info-block h3 {
+            font-size: 20px;
+            color: var(--primary-dark);
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .info-block p {
+            color: var(--text-light);
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+
+        .info-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 10px;
+        }
+
+        .info-table th,
+        .info-table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .info-table th {
+            background: var(--bg-light);
+            color: var(--primary-dark);
+            font-weight: 600;
+            width: 40%;
+        }
+
+        .info-table td {
+            color: var(--text-light);
+        }
+
+        .clients-list p {
+            color: var(--text-light);
+            line-height: 2;
+        }
+
+        .access-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+        }
+
+        .access-item {
+            background: var(--bg-light);
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .access-item h4 {
+            color: var(--primary-dark);
+            font-size: 16px;
+            margin-bottom: 15px;
+        }
+
+        .access-list {
+            list-style: none;
+            margin-bottom: 10px;
+        }
+
+        .access-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid var(--border);
+            color: var(--text-light);
+        }
+
+        .access-list li:last-child {
+            border-bottom: none;
+        }
+
+        .contact-detail {
+            color: var(--text-light);
+            font-size: 14px;
+        }
+
+        .contact-detail .label {
+            font-weight: 600;
+            color: var(--primary-dark);
+        }
+
+        /* Map */
+        .map-container {
+            width: 100%;
+            height: 350px;
+            margin-top: 20px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .map-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .bank-list {
+            list-style: none;
+        }
+
+        .bank-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid var(--border);
+            color: var(--text-light);
+        }
+
+        .bank-list li:last-child {
+            border-bottom: none;
+        }
+
+        .licenses {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .license-item {
+            background: var(--bg-light);
+            padding: 25px;
+            border-radius: 8px;
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+
+        .license-icon {
+            font-size: 32px;
+        }
+
+        .license-item strong {
+            color: var(--primary-dark);
+            display: block;
+        }
+
+        .license-item p {
+            color: var(--text-light);
+            margin: 0;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--primary-dark);
+            color: #fff;
+            padding: 50px 20px 20px;
+        }
+
+        .footer-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+            gap: 40px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-brand h3 {
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+
+        .footer-brand p {
+            opacity: 0.8;
+            font-size: 13px;
+            line-height: 1.8;
+        }
+
+        .footer-nav h4 {
+            margin-bottom: 15px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .footer-nav ul {
+            list-style: none;
+        }
+
+        .footer-nav li {
+            margin-bottom: 10px;
+        }
+
+        .footer-nav a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            font-size: 13px;
+            transition: color 0.3s ease;
+        }
+
+        .footer-nav a:hover {
+            color: #fff;
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-top: 20px;
+            text-align: center;
+            opacity: 0.6;
+            font-size: 12px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: #fff;
+                flex-direction: column;
+                padding: 20px;
+                box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            }
+
+            .nav.active {
+                display: flex;
+            }
+
+            .menu-toggle {
+                display: flex;
+            }
+
+            .company-info-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .page-header h1 {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-inner">
+            <a href="index.html" class="logo">
+                <img src="https://www.forestsoft.jp/web/images/logo-black.png" alt="ForestSoft Logo" onerror="this.style.display='none'">
+            </a>
+            <ul class="nav" id="nav">
+                <li><a href="index.html">ホーム</a></li>
+                <li><a href="about.html">企業紹介</a></li>
+                <li><a href="company.html" class="active">会社情報</a></li>
+                <li><a href="news.html">ニュース</a></li>
+                <li><a href="business.html">開発事例</a></li>
+                <li><a href="partner.html">ビジネスパートナー</a></li>
+                <li><a href="recruit.html">採用情報</a></li>
+                <li><a href="capacity.html">資格情報</a></li>
+            </ul>
+            <div class="menu-toggle" id="menuToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+        <!-- Page Header -->
+        <div class="page-header">
+            <h1>会社情報</h1>
+            <p>Company Information</p>
+        </div>
+
+        <div class="content">
+            <!-- Basic Info -->
+            <section class="section">
+                <h2>基本情報</h2>
+                <div class="info-block">
+                    <table class="info-table">
+                        <tr>
+                            <th>会社名</th>
+                            <td>フォレストソフト株式会社</td>
+                        </tr>
+                        <tr>
+                            <th>設立</th>
+                            <td>2012年10月1日</td>
+                        </tr>
+                        <tr>
+                            <th>資本金</th>
+                            <td>5,000万円</td>
+                        </tr>
+                        <tr>
+                            <th>代表取締役</th>
+                            <td>朱 傑</td>
+                        </tr>
+                        <tr>
+                            <th>取締役</th>
+                            <td>魏 書興</td>
+                        </tr>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Business Description -->
+            <section class="section">
+                <h2>事業内容</h2>
+                <p>コンピューターシステム・ソフトウェアの企画、開発、販売、保守および労働者派遣事業</p>
+            </section>
+
+            <!-- Major Clients -->
+            <section class="section">
+                <h2>主要取引先</h2>
+                <div class="info-block">
+                    <div class="clients-list">
+                        <p>景鋼サミット株式会社、株式会社DTS、株式会社SHIFT、株式会社フォーカスシステムズ、株式会社ISB、株式会社ifront、株式会社YSL Solution、エス・ディ・シー株式会社、株式会社BASE、株式会社TOWAコンピューターマネジメント株式会社、株式会社オリゾンシステムズ、株式会社CAICA Technologies、株式会社日情オフィスサービス、その他</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Financial Performance -->
+            <section class="section">
+                <h2>業績</h2>
+                <div class="info-block">
+                    <table class="info-table">
+                        <tr>
+                            <th>2022年9月期</th>
+                            <td>96億円</td>
+                        </tr>
+                        <tr>
+                            <th>2023年9月期</th>
+                            <td>118億円</td>
+                        </tr>
+                        <tr>
+                            <th>2024年9月期</th>
+                            <td>105億円</td>
+                        </tr>
+                        <tr>
+                            <th>2025年9月期</th>
+                            <td>121億円</td>
+                        </tr>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Financial Institutions -->
+            <section class="section">
+                <h2>取引金融機関</h2>
+                <div class="info-block">
+                    <ul class="bank-list">
+                        <li>りそな銀行 神田支店</li>
+                        <li>みずほ銀行 小伝通支店</li>
+                        <li>楽天銀行 第一営業支店</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Access & Contact -->
+            <section class="section">
+                <h2>アクセス・連絡先</h2>
+                <div class="info-block">
+                    <p><strong>所在地</strong><br>
+                    〒103-0023<br>
+                    東京都中央区日本橋本町4-5-13　日本橋本町THビル7F</p>
+
+                    <p><strong>アクセス</strong><br>
+                    JR 新日本橋駅 徒歩3分<br>
+                    JR 神田駅 徒歩6分<br>
+                    地下鉄 小伝馬町駅 徒歩5分<br>
+                    地下鉄 岩本町駅 徒歩7分<br>
+                    地下鉄 三越前駅 徒歩8分</p>
+
+                    <p><strong>連絡先</strong><br>
+                    TEL: 03-3527-3652<br>
+                    E-mail: info@forestsoft.jp</p>
+
+                    <div class="map-container">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1766.8655758357477!2d139.77363307503043!3d35.690648575849!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60188f835179f4e1%3A0x6d99de9b3c91afa7!2z44OV44Kp44Os44K544OI44K944OV44OI44ix!5e0!3m2!1sja!2sjp!4v1770259199711!5m2!1sja!2sjp" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Licenses -->
+            <section class="section">
+                <h2>許認証</h2>
+                <div class="licenses">
+                    <div class="license-item">
+                        <span class="license-icon">📋</span>
+                        <div>
+                            <strong>労働者派遣事業許可証</strong>
+                            <p>許可番号：H13-310968</p>
+                        </div>
+                    </div>
+                    <div class="license-item">
+                        <span class="license-icon">🏢</span>
+                        <div>
+                            <strong>法人番号</strong>
+                            <p>9-0105-0103-4462</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer id="footer"></footer>
+
+    <script>
+        // Load footer from external file
+        fetch('footer.html')
+            .then(response => response.text())
+            .then(html => {
+                document.getElementById('footer').outerHTML = html;
+            })
+            .catch(error => console.error('Error loading footer:', error));
+
+        const menuToggle = document.getElementById('menuToggle');
+        const nav = document.getElementById('nav');
+
+        menuToggle.addEventListener('click', () => {
+            nav.classList.toggle('active');
+        });
+
+        document.querySelectorAll('.nav a').forEach(link => {
+            link.addEventListener('click', () => {
+                nav.classList.remove('active');
+            });
+        });
+    </script>
+</body>
+</html>

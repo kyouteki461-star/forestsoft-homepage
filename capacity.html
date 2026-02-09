@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="https://www.forestsoft.jp/favicon.ico">
+    <title>資格情報 - フォレストソフト株式会社</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: "Noto Sans JP", "Hiragino Kaku Gothic ProN", "Meiryo", "MS Gothic", sans-serif;
+            line-height: 1.7;
+            color: #333;
+            background: #fff;
+            font-size: 15px;
+        }
+
+        :root {
+            --primary: #4a9c7d;
+            --primary-dark: #2d6a4f;
+            --secondary: #6bc4a0;
+            --accent: #e8f7f0;
+            --text: #333333;
+            --text-light: #666666;
+            --bg-light: #f5f5f5;
+            --white: #ffffff;
+            --border: #e0e0e0;
+        }
+
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: #fff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+            z-index: 1000;
+        }
+
+        .header-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .logo img {
+            height: 50px;
+            width: auto;
+        }
+
+        .nav {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+
+        .nav a {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 14px;
+            transition: color 0.3s ease;
+        }
+
+        .nav a:hover, .nav a.active {
+            color: var(--primary);
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            width: 30px;
+        }
+
+        .menu-toggle span {
+            width: 100%;
+            height: 3px;
+            background: var(--primary);
+            transition: all 0.3s ease;
+        }
+
+        /* Main Content */
+        .main {
+            padding-top: 100px;
+            min-height: 100vh;
+        }
+
+        .page-header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: #fff;
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        .page-header h1 {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .page-header p {
+            opacity: 0.9;
+            font-size: 14px;
+        }
+
+        .content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+
+        .section {
+            margin-bottom: 60px;
+        }
+
+        .section h2 {
+            font-size: 24px;
+            color: var(--primary-dark);
+            margin-bottom: 30px;
+            text-align: center;
+            font-weight: 700;
+        }
+
+        /* Policies Grid */
+        .policies-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .policy-card {
+            background: #fff;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            border: 1px solid var(--border);
+        }
+
+        .policy-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .policy-card a {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: var(--primary);
+            color: #fff;
+            padding: 50px 30px;
+            text-decoration: none;
+            transition: background 0.3s ease;
+            border-radius: 15px;
+            justify-content: center;
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .policy-card:hover a {
+            background: var(--primary-dark);
+        }
+
+        .policy-icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+
+        .policy-card h3 {
+            font-size: 20px;
+            margin: 0;
+        }
+
+        .policy-description {
+            font-size: 14px;
+            opacity: 0.9;
+            margin-top: 10px;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--primary-dark);
+            color: #fff;
+            padding: 50px 20px 20px;
+        }
+
+        .footer-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+            gap: 40px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-brand h3 {
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+
+        .footer-brand p {
+            opacity: 0.8;
+            font-size: 13px;
+            line-height: 1.8;
+        }
+
+        .footer-nav h4 {
+            margin-bottom: 15px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .footer-nav ul {
+            list-style: none;
+        }
+
+        .footer-nav li {
+            margin-bottom: 10px;
+        }
+
+        .footer-nav a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            font-size: 13px;
+            transition: color 0.3s ease;
+        }
+
+        .footer-nav a:hover {
+            color: #fff;
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-top: 20px;
+            text-align: center;
+            opacity: 0.6;
+            font-size: 12px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: #fff;
+                flex-direction: column;
+                padding: 20px;
+                box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            }
+
+            .nav.active {
+                display: flex;
+            }
+
+            .menu-toggle {
+                display: flex;
+            }
+
+            .policies-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-inner {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .page-header h1 {
+                font-size: 24px;
+            }
+
+            .policy-card h3 {
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-inner">
+            <a href="index.html" class="logo">
+                <img src="https://www.forestsoft.jp/web/images/logo-black.png" alt="ForestSoft Logo" onerror="this.style.display='none'">
+            </a>
+            <ul class="nav" id="nav">
+                <li><a href="index.html">ホーム</a></li>
+                <li><a href="about.html">企業紹介</a></li>
+                <li><a href="index.html#company">会社情報</a></li>
+                <li><a href="news.html">ニュース</a></li>
+                <li><a href="business.html">開発事例</a></li>
+                <li><a href="partner.html">ビジネスパートナー</a></li>
+                <li><a href="recruit.html">採用情報</a></li>
+                <li><a href="capacity.html" class="active">資格情報</a></li>
+            </ul>
+            <div class="menu-toggle" id="menuToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+        <!-- Page Header -->
+        <div class="page-header">
+            <h1>資格情報・ポリシー</h1>
+            <p>Certifications & Policies</p>
+        </div>
+
+        <div class="content">
+            <p style="text-align: center; color: var(--text-light); margin-bottom: 40px; font-size: 16px;">
+                各ポリシーの詳細は以下のリンクからご確認いただけます。
+            </p>
+
+            <div class="policies-grid">
+                <!-- Policy 1: プライバシーポリシー -->
+                <div class="policy-card">
+                    <a href="policies/privacy.html">
+                        <span class="policy-icon">🔒</span>
+                        <h3>プライバシーポリシー</h3>
+                        <span class="policy-description">個人情報の取り扱いについて</span>
+                    </a>
+                </div>
+
+                <!-- Policy 2: 情報セキュリティ基本方針 -->
+                <div class="policy-card">
+                    <a href="policies/security.html">
+                        <span class="policy-icon">🛡️</span>
+                        <h3>情報セキュリティ基本方針</h3>
+                        <span class="policy-description">情報資産の保護と安全管理</span>
+                    </a>
+                </div>
+
+                <!-- Policy 3: 品質方針 -->
+                <div class="policy-card">
+                    <a href="policies/quality.html">
+                        <span class="policy-icon">🎯</span>
+                        <h3>品質方針</h3>
+                        <span class="policy-description">高品質なサービスの提供</span>
+                    </a>
+                </div>
+
+                <!-- Policy 4: 個人情報の取り扱い -->
+                <div class="policy-card">
+                    <a href="policies/usage.html">
+                        <span class="policy-icon">📋</span>
+                        <h3>個人情報の取り扱い</h3>
+                        <span class="policy-description">利用目的の詳細について</span>
+                    </a>
+                </div>
+
+                <!-- Policy 5: 環境方針・社会貢献 -->
+                <div class="policy-card">
+                    <a href="policies/environment.html">
+                        <span class="policy-icon">🌱</span>
+                        <h3>環境方針・社会貢献</h3>
+                        <span class="policy-description">環境保護と社会貢献活動</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer id="footer"></footer>
+
+    <script>
+        // Load footer from external file
+        fetch('footer.html')
+            .then(response => response.text())
+            .then(html => {
+                document.getElementById('footer').outerHTML = html;
+            })
+            .catch(error => console.error('Error loading footer:', error));
+
+        const menuToggle = document.getElementById('menuToggle');
+        const nav = document.getElementById('nav');
+
+        menuToggle.addEventListener('click', () => {
+            nav.classList.toggle('active');
+        });
+
+        document.querySelectorAll('.nav a').forEach(link => {
+            link.addEventListener('click', () => {
+                nav.classList.remove('active');
+            });
+        });
+    </script>
+</body>
+</html>
