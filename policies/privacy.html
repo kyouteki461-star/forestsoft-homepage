@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="https://www.forestsoft.jp/favicon.ico">
     <title>プライバシーポリシー - フォレストソフト株式会社</title>
     <style>
         * {
@@ -18,21 +19,70 @@
         body {
             font-family: "Noto Sans JP", "Hiragino Kaku Gothic ProN", "Meiryo", "MS Gothic", sans-serif;
             line-height: 1.7;
-            color: #333;
-            background: #fff;
+            color: #2c2c2c;
+            background: linear-gradient(135deg, #e8f4f0 0%, #f0f8ff 25%, #e8f0fc 50%, #f5f0ff 75%, #f0f8f4 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 20s ease infinite;
             font-size: 15px;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        body::before,
+        body::after {
+            content: '';
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: 0.4;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        body::before {
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(74, 156, 125, 0.3) 0%, transparent 70%);
+            top: -100px;
+            right: -100px;
+            animation: float1 15s ease-in-out infinite;
+        }
+
+        body::after {
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(107, 196, 160, 0.3) 0%, transparent 70%);
+            bottom: -50px;
+            left: -50px;
+            animation: float2 18s ease-in-out infinite;
+        }
+
+        @keyframes float1 {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(30px, 30px) scale(1.1); }
+            66% { transform: translate(-20px, 20px) scale(0.9); }
+        }
+
+        @keyframes float2 {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(-30px, -20px) scale(1.05); }
+            66% { transform: translate(20px, -30px) scale(0.95); }
         }
 
         :root {
             --primary: #4a9c7d;
             --primary-dark: #2d6a4f;
-            --secondary: #6bc4a0;
-            --accent: #e8f7f0;
-            --text: #333333;
-            --text-light: #666666;
-            --bg-light: #f5f5f5;
-            --white: #ffffff;
-            --border: #e0e0e0;
+            --primary-light: #6bc4a0;
+            --text: #2c2c2c;
+            --text-light: #5a5a5a;
+            --glass-border: rgba(255, 255, 255, 0.5);
+            --glass-shadow: rgba(31, 38, 135, 0.1);
         }
 
         /* Header */
@@ -41,15 +91,18 @@
             top: 0;
             left: 0;
             right: 0;
-            background: #fff;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
             z-index: 1000;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
         }
 
         .header-inner {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 15px 20px;
+            padding: 12px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -59,29 +112,42 @@
             display: flex;
             align-items: center;
             text-decoration: none;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
         }
 
         .logo img {
-            height: 50px;
+            height: 45px;
             width: auto;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover img {
+            transform: scale(1.02);
         }
 
         .nav {
             display: flex;
             list-style: none;
-            gap: 25px;
+            gap: 8px;
         }
 
         .nav a {
             color: var(--text);
             text-decoration: none;
             font-weight: 500;
-            font-size: 14px;
-            transition: color 0.3s ease;
+            font-size: 13px;
+            padding: 10px 18px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.4);
         }
 
-        .nav a:hover {
-            color: var(--primary);
+        .nav a:hover, .nav a.active {
+            background: rgba(74, 156, 125, 0.15);
+            color: var(--primary-dark);
+            border-color: rgba(74, 156, 125, 0.3);
+            transform: translateY(-1px);
         }
 
         .menu-toggle {
@@ -89,13 +155,19 @@
             flex-direction: column;
             gap: 5px;
             cursor: pointer;
-            width: 30px;
+            width: 32px;
+            padding: 8px;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 8px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
         }
 
         .menu-toggle span {
             width: 100%;
-            height: 3px;
+            height: 2px;
             background: var(--primary);
+            border-radius: 2px;
             transition: all 0.3s ease;
         }
 
@@ -106,25 +178,42 @@
         }
 
         .page-header {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
             color: #fff;
             padding: 80px 20px;
             text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
         }
 
         .page-header h1 {
             font-size: 36px;
             margin-bottom: 10px;
-            font-weight: 700;
+            position: relative;
+            z-index: 1;
         }
 
         .page-header p {
-            opacity: 0.9;
-            font-size: 15px;
+            opacity: 0.85;
+            font-size: 14px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            position: relative;
+            z-index: 1;
         }
 
         .content {
-            max-width: 800px;
+            max-width: 900px;
             margin: 0 auto;
             padding: 60px 20px;
         }
@@ -136,46 +225,65 @@
 
         .section-title h2 {
             font-size: 28px;
-            color: var(--primary-dark);
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
             margin-bottom: 30px;
             font-weight: 700;
         }
 
         .content-block {
-            background: #fff;
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            padding: 35px;
-            margin-bottom: 30px;
+            padding: 50px 40px;
+            border-radius: 24px;
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(30px) saturate(180%);
+            -webkit-backdrop-filter: blur(30px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.06);
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .content-block::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 30px;
+            right: 30px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8), transparent);
         }
 
         .content-block h3 {
             font-size: 20px;
             color: var(--primary-dark);
-            margin-bottom: 15px;
+            margin-bottom: 25px;
+            font-weight: 600;
         }
 
         .content-block h4 {
             font-size: 16px;
             color: var(--primary-dark);
             font-weight: 600;
-            margin-bottom: 10px;
+            margin-bottom: 20px;
         }
 
         .content-block p {
             color: var(--text-light);
-            margin-bottom: 15px;
-            line-height: 1.8;
+            margin-bottom: 20px;
+            line-height: 2;
         }
 
         .content-block ul {
             list-style: none;
-            padding-left: 25px;
+            padding-left: 30px;
         }
 
         .content-block li {
-            padding: 12px 0;
-            border-bottom: 1px solid var(--bg-light);
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(74, 156, 125, 0.1);
+            position: relative;
         }
 
         .content-block li:last-child {
@@ -183,62 +291,105 @@
         }
 
         .content-block li::before {
-            content: '•';
-            color: var(--primary);
-            font-weight: bold;
-            margin-right: 10px;
+            content: '';
+            width: 6px;
+            height: 6px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            border-radius: 50%;
+            position: absolute;
+            left: 0;
+            top: 20px;
         }
 
         .contact-box {
-            background: var(--accent);
-            padding: 25px;
-            border-radius: 10px;
-            margin-top: 30px;
+            padding: 40px;
+            border-radius: 20px;
+            margin-top: 40px;
+            background: rgba(232, 247, 240, 0.7);
+            backdrop-filter: blur(30px) saturate(180%);
+            -webkit-backdrop-filter: blur(30px) saturate(180%);
+            border: 1px solid rgba(74, 156, 125, 0.2);
             text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .contact-box:hover {
+            background: rgba(232, 247, 240, 0.8);
         }
 
         .contact-box h4 {
             color: var(--primary-dark);
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             font-size: 18px;
+            font-weight: 600;
         }
 
         /* Footer */
         .footer {
-            background: var(--primary-dark);
+            background: rgba(45, 106, 79, 0.9);
+            backdrop-filter: blur(30px) saturate(180%);
+            -webkit-backdrop-filter: blur(30px) saturate(180%);
             color: #fff;
-            padding: 50px 20px 20px;
+            padding: 60px 20px 25px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .footer-inner {
             max-width: 1200px;
             margin: 0 auto;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 40px;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 50px;
+            padding-bottom: 40px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        .footer-item {
-            text-align: center;
-            padding: 20px;
+        .footer-brand h3 {
+            font-size: 22px;
+            margin-bottom: 20px;
+            font-weight: 600;
         }
 
-        .footer-item a {
-            color: rgba(255, 255, 255, 0.8);
-            text-decoration: none;
-            transition: opacity 0.3s ease;
-        }
-
-        .footer-item a:hover {
-            opacity: 1;
-        }
-
-        .copyright {
-            margin-top: 30px;
-            padding-top: 20px;
-            border-top: 1px solid rgba(255, 255, 255, 0.2);
+        .footer-brand p {
+            opacity: 0.75;
             font-size: 13px;
+            line-height: 1.9;
+        }
+
+        .footer-nav h4 {
+            margin-bottom: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            opacity: 0.9;
+        }
+
+        .footer-nav ul {
+            list-style: none;
+        }
+
+        .footer-nav li {
+            margin-bottom: 12px;
+        }
+
+        .footer-nav a {
+            color: rgba(255, 255, 255, 0.65);
+            text-decoration: none;
+            font-size: 13px;
+            transition: all 0.3s ease;
+        }
+
+        .footer-nav a:hover {
+            color: #fff;
+            padding-left: 5px;
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-top: 25px;
+            text-align: center;
+            opacity: 0.5;
+            font-size: 12px;
         }
 
         /* Responsive */
@@ -249,14 +400,22 @@
                 top: 100%;
                 left: 0;
                 right: 0;
-                background: #fff;
+                background: rgba(255, 255, 255, 0.95);
+                backdrop-filter: blur(20px);
+                -webkit-backdrop-filter: blur(20px);
                 flex-direction: column;
                 padding: 20px;
-                box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+                gap: 10px;
             }
 
             .nav.active {
                 display: flex;
+            }
+
+            .nav a {
+                width: 100%;
+                text-align: center;
             }
 
             .menu-toggle {
@@ -264,18 +423,45 @@
             }
 
             .content-block {
-                padding: 20px;
+                padding: 30px 25px;
+            }
+
+            .footer-inner {
+                grid-template-columns: 1fr;
+            }
+
+            .page-header h1 {
+                font-size: 28px;
             }
         }
 
         @media (max-width: 480px) {
             .page-header h1 {
-                font-size: 28px;
+                font-size: 24px;
+            }
+
+            .section-title h2 {
+                font-size: 22px;
             }
 
             .content-block h3 {
                 font-size: 18px;
             }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .content-block {
+            animation: fadeInUp 0.8s ease forwards;
         }
     </style>
 </head>
@@ -287,16 +473,13 @@
                 <img src="https://www.forestsoft.jp/web/images/logo-black.png" alt="ForestSoft Logo" onerror="this.style.display='none'">
             </a>
             <ul class="nav">
-                <li><a href="../company.html">会社情報</a></li>
+                <li><a href="../capacity.html" class="active">資格情報</a></li>
+                <li><a href="../index.html">ホーム</a></li>
                 <li><a href="../about.html">企業紹介</a></li>
-                <li><a href="../index.html#company">会社情報</a></li>
                 <li><a href="../news.html">ニュース</a></li>
-                <li><a href="../business.html">開発事例</a></li>
-                <li><a href="../partner.html">ビジネスパートナー</a></li>
-                <li><a href="../recruit.html">採用情報</a></li>
-                <li><a href="../capacity.html">資格情報</a></li>
             </ul>
             <div class="menu-toggle" id="menuToggle">
+                <span></span>
                 <span></span>
                 <span></span>
             </div>
@@ -311,11 +494,14 @@
         </div>
 
         <div class="content">
-            <div class="content-block">
-                <h3>🔒 プライバシーポリシー</h3>
+            <div class="section-title">
+                <h2>🔒 プライバシーポリシー</h2>
+            </div>
 
-                <h4>個人情報の取得、利用及び提供に関して</h4>
-                <p>フォレストソフト株式会社は、IT関連サービスの事業活動を行なっています。個人情報は重要な情報であり、その保護は重要な社会的責務と認識しております。</p>
+            <div class="content-block">
+                <h3>個人情報の取得、利用及び提供に関して</h3>
+
+                <p>フォレストソフト株式会社は、IT関連サービスの事業活動を行っています。個人情報は重要な情報であり、その保護は重要な社会的責任と認識しております。</p>
 
                 <ul>
                     <li>適法、公正な手段で個人情報を取得</li>
@@ -328,7 +514,7 @@
 
                 <ul>
                     <li>不正アクセス、漏えい等のリスクを防止する体制を構築</li>
-                    <li>継持いたします。</li>
+                    <li>継続いたします。</li>
                 </ul>
 
                 <div class="contact-box">
@@ -338,56 +524,53 @@
 
                 <h4>継続的改善に関して</h4>
                 <p>個人情報保護マネジメントシステムの継続的改善に努めます。</p>
-                </div>
-
-                <div class="policy-footer">
-                    <p>制定日：2017年7月1日</p>
-                    <p>改定日：2021年5月24日</p>
-                    <p>代表者：代表取締役社長　朱傑</p>
-                </div>
-            </div>
             </div>
         </div>
+    </main>
 
     <!-- Footer -->
     <footer class="footer">
         <div class="footer-inner">
-            <div class="footer-item">
-                <a href="../index.html">ホーム</a>
-                </div>
-            <div class="footer-item">
-                <a href="../index.html">企業紹介</a>
-                </div>
-            <div class="footer-item">
-                <a href="../index.html#company">会社情報</a>
-                </div>
-            <div class="footer-item">
-                <a href="../news.html">ニュース</a>
-                </div>
-            <div class="footer-item">
-                <a href="../index.html#business">開発事例</a>
-                </div>
-            <div class="footer-item">
-                <a href="../index.html#business">労働者派遣事業</a>
-                </div>
-            <div class="footer-item">
-                <a href="../index.html#partner.html">ビジネスパートナー</a>
-                </div>
-            <div class="footer-item">
-                <a href="../recruit.html">採用情報</a>
-                </div>
-            <div class="footer-item">
-                <a href="../capacity.html">資格情報</a>
-                </div>
+            <div class="footer-brand">
+                <h3>🌲 フォレストソフト株式会社</h3>
+                <p>革新技術で世の中を動かす企業を目指します。<br>地域社会との調和・貢献に努めます。</p>
+            </div>
+            <div class="footer-nav">
+                <h4>会社情報</h4>
+                <ul>
+                    <li><a href="../about.html">企業紹介</a></li>
+                    <li><a href="../company.html">会社情報</a></li>
+                    <li><a href="../recruit.html">採用情報</a></li>
+                    <li><a href="../news.html">ニュース</a></li>
+                </ul>
+            </div>
+            <div class="footer-nav">
+                <h4>事業内容</h4>
+                <ul>
+                    <li><a href="../index.html#business">FMSサービス事業</a></li>
+                    <li><a href="../index.html#business">労働者派遣事業</a></li>
+                    <li><a href="../partner.html">ビジネスパートナー</a></li>
+                    <li><a href="../business.html">開発事例</a></li>
+                </ul>
+            </div>
+            <div class="footer-nav">
+                <h4>ポリシー・資料</h4>
+                <ul>
+                    <li><a href="../capacity.html">個人情報保護方針</a></li>
+                    <li><a href="../capacity.html">情報セキュリティ方針</a></li>
+                    <li><a href="../capacity.html">個人情報の取り扱い</a></li>
+                    <li><a href="../capacity.html">労働者派遣事業許可</a></li>
+                </ul>
+            </div>
         </div>
-        <div class="copyright">
+        <div class="footer-bottom">
             <p>Copyright(c) 2019 ForestSoft Co., Ltd. All Rights Reserved.</p>
         </div>
     </footer>
 
     <script>
         const menuToggle = document.getElementById('menuToggle');
-        const nav = document.getElementById('nav');
+        const nav = document.querySelector('.nav');
 
         menuToggle.addEventListener('click', () => {
             nav.classList.toggle('active');
