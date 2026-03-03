@@ -1814,29 +1814,38 @@ body::after {
 }
 
 /* Footer */
+/* 容器：确保不溢出 */
+.footer {
+    background: rgba(45, 106, 79, 0.9);
+    backdrop-filter: blur(30px) saturate(180%);
+    -webkit-backdrop-filter: blur(30px) saturate(180%);
+    color: #fff;
+    padding: 60px 20px 25px;
+    width: 100%;
+    overflow: hidden; /* 防止横向滚动条 */
+}
+
 .footer-inner {
     max-width: 1200px;
     margin: 0 auto;
-    display: flex; /* 使用 flex 布局 */
-    flex-wrap: nowrap; /* 强制不换行，直到屏幕变小 */
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap; /* 绝对强制不换行 */
     justify-content: space-between;
     align-items: flex-start;
-    gap: 20px; /* 缩小间距，给文字腾地方 */
-    padding-bottom: 40px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    gap: 15px; /* 进一步缩小间距 */
 }
 
 .footer-brand {
-    /* 缩小左侧品牌区的宽度，给右侧导航留空间 */
-    flex: 0 0 25%; 
-    min-width: 200px;
+    /* 固定品牌宽度，不要让它占太多地方 */
+    flex: 0 0 220px; 
+    margin-right: 20px;
 }
 
 .footer-nav {
-    /* 导航列根据内容宽度自动伸缩 */
-    flex: 1;
-    min-width: max-content; 
-    padding: 0 5px;
+    /* 核心：平均分配剩余空间，且最小宽度由内容撑开 */
+    flex: 1 0 auto; 
+    min-width: min-content; 
 }
 
 .footer-nav h4 {
@@ -1844,29 +1853,45 @@ body::after {
     font-size: 14px;
     font-weight: 600;
     color: #fff;
-    white-space: nowrap; /* 绝对禁止标题换行 */
+    white-space: nowrap; /* 强制标题不换行 */
+    letter-spacing: -0.5px; /* 稍微紧凑一点点 */
+}
+
+.footer-nav ul {
+    list-style: none;
+}
+
+.footer-nav li {
+    margin-bottom: 8px;
+    white-space: nowrap; /* 强制列表项不换行 */
 }
 
 .footer-nav a {
     color: rgba(255, 255, 255, 0.65);
     text-decoration: none;
-    font-size: 13px;
-    display: block;
-    white-space: nowrap; /* 绝对禁止链接换行 */
+    font-size: 12px; /* 稍微缩小字号以适应 5 列 */
+    display: inline-block;
 }
 
-/* 关键：针对 1024px 以下屏幕的优化 */
+/* 响应式：在 1100px 以下直接让品牌区置顶，导航栏分两排 */
 @media (max-width: 1100px) {
     .footer-inner {
-        flex-wrap: wrap; /* 屏幕不够宽时，允许最后一列自动掉下去，而不是硬挤 */
-        gap: 30px;
+        flex-wrap: wrap; 
+        justify-content: flex-start;
+    }
+    .footer-brand {
+        flex: 0 0 100%; /* 品牌区占满一行 */
+        margin-bottom: 30px;
+    }
+    .footer-nav {
+        flex: 0 0 45%; /* 导航两两并排 */
+        margin-bottom: 20px;
     }
 }
 
-@media (max-width: 768px) {
-    .footer-inner {
-        display: grid;
-        grid-template-columns: 1fr; /* 手机端恢复单列 */
+@media (max-width: 600px) {
+    .footer-nav {
+        flex: 0 0 100%; /* 手机端全部竖排 */
     }
 }
 
