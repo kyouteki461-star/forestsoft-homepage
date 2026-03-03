@@ -1826,12 +1826,22 @@ body::after {
 .footer-inner {
     max-width: 1200px;
     margin: 0 auto;
-    display: grid;
-    /* 解决换行问题：使用 minmax 确保侧边栏宽度足够 */
-    grid-template-columns: 1.5fr repeat(3, minmax(max-content, 1fr)); 
+    display: flex; /* 改用 Flex 布局，比 Grid 更难挤压文字 */
+    flex-wrap: wrap; /* 空间实在不够时再换行 */
+    justify-content: space-between;
     gap: 40px;
     padding-bottom: 40px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.footer-brand {
+    flex: 2; /* 品牌介绍占更多空间 */
+    min-width: 250px;
+}
+
+.footer-nav {
+    flex: 1;
+    min-width: fit-content; /* 核心：宽度由内容决定，不被挤压 */
 }
 
 .footer-nav h4 {
@@ -1839,7 +1849,7 @@ body::after {
     font-size: 14px;
     font-weight: 600;
     opacity: 0.9;
-    white-space: nowrap; /* 强制标题不换行 */
+    white-space: nowrap; /* 绝对禁止标题换行 */
 }
 
 .footer-nav ul {
@@ -1855,21 +1865,26 @@ body::after {
     text-decoration: none;
     font-size: 13px;
     transition: all 0.3s ease;
-    white-space: nowrap; /* 强制链接不换行 */
+    white-space: nowrap; /* 绝对禁止链接文字换行 */
+    display: block;
 }
 
-.footer-bottom {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding-top: 25px;
-    text-align: center;
-    opacity: 0.5;
-    font-size: 12px;
+/* 媒体查询部分也要对应修改 */
+@media (max-width: 1024px) {
+    .footer-inner {
+        /* 在平板尺寸，如果还是挤，就让它们平分 */
+        gap: 20px;
+    }
 }
 
 @media (max-width: 768px) {
     .footer-inner {
-        grid-template-columns: 1fr;
+        display: grid;
+        grid-template-columns: 1fr; /* 手机端直接垂直排列 */
+        gap: 30px;
+    }
+    .footer-nav h4 {
+        white-space: normal; /* 手机端允许自然换行 */
     }
 }
 
