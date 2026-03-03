@@ -979,7 +979,7 @@
             <ul class="nav" id="nav">
                 <li><a href="#home">ホーム</a></li>
                 <li><a href="about.html">企業紹介</a></li>
-                <li><a href="#company">会社情報</a></li>
+                <li><a href="company">会社情報</a></li>
                 <li><a href="news.html">ニュース</a></li>
                 <li><a href="business.html">開発事例</a></li>
                 <li><a href="partner.html">ビジネスパートナー</a></li>
@@ -1141,17 +1141,106 @@
     </section>
 
     <!-- Footer -->
-    <footer id="footer"></footer>
+    <div id="footer"></div>
 
     <script>
-        // Load footer from external file
-        fetch('footer.html')
-            .then(response => response.text())
-            .then(html => {
-                document.getElementById('footer').outerHTML = html;
-            })
-            .catch(error => console.error('Error loading footer:', error));
+        // 加载footer内容
+        document.addEventListener('DOMContentLoaded', function() {
+            // 添加footer CSS
+            const footerCSS = `
+                .footer {
+                    background: rgba(45, 106, 79, 0.9);
+                    backdrop-filter: blur(30px) saturate(180%);
+                    -webkit-backdrop-filter: blur(30px) saturate(180%);
+                    color: #fff;
+                    padding: 60px 20px 25px;
+                    border-top: 1px solid rgba(255, 255, 255, 0.1);
+                }
 
+                .footer-inner {
+                    max-width: 1200px;
+                    margin: 0 auto;
+                    display: grid;
+                    grid-template-columns: 2fr 1fr 1fr 1fr;
+                    gap: 50px;
+                    padding-bottom: 40px;
+                    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+                }
+
+                .footer-brand h3 {
+                    font-size: 22px;
+                    margin-bottom: 20px;
+                    font-weight: 600;
+                }
+
+                .footer-brand p {
+                    opacity: 0.75;
+                    font-size: 13px;
+                    line-height: 1.9;
+                }
+
+                .footer-nav h4 {
+                    margin-bottom: 20px;
+                    font-size: 14px;
+                    font-weight: 600;
+                    opacity: 0.9;
+                }
+
+                .footer-nav ul {
+                    list-style: none;
+                }
+
+                .footer-nav li {
+                    margin-bottom: 12px;
+                }
+
+                .footer-nav a {
+                    color: rgba(255, 255, 255, 0.65);
+                    text-decoration: none;
+                    font-size: 13px;
+                    transition: all 0.3s ease;
+                }
+
+                .footer-nav a:hover {
+                    color: #fff;
+                    padding-left: 5px;
+                }
+
+                .footer-bottom {
+                    max-width: 1200px;
+                    margin: 0 auto;
+                    padding-top: 25px;
+                    text-align: center;
+                    opacity: 0.5;
+                    font-size: 12px;
+                }
+
+                @media (max-width: 768px) {
+                    .footer-inner {
+                        grid-template-columns: 1fr;
+                        gap: 30px;
+                    }
+                }
+            `;
+
+            // 创建style元素
+            const style = document.createElement('style');
+            style.textContent = footerCSS;
+            document.head.appendChild(style);
+
+            // 加载footer内容
+            fetch('footer-content.html')
+                .then(response => response.text())
+                .then(html => {
+                    document.getElementById('footer').innerHTML = html;
+                })
+                .catch(error => {
+                    console.error('Footer加载失败:', error);
+                });
+        });
+    </script>
+
+    <script>
         const menuToggle = document.getElementById('menuToggle');
         const nav = document.getElementById('nav');
 
