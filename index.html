@@ -6,6 +6,7 @@
     <title>フォレストソフト株式会社 - ForestSoft</title>
     <link rel="icon" href="https://www.forestsoft.jp/favicon.ico">
     <link rel="stylesheet" href="style.css">
+    <script src="js/footer-loader.js"></script>
 </head>
 <body>
     <!-- Header -->
@@ -181,20 +182,6 @@
 
     <!-- Footer -->
     <div id="footer"></div>
-
-    <script>
-        // 加载footer内容
-        document.addEventListener('DOMContentLoaded', function() {
-            // 加载footer内容
-            fetch('footer-content.html')
-                .then(response => response.text())
-                .then(html => {
-                    document.getElementById('footer').innerHTML = html;
-                })
-                .catch(error => {
-                    console.error('Footer加载失败:', error);
-                });
-        });
     </script>
 
     <script>

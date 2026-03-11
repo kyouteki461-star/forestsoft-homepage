@@ -503,6 +503,7 @@
             animation: fadeInUp 0.8s ease forwards;
         }
     </style>
+    <script src="js/footer-loader.js"></script>
 </head>
 <body>
     <!-- Header -->
@@ -608,16 +609,9 @@
     </main>
 
     <!-- Footer -->
-    <footer id="footer"></footer>
+    <div id="footer"></div>
 
     <script>
-        fetch('footer.html')
-            .then(response => response.text())
-            .then(html => {
-                document.getElementById('footer').outerHTML = html;
-            })
-            .catch(error => console.error('Error loading footer:', error));
-
         const menuToggle = document.getElementById('menuToggle');
         const nav = document.getElementById('nav');
 
