@@ -2,8 +2,8 @@
   "version": 2,
   "builds": [
     {
-      "src": "index.html",
-      "use": "@vercel/static"
+      "src": "package.json",
+      "use": "@vercel/next"
     }
   ],
   "functions": {
@@ -11,12 +11,6 @@
       "runtime": "nodejs20.x"
     }
   },
-  "rewrites": [
-    {
-      "source": "/(.*)",
-      "destination": "/index.html"
-    }
-  ],
   "env": {
     "SUPABASE_URL": "https://huatolfthmihcpzjpyipd.supabase.co",
     "SUPABASE_SERVICE_ROLE_KEY": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh1YXRvbGZ0aG1pY3B6anB5aXBkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjU0Nzg4NzUsImV4cCI6MjA3MzUwMDg3NX0._"
