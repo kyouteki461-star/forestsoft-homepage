@@ -13,7 +13,7 @@
     <header class="header">
         <div class="header-inner">
             <a href="index.html" class="logo">
-                <img src="https://www.forestsoft.jp/web/images/logo-black.png" alt="ForestSoft Logo" onerror="this.style.display='none'">
+                <img src="https://www.forestsoft.jp/web/images/logo-black.png" alt="ForestSoft Logo" id="mainLogo">
             </a>
             <ul class="nav" id="nav">
                 <li><a href="index.html">ホーム</a></li>
@@ -196,6 +196,14 @@
 
     <!-- Footer -->
     <div id="footer"></div>
+    
+    <script>
+        const logo = document.getElementById('mainLogo');
+        if (logo) {
+            logo.addEventListener('error', function() {
+                this.style.display = 'none';
+            });
+        }
 
         const menuToggle = document.getElementById('menuToggle');
         const nav = document.getElementById('nav');
