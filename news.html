@@ -138,6 +138,11 @@
     <!-- Footer -->
     <div id="footer"></div>
 
+    <!-- Hidden admin link -->
+    <div style="position: fixed; bottom: 10px; right: 10px; z-index: 9999;">
+        <a href="#" id="adminLink" style="color: transparent; text-decoration: none; font-size: 0;">管理</a>
+    </div>
+
     <script>
         // Menu toggle functionality
         const menuToggle = document.getElementById('menuToggle');
@@ -155,15 +160,32 @@
 
         // Initialize news management system
         document.addEventListener('DOMContentLoaded', async () => {
-            // Check for admin login (hidden - press Ctrl+Shift+P to activate)
+            // Check for admin login
             if (localStorage.getItem('adminLoggedIn') === 'true') {
                 enableEditMode();
             }
 
-            // Add keyboard shortcut for admin login (Ctrl+Shift+P)
+            // Add keyboard shortcut for admin login (Ctrl+Shift+S)
             document.addEventListener('keydown', (e) => {
-                if (e.ctrlKey && e.shiftKey && e.key === 'P') {
+                if (e.ctrlKey && e.shiftKey && e.key === 'S') {
+                    e.preventDefault();
                     showAdminLogin();
+                }
+            });
+
+            // Handle hidden admin link (click 3 times quickly)
+            let clickCount = 0;
+            document.getElementById('adminLink').addEventListener('click', (e) => {
+                e.preventDefault();
+                clickCount++;
+
+                if (clickCount === 3) {
+                    showAdminLogin();
+                    clickCount = 0;
+                } else if (clickCount > 0) {
+                    setTimeout(() => {
+                        clickCount = 0;
+                    }, 1000);
                 }
             });
 
@@ -351,9 +373,9 @@
         `;
         document.head.appendChild(style);
 
-        // Add logout functionality (Ctrl+Shift+Q)
+        // Add logout functionality (Ctrl+Shift+X)
         document.addEventListener('keydown', (e) => {
-            if (e.ctrlKey && e.shiftKey && e.key === 'Q' && localStorage.getItem('adminLoggedIn') === 'true') {
+            if (e.ctrlKey && e.shiftKey && e.key === 'X' && localStorage.getItem('adminLoggedIn') === 'true') {
                 if (confirm('ログアウトしますか？')) {
                     disableEditMode();
                 }
