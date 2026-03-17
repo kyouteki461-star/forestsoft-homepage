@@ -15,7 +15,8 @@
       "Bash(cd E:\\\\AI\\\\images && for img in 1520903688413584064 1520903708600774978 1520903726559243495; do curl -s \"https://www.forestsoft.jp/web/attach/201803/$img.jpg\" -o \"banner_$img.jpg\" && echo \"Downloaded banner_$img.jpg\"; done)",
       "Bash(git config:*)",
       "Bash(git checkout:*)",
-      "Bash(git merge:*)"
+      "Bash(git merge:*)",
+      "Bash(git rm:*)"
     ]
   }
 }
