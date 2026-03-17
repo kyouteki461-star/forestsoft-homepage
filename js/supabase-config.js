@@ -1,6 +1,6 @@
 // Supabase Configuration
 const SUPABASE_URL = 'https://fzqbzujqjvmlowbjlxof.supabase.co'; // 您的 Supabase Project URL
-const SUPABASE_ANON_KEY = 'YOUR_ANON_KEY_HERE'; // 请替换为您的 Supabase Anon Key
+const SUPABASE_ANON_KEY = 'sb_publishable_r5e7t2Kjwhs2AVp6fvybpg_FwUCrH8J'; // 请替换为您的 Supabase Anon Key
 
 // Initialize Supabase
 const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
