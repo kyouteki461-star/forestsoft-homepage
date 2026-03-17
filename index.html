@@ -237,9 +237,62 @@
         });
     </script>
 
-    <!-- Hero Slider Script -->
+    <!-- Navigation Menu Script -->
     <script>
-        // Slider functionality
+        // Initialize navigation menu
+        function initNavigation() {
+            const menuToggle = document.getElementById('menuToggle');
+            const nav = document.getElementById('nav');
+
+            if (menuToggle && nav) {
+                menuToggle.addEventListener('click', () => {
+                    nav.classList.toggle('active');
+                });
+
+                // Use event delegation for better performance and reliability
+                document.addEventListener('click', (e) => {
+                    if (nav.classList.contains('active')) {
+                        // Close menu if clicking outside
+                        if (!nav.contains(e.target) && !menuToggle.contains(e.target)) {
+                            nav.classList.remove('active');
+                        }
+                    }
+                });
+
+                // Handle navigation links
+                document.querySelectorAll('.nav a').forEach(link => {
+                    link.addEventListener('click', (e) => {
+                        // Close menu after clicking a link
+                        nav.classList.remove('active');
+
+                        // For internal links, handle smooth scroll
+                        const href = link.getAttribute('href');
+                        if (href && href.startsWith('#')) {
+                            e.preventDefault();
+                            const target = document.querySelector(href);
+                            if (target) {
+                                target.scrollIntoView({
+                                    behavior: 'smooth',
+                                    block: 'start'
+                                });
+                            }
+                        }
+                    });
+                });
+            }
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            initNavigation();
+        });
+
+        // Handle page navigation for single-page app behavior
+        window.addEventListener('load', () => {
+            initNavigation();
+        });
+
+        // Hero Slider Script
         const slides = document.querySelectorAll('.slide');
         const dots = document.querySelectorAll('.slider-dot');
         const prevBtn = document.querySelector('.slider-prev');
