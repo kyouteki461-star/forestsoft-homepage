@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Supabase 测试</title>
+    <title>Supabase Server Test</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -58,10 +58,14 @@
 </head>
 <body>
     <div class="container">
-        <h1>Supabase 连接测试</h1>
+        <h1>Supabase 连接测试 (服务器环境)</h1>
 
-        <div id="status" class="error">
-            状态：等待测试...
+        <div class="warning">
+            <strong>注意:</strong> このHTMLファイルはローカルサーバー（http-server, Live Serverなど）で実行してください。直接開くとCORSエラーが発生します。
+        </div>
+
+        <div id="status" class="success">
+            状态：准备就绪 - ローカルサーバーで実行してください
         </div>
 
         <button class="btn-primary" onclick="testConnection()">测试连接</button>
@@ -76,8 +80,8 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.7"></script>
     <script>
         // Supabase Configuration
-        const SUPABASE_URL='https://huatolftmhicpjpyipd.supabase.co';
-        const SUPABASE_ANON_KEY='sb_publishable_r5e7t2Kjwhs2AVp6fvybpg_FwUCrH8J';
+        const SUPABASE_URL = 'https://huatolfthmihcpzjpyipd.supabase.co';
+        const SUPABASE_ANON_KEY = 'sb_publishable_r5e7t2Kjwhs2AVp6fvybpg_FwUCrH8J';
 
         let supabase;
 
@@ -104,10 +108,11 @@
                     log('✅ Supabase 连接成功！');
                     supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
                 } else {
-                    log('❌ 连接失败: ' + response.status, true);
+                    log('❌ 连接失败: ' + response.status + ' - ' + await response.text(), true);
                 }
             } catch (error) {
                 log('❌ 错误: ' + error.message, true);
+                console.error('详细错误:', error);
             }
         }
 
@@ -166,7 +171,7 @@
                 if (error) {
                     log('❌ 插入数据时出错: ' + error.message, true);
                 } else {
-                    log('✅ 成功插入 ' + data.length + ' 条记录！');
+                    log('✅ 成功插入 ' + (data ? data.length : 0) + ' 条记录！');
                 }
             } catch (error) {
                 log('❌ 错误: ' + error.message, true);
@@ -190,12 +195,22 @@
                 if (error) {
                     log('❌ 获取数据时出错: ' + error.message, true);
                 } else {
-                    log('✅ 成功获取 ' + (data ? data.length : 0) + ' 条记录：\n' + JSON.stringify(data, null, 2));
+                    const count = data ? data.length : 0;
+                    if (count === 0) {
+                        log('📰 ニュースがありません。');
+                    } else {
+                        log(`✅ 成功获取 ${count} 条记录：\n${JSON.stringify(data, null, 2)}`);
+                    }
                 }
             } catch (error) {
                 log('❌ 错误: ' + error.message, true);
             }
         }
+
+        // ページ読み込み時に接続をテスト
+        window.addEventListener('load', () => {
+            log('ページが読み込まれました。接続テストを実行してください。');
+        });
     </script>
 </body>
 </html>
