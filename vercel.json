@@ -4,20 +4,12 @@
     {
       "src": "index.html",
       "use": "@vercel/static"
-    },
-    {
-      "src": "api/package.json",
-      "use": "@vercel/node"
     }
   ],
-  "assets": {
-    "files": [
-      "style.css",
-      "js/*.js",
-      "images/**/*",
-      "files/**/*",
-      "policies/**/*"
-    ]
+  "functions": {
+    "api/index.js": {
+      "runtime": "nodejs20.x"
+    }
   },
   "env": {
     "SUPABASE_URL": "https://huatolfthmihcpzjpyipd.supabase.co",
