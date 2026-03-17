@@ -1,0 +1,13 @@
+{
+  "name": "vercel-supabase-api",
+  "version": "1.0.0",
+  "description": "Supabase API serverless functions for Vercel",
+  "main": "index.js",
+  "scripts": {
+    "dev": "node index.js",
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.39.7"
+  }
+}

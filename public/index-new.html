@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ニュース管理システム</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        button {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        .btn-primary {
+            background: #007bff;
+            color: white;
+        }
+        .btn-primary:hover {
+            background: #0056b3;
+            transform: translateY(-1px);
+        }
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+        .btn-secondary:hover {
+            background: #545b62;
+            transform: translateY(-1px);
+        }
+        .btn-success {
+            background: #28a745;
+            color: white;
+        }
+        .btn-success:hover {
+            background: #1e7e34;
+            transform: translateY(-1px);
+        }
+        .btn-warning {
+            background: #ffc107;
+            color: #212529;
+        }
+        .btn-warning:hover {
+            background: #e0a800;
+            transform: translateY(-1px);
+        }
+        .message {
+            padding: 16px;
+            border-radius: 8px;
+            margin: 16px 0;
+            display: none;
+        }
+        .message.show {
+            display: block;
+            animation: slideIn 0.3s ease;
+        }
+        .message.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .message.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .message.info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .news-section {
+            margin-top: 40px;
+        }
+        .news-item {
+            background: #f8f9fa;
+            padding: 20px;
+            margin: 16px 0;
+            border-radius: 8px;
+            border-left: 4px solid #007bff;
+            transition: transform 0.2s ease;
+        }
+        .news-item:hover {
+            transform: translateX(5px);
+        }
+        .news-title {
+            font-size: 20px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 8px;
+        }
+        .news-date {
+            color: #6c757d;
+            font-size: 14px;
+            margin-bottom: 12px;
+        }
+        .news-content {
+            color: #495057;
+            line-height: 1.6;
+        }
+        .loader {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #3498db;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📰 ニュース管理システム</h1>
+
+        <div class="button-group">
+            <button class="btn-primary" onclick="testConnection()">
+                <span id="testConnectionText">接続テスト</span>
+            </button>
+            <button class="btn-secondary" onclick="checkTable()">テーブル確認</button>
+            <button class="btn-success" onclick="insertSampleData()">サンプルデータ挿入</button>
+            <button class="btn-warning" onclick="fetchData()">データ取得</button>
+        </div>
+
+        <div id="message" class="message"></div>
+
+        <div class="news-section" id="newsSection" style="display: none;">
+            <h2>ニュース一覧</h2>
+            <div id="newsList"></div>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE_URL = '/api';
+        let isConnected = false;
+
+        function showMessage(text, type = 'info') {
+            const messageEl = document.getElementById('message');
+            messageEl.textContent = text;
+            messageEl.className = `message ${type} show`;
+
+            // 5秒後自動で非表示
+            setTimeout(() => {
+                messageEl.classList.remove('show');
+            }, 5000);
+        }
+
+        async function testConnection() {
+            const btn = document.getElementById('testConnectionText');
+            btn.innerHTML = '<span class="loader"></span> 接続中...';
+
+            try {
+                const response = await fetch(`${API_BASE_URL}/test-connection`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    isConnected = true;
+                    showMessage('✅ API 接続成功！サーバーは正常に動作しています。', 'success');
+                } else {
+                    isConnected = false;
+                    showMessage('❌ 接続失敗: ' + (result.message || 'サーバーエラー'), 'error');
+                }
+            } catch (error) {
+                isConnected = false;
+                showMessage('❌ エラー: ' + error.message, 'error');
+            } finally {
+                btn.textContent = '接続テスト';
+            }
+        }
+
+        async function checkTable() {
+            if (!isConnected) {
+                showMessage('❌ まず接続テストを実行してください', 'error');
+                return;
+            }
+
+            showMessage('🔍 newsテーブルを確認中...', 'info');
+
+            try {
+                const response = await fetch(`${API_BASE_URL}/test-connection`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                const result = await response.json();
+
+                if (result.tableExists) {
+                    showMessage('✅ newsテーブルが存在します！', 'success');
+                } else if (!result.success && result.sql) {
+                    showMessage('❌ newsテーブルが存在しません。以下のSQLで作成できます：\n\n' + result.sql, 'error');
+                } else {
+                    showMessage('❌ テーブルの確認に失敗しました', 'error');
+                }
+            } catch (error) {
+                showMessage('❌ エラー: ' + error.message, 'error');
+            }
+        }
+
+        async function insertSampleData() {
+            if (!isConnected) {
+                showMessage('❌ まず接続テストを実行してください', 'error');
+                return;
+            }
+
+            showMessage('📝 サンプルデータを挿入中...', 'info');
+
+            const sampleData = [
+                {
+                    title: "テストニュース 1",
+                    date: new Date().toLocaleDateString('ja-JP'),
+                    content: "<p>これはテストニュースです。</p><p>システムが正常に動作していることを確認するためのサンプルデータです。</p>"
+                },
+                {
+                    title: "テストニュース 2",
+                    date: new Date().toLocaleDateString('ja-JP'),
+                    content: "<p>これもテストニュースです。</p><p>複数のニュース項目を表示できることを確認します。</p>"
+                }
+            ];
+
+            try {
+                for (const item of sampleData) {
+                    const response = await fetch(`${API_BASE_URL}/news`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(item)
+                    });
+
+                    const result = await response.json();
+
+                    if (!result.success) {
+                        showMessage(`❌ 挿入失敗: ${result.error || '未知のエラー'}`, 'error');
+                        return;
+                    }
+                }
+
+                showMessage('✅ サンプルデータの挿入が完了しました！', 'success');
+                await fetchData(); // データを再取得
+            } catch (error) {
+                showMessage('❌ エラー: ' + error.message, 'error');
+            }
+        }
+
+        async function fetchData() {
+            if (!isConnected) {
+                showMessage('❌ まず接続テストを実行してください', 'error');
+                return;
+            }
+
+            showMessage('📡 データを取得中...', 'info');
+
+            try {
+                const response = await fetch(`${API_BASE_URL}/news`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    displayNews(result.data);
+                    showMessage(`✅ ${result.count}件のニュースを取得しました！`, 'success');
+                } else {
+                    showMessage('❌ データ取得失敗: ' + (result.error || '未知のエラー'), 'error');
+                }
+            } catch (error) {
+                showMessage('❌ エラー: ' + error.message, 'error');
+            }
+        }
+
+        function displayNews(newsData) {
+            const newsSection = document.getElementById('newsSection');
+            const newsList = document.getElementById('newsList');
+
+            if (!newsData || newsData.length === 0) {
+                newsList.innerHTML = '<p style="text-align: center; color: #6c757d; padding: 40px;">📭 ニュースがありません</p>';
+                newsSection.style.display = 'block';
+                return;
+            }
+
+            newsList.innerHTML = newsData.map(news => `
+                <div class="news-item">
+                    <div class="news-title">${news.title}</div>
+                    <div class="news-date">${news.date}</div>
+                    <div class="news-content">${news.content}</div>
+                </div>
+            `).join('');
+
+            newsSection.style.display = 'block';
+        }
+
+        // ページ読み込み時に接続テストを実行
+        window.addEventListener('load', () => {
+            showMessage('ページが読み込まれました。接続テストを実行してください。', 'info');
+        });
+    </script>
+</body>
+</html>
