@@ -9,6 +9,7 @@
     <!-- Supabase SDK -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.7"></script>
     <script src="js/supabase-config.js"></script>
+    <script src="js/check-database.js"></script>
     <script src="js/footer-loader.js"></script>
 </head>
 <body>
@@ -138,6 +139,13 @@
     <!-- Footer -->
     <div id="footer"></div>
 
+    <!-- Admin panel -->
+    <div id="adminPanel" style="display: none; position: fixed; bottom: 20px; right: 20px; background: white; padding: 15px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); z-index: 9998;">
+        <h4 style="margin: 0 0 10px 0; color: #333;">管理パネル</h4>
+        <button id="initData" style="margin: 5px; padding: 8px 15px; background: #4CAF50; color: white; border: none; border-radius: 4px; cursor: pointer;">初期化データ挿入</button>
+        <button id="toggleEdit" style="margin: 5px; padding: 8px 15px; background: #2196F3; color: white; border: none; border-radius: 4px; cursor: pointer;">編集モード</button>
+    </div>
+
     <!-- Hidden admin link -->
     <div style="position: fixed; bottom: 10px; right: 10px; z-index: 9999;">
         <a href="#" id="adminLink" style="color: transparent; text-decoration: none; font-size: 0;">管理</a>
@@ -166,7 +174,16 @@
 
             if (isLoggedIn && savedUser) {
                 enableEditMode();
+                document.getElementById('adminPanel').style.display = 'block';
             }
+
+            // Initialize database check
+            if (window.checkDatabase) {
+                await window.checkDatabase();
+            }
+
+            // Load news from Supabase
+            await loadNews();
 
             // Add multiple ways to trigger admin login
 
@@ -208,8 +225,21 @@
                 }
             });
 
-            // Load news from Supabase
-            await loadNews();
+            // Handle admin panel buttons
+            document.getElementById('initData').onclick = () => {
+                // Load and run the initialization script
+                const script = document.createElement('script');
+                script.src = 'js/init-news-data.js';
+                document.head.appendChild(script);
+            };
+
+            document.getElementById('toggleEdit').onclick = () => {
+                if (isLoggedIn) {
+                    disableEditMode();
+                } else {
+                    showAdminLogin();
+                }
+            };
         });
 
         // Load news from Supabase
@@ -218,12 +248,25 @@
                 const { data: news, error } = await window.supabaseConfig.newsAPI.fetchAllNews();
 
                 if (error) {
-                    console.error('Error loading news:', error);
-                    return;
+                    if (error.code === 'PGRST116') {
+                        // Table doesn't exist
+                        console.log('News table does not exist. Please create it first.');
+                        showNotification('データベーステーブルが存在しません。管理者パネルで初期化してください。', 'error');
+                        return;
+                    } else {
+                        console.error('Error loading news:', error);
+                        showNotification('ニュースの読み込みに失敗しました', 'error');
+                        return;
+                    }
                 }
 
                 const newsList = document.getElementById('newsList');
                 newsList.innerHTML = '';
+
+                if (news.length === 0) {
+                    newsList.innerHTML = '<p style="text-align: center; color: #666;">ニュースがありません。</p>';
+                    return;
+                }
 
                 news.forEach(item => {
                     const newsItem = createNewsElement(item);
@@ -231,6 +274,7 @@
                 });
             } catch (error) {
                 console.error('Error:', error);
+                showNotification('エラーが発生しました', 'error');
             }
         }
 
