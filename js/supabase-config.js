@@ -1,5 +1,5 @@
 // Supabase Configuration
-const SUPABASE_URL = 'https://fzqbzujqjvmlowbjlxof.supabase.co'; // 您的 Supabase Project URL
+const SUPABASE_URL = 'https://huatolfthmihcpzjpyipd.supabase.co'; // 您的 Supabase Project URL
 const SUPABASE_ANON_KEY = 'sb_publishable_r5e7t2Kjwhs2AVp6fvybpg_FwUCrH8J'; // 请替换为您的 Supabase Anon Key
 
 // Initialize Supabase
