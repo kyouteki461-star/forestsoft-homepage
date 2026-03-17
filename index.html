@@ -34,21 +34,45 @@
         </div>
     </header>
 
-    <!-- Hero Section -->
-    <section class="hero" id="home">
-        <div class="hero-inner">
-            <div class="hero-content">
-                <h1>革新技術で<br>世の中を動かす</h1>
-                <p class="subtitle">フォレストソフト株式会社では事業活動および社員行動を通じ、革新的な技術で世の中を動かす企業を目指します。地域社会との調和・貢献に努めます。</p>
-                <div class="hero-buttons">
-                    <a href="#contact" class="btn btn-primary">お問い合わせ →</a>
-                    <a href="#business" class="btn btn-secondary">事業内容を見る</a>
-                </div>
-            </div>
-            <div class="hero-visual">
-                <img src="https://www.forestsoft.jp/web/images/main-visual.jpg" alt="ForestSoft Main Visual" onerror="this.src='https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=600&h=400&fit=crop'">
+    <!-- Hero Slider -->
+    <section class="hero-slider" id="home">
+        <!-- Slide 1 -->
+        <div class="slide active">
+            <img src="images/banner_1520903688413584064.jpg" alt="FORESTSOFT" class="slide-image">
+            <div class="slide-content">
+                <h1>FORESTSOFT</h1>
+                <p>革新的技術で未来を創造</p>
             </div>
         </div>
+
+        <!-- Slide 2 -->
+        <div class="slide">
+            <img src="images/banner_1520903708600774978.jpg" alt="革新技術" class="slide-image">
+            <div class="slide-content">
+                <h1>革新技術</h1>
+                <p>最先端の技術で社会に貢献</p>
+            </div>
+        </div>
+
+        <!-- Slide 3 -->
+        <div class="slide">
+            <img src="images/banner_1520903726559243495.jpg" alt="貢献" class="slide-image">
+            <div class="slide-content">
+                <h1>社会への貢献</h1>
+                <p>地域社会と共に成長し続ける</p>
+            </div>
+        </div>
+
+        <!-- Slider Controls -->
+        <div class="slider-controls">
+            <span class="slider-dot active" data-slide="0"></span>
+            <span class="slider-dot" data-slide="1"></span>
+            <span class="slider-dot" data-slide="2"></span>
+        </div>
+
+        <!-- Navigation Arrows -->
+        <button class="slider-nav slider-prev">‹</button>
+        <button class="slider-nav slider-next">›</button>
     </section>
 
     <!-- Philosophy Section -->
@@ -211,6 +235,98 @@
                 }
             });
         });
+    </script>
+
+    <!-- Hero Slider Script -->
+    <script>
+        // Slider functionality
+        const slides = document.querySelectorAll('.slide');
+        const dots = document.querySelectorAll('.slider-dot');
+        const prevBtn = document.querySelector('.slider-prev');
+        const nextBtn = document.querySelector('.slider-next');
+        let currentSlide = 0;
+        let interval;
+
+        function showSlide(index) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            dots.forEach(dot => dot.classList.remove('active'));
+
+            slides[index].classList.add('active');
+            dots[index].classList.add('active');
+            currentSlide = index;
+        }
+
+        function nextSlide() {
+            const next = (currentSlide + 1) % slides.length;
+            showSlide(next);
+        }
+
+        function prevSlide() {
+            const prev = (currentSlide - 1 + slides.length) % slides.length;
+            showSlide(prev);
+        }
+
+        function startAutoSlide() {
+            interval = setInterval(nextSlide, 5000); // Change slide every 5 seconds
+        }
+
+        function stopAutoSlide() {
+            clearInterval(interval);
+        }
+
+        // Event listeners
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                showSlide(index);
+                stopAutoSlide();
+                startAutoSlide();
+            });
+        });
+
+        prevBtn.addEventListener('click', () => {
+            prevSlide();
+            stopAutoSlide();
+            startAutoSlide();
+        });
+
+        nextBtn.addEventListener('click', () => {
+            nextSlide();
+            stopAutoSlide();
+            startAutoSlide();
+        });
+
+        // Touch support for mobile
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        document.querySelector('.hero-slider').addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+
+        document.querySelector('.hero-slider').addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        });
+
+        function handleSwipe() {
+            if (touchEndX < touchStartX - 50) {
+                nextSlide();
+                stopAutoSlide();
+                startAutoSlide();
+            }
+            if (touchEndX > touchStartX + 50) {
+                prevSlide();
+                stopAutoSlide();
+                startAutoSlide();
+            }
+        }
+
+        // Start the slider
+        startAutoSlide();
+
+        // Pause on hover
+        document.querySelector('.hero-slider').addEventListener('mouseenter', stopAutoSlide);
+        document.querySelector('.hero-slider').addEventListener('mouseleave', startAutoSlide);
     </script>
 </body>
 </html>
