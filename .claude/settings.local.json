@@ -13,7 +13,8 @@
       "Bash(curl -s \"https://www.forestsoft.jp/web/images/\" | grep -E \"href=[\\\\\"']\\([^\\\\\"']*\\\\.jpe?g|[^\\\\\"']*\\\\.png\\)\" | head -20)",
       "Bash(curl -s \"https://www.forestsoft.jp/web/banner/index.php\" | grep -E \"img|background|src\" | head -20)",
       "Bash(cd E:\\\\AI\\\\images && for img in 1520903688413584064 1520903708600774978 1520903726559243495; do curl -s \"https://www.forestsoft.jp/web/attach/201803/$img.jpg\" -o \"banner_$img.jpg\" && echo \"Downloaded banner_$img.jpg\"; done)",
-      "Bash(git config:*)"
+      "Bash(git config:*)",
+      "Bash(git checkout:*)"
     ]
   }
 }
