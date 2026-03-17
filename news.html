@@ -263,7 +263,7 @@
                 const newsList = document.getElementById('newsList');
                 newsList.innerHTML = '';
 
-                if (news.length === 0) {
+                if (!news || news.length === 0) {
                     newsList.innerHTML = '<p style="text-align: center; color: #666;">ニュースがありません。</p>';
                     return;
                 }
@@ -452,11 +452,11 @@
             };
 
             // Close on outside click
-            modal.onclick = (e) => {
+            modal.addEventListener('click', (e) => {
                 if (e.target === modal) {
                     modal.remove();
                 }
-            };
+            });
         }
 
         // Show notification
