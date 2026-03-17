@@ -2287,6 +2287,38 @@ body::after {
     width: 60px;
 }
 
+/* Edit Mode Styles */
+.editable-news {
+    position: relative;
+}
+
+.editable-news:hover::after {
+    content: '編集可能';
+    position: absolute;
+    top: -25px;
+    right: 0;
+    background: rgba(33, 150, 243, 0.9);
+    color: white;
+    padding: 2px 8px;
+    font-size: 12px;
+    border-radius: 3px;
+    z-index: 100;
+}
+
+.news-description .editable-news {
+    line-height: 1.6;
+}
+
+/* Ensure news items maintain spacing in edit mode */
+.news-item {
+    margin-bottom: 40px;
+    transition: all 0.3s ease;
+}
+
+.news-item:hover {
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
 /* Hero Slider Styles */
 .hero-slider {
     position: relative;

@@ -6,6 +6,9 @@
     <link rel="icon" href="https://www.forestsoft.jp/favicon.ico">
     <title>ニュース - フォレストソフト株式会社</title>
     <link rel="stylesheet" href="style.css">
+    <!-- Supabase SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.7"></script>
+    <script src="js/supabase-config.js"></script>
     <script src="js/footer-loader.js"></script>
 </head>
 <body>
@@ -41,7 +44,7 @@
         </div>
 
         <div class="content">
-            <div class="news-list">
+            <div class="news-list" id="newsList">
                 <!-- News 1 -->
                 <article class="news-item">
                     <div class="news-header">
@@ -136,8 +139,7 @@
     <div id="footer"></div>
 
     <script>
-        const menuToggle = document.getElementById('menuToggle');
-
+        // Menu toggle functionality
         const menuToggle = document.getElementById('menuToggle');
         const nav = document.getElementById('nav');
 
@@ -149,6 +151,213 @@
             link.addEventListener('click', () => {
                 nav.classList.remove('active');
             });
+        });
+
+        // Initialize news management system
+        document.addEventListener('DOMContentLoaded', async () => {
+            // Check for admin login (hidden - press Ctrl+Shift+P to activate)
+            if (localStorage.getItem('adminLoggedIn') === 'true') {
+                enableEditMode();
+            }
+
+            // Add keyboard shortcut for admin login (Ctrl+Shift+P)
+            document.addEventListener('keydown', (e) => {
+                if (e.ctrlKey && e.shiftKey && e.key === 'P') {
+                    showAdminLogin();
+                }
+            });
+
+            // Load news from Supabase
+            await loadNews();
+        });
+
+        // Load news from Supabase
+        async function loadNews() {
+            try {
+                const { data: news, error } = await window.supabaseConfig.newsAPI.fetchAllNews();
+
+                if (error) {
+                    console.error('Error loading news:', error);
+                    return;
+                }
+
+                const newsList = document.getElementById('newsList');
+                newsList.innerHTML = '';
+
+                news.forEach(item => {
+                    const newsItem = createNewsElement(item);
+                    newsList.appendChild(newsItem);
+                });
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+
+        // Create news element
+        function createNewsElement(item) {
+            const article = document.createElement('article');
+            article.className = 'news-item';
+            article.dataset.id = item.id;
+
+            article.innerHTML = `
+                <div class="news-header">
+                    <span class="news-date editable-news" data-field="date">${item.date || ''}</span>
+                    <h2 class="news-title editable-news" data-field="title">${item.title || ''}</h2>
+                </div>
+                <div class="news-description">
+                    <div class="editable-news" data-field="content">${item.content || ''}</div>
+                </div>
+            `;
+
+            return article;
+        }
+
+        // Enable edit mode for admin
+        function enableEditMode() {
+            const editableElements = document.querySelectorAll('.editable-news');
+
+            editableElements.forEach(element => {
+                element.contentEditable = true;
+                element.classList.add('editable');
+            });
+
+            // Add save indicator
+            showNotification('編集モードが有効になりました', 'info');
+        }
+
+        // Disable edit mode
+        function disableEditMode() {
+            const editableElements = document.querySelectorAll('.editable-news');
+
+            editableElements.forEach(element => {
+                element.contentEditable = false;
+                element.classList.remove('editable');
+            });
+
+            localStorage.removeItem('adminLoggedIn');
+            showNotification('編集モードを無効にしました', 'info');
+        }
+
+        // Auto-save on blur
+        document.addEventListener('blur', async (e) => {
+            if (e.target.classList.contains('editable-news')) {
+                const article = e.target.closest('.news-item');
+                const id = article.dataset.id;
+                const field = e.target.dataset.field;
+                const content = e.target.innerHTML;
+
+                await saveNews(id, field, content);
+            }
+        }, true);
+
+        // Save news to database
+        async function saveNews(id, field, content) {
+            try {
+                // Update the news item
+                const { data, error } = await window.supabaseConfig.newsAPI.updateNews(id, { [field]: content });
+
+                if (error) {
+                    console.error('Error saving news:', error);
+                    showNotification('保存に失敗しました', 'error');
+                    return;
+                }
+
+                showNotification('保存しました', 'success');
+            } catch (error) {
+                console.error('Error:', error);
+                showNotification('保存に失敗しました', 'error');
+            }
+        }
+
+        // Show admin login
+        function showAdminLogin() {
+            const email = prompt('管理者メールアドレス:');
+            if (!email) return;
+
+            const password = prompt('管理者パスワード:');
+            if (!password) return;
+
+            // Simulate login - in real implementation, use Supabase Auth
+            // For demo purposes, we'll use a simple check
+            if (email === 'admin@forestsoft.jp' && password === 'admin123') {
+                localStorage.setItem('adminLoggedIn', 'true');
+                enableEditMode();
+                showNotification('ログインしました', 'success');
+            } else {
+                showNotification('ログインに失敗しました', 'error');
+            }
+        }
+
+        // Show notification
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.textContent = message;
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                padding: 15px 20px;
+                background: ${type === 'success' ? '#4CAF50' : type === 'error' ? '#f44336' : '#2196F3'};
+                color: white;
+                border-radius: 5px;
+                z-index: 10000;
+                animation: slideIn 0.3s ease;
+            `;
+
+            document.body.appendChild(notification);
+
+            setTimeout(() => {
+                notification.style.animation = 'slideOut 0.3s ease';
+                setTimeout(() => notification.remove(), 300);
+            }, 2000);
+        }
+
+        // Add CSS for edit mode
+        const style = document.createElement('style');
+        style.textContent = `
+            .editable-news {
+                cursor: text;
+                transition: all 0.3s ease;
+            }
+
+            .editable-news:hover {
+                border: 1px dashed rgba(255, 255, 255, 0.5);
+                padding: 5px;
+                border-radius: 3px;
+            }
+
+            @keyframes slideIn {
+                from {
+                    transform: translateX(100%);
+                    opacity: 0;
+                }
+                to {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+            }
+
+            @keyframes slideOut {
+                from {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+                to {
+                    transform: translateX(100%);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Add logout functionality (Ctrl+Shift+Q)
+        document.addEventListener('keydown', (e) => {
+            if (e.ctrlKey && e.shiftKey && e.key === 'Q' && localStorage.getItem('adminLoggedIn') === 'true') {
+                if (confirm('ログアウトしますか？')) {
+                    disableEditMode();
+                }
+            }
         });
     </script>
 </body>
