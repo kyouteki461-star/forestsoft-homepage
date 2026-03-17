@@ -5,294 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="https://www.forestsoft.jp/favicon.ico">
     <title>ニュース - フォレストソフト株式会社</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: "Noto Sans JP", "Hiragino Kaku Gothic ProN", "Meiryo", "MS Gothic", sans-serif;
-            line-height: 1.7;
-            color: #333;
-            background: #fff;
-            font-size: 15px;
-        }
-
-        :root {
-            --primary: #4a9c7d;
-            --primary-dark: #2d6a4f;
-            --secondary: #6bc4a0;
-            --accent: #e8f7f0;
-            --text: #333333;
-            --text-light: #666666;
-            --bg-light: #f5f5f5;
-            --white: #ffffff;
-            --border: #e0e0e0;
-        }
-
-        /* Header */
-        .header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            background: #fff;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
-            z-index: 1000;
-        }
-
-        .header-inner {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 15px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            text-decoration: none;
-        }
-
-        .logo img {
-            height: 50px;
-            width: auto;
-        }
-
-        .nav {
-            display: flex;
-            list-style: none;
-            gap: 25px;
-        }
-
-        .nav a {
-            color: var(--text);
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 14px;
-            transition: color 0.3s ease;
-        }
-
-        .nav a:hover, .nav a.active {
-            color: var(--primary);
-        }
-
-        .menu-toggle {
-            display: none;
-            flex-direction: column;
-            gap: 5px;
-            cursor: pointer;
-            width: 30px;
-        }
-
-        .menu-toggle span {
-            width: 100%;
-            height: 3px;
-            background: var(--primary);
-            transition: all 0.3s ease;
-        }
-
-        /* Main Content */
-        .main {
-            padding-top: 100px;
-            min-height: 100vh;
-        }
-
-        .page-header {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: #fff;
-            padding: 60px 20px;
-            text-align: center;
-        }
-
-        .page-header h1 {
-            font-size: 32px;
-            margin-bottom: 10px;
-        }
-
-        .page-header p {
-            opacity: 0.9;
-            font-size: 14px;
-        }
-
-        .content {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 60px 20px;
-        }
-
-        /* News List */
-        .news-list {
-            display: flex;
-            flex-direction: column;
-            gap: 25px;
-        }
-
-        .news-item {
-            background: #fff;
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 30px;
-            transition: all 0.3s ease;
-        }
-
-        .news-item:hover {
-            transform: translateX(10px);
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-        }
-
-        .news-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 15px;
-            padding-bottom: 15px;
-            border-bottom: 2px solid var(--accent);
-        }
-
-        .news-date {
-            background: var(--accent);
-            color: var(--primary-dark);
-            padding: 8px 16px;
-            border-radius: 6px;
-            font-size: 14px;
-            font-weight: 600;
-            white-space: nowrap;
-        }
-
-        .news-title {
-            font-size: 22px;
-            color: var(--primary-dark);
-            font-weight: 700;
-            flex: 1;
-            padding-left: 20px;
-        }
-
-        .news-description {
-            color: var(--text-light);
-            line-height: 1.9;
-        }
-
-        .news-description p {
-            margin-bottom: 12px;
-        }
-
-        /* Footer */
-        .footer {
-            background: var(--primary-dark);
-            color: #fff;
-            padding: 50px 20px 20px;
-        }
-
-        .footer-inner {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
-            gap: 40px;
-            padding-bottom: 30px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .footer-brand h3 {
-            font-size: 20px;
-            margin-bottom: 15px;
-        }
-
-        .footer-brand p {
-            opacity: 0.8;
-            font-size: 13px;
-            line-height: 1.8;
-        }
-
-        .footer-nav h4 {
-            margin-bottom: 15px;
-            font-size: 14px;
-            font-weight: 600;
-        }
-
-        .footer-nav ul {
-            list-style: none;
-        }
-
-        .footer-nav li {
-            margin-bottom: 10px;
-        }
-
-        .footer-nav a {
-            color: rgba(255, 255, 255, 0.7);
-            text-decoration: none;
-            font-size: 13px;
-            transition: color 0.3s ease;
-        }
-
-        .footer-nav a:hover {
-            color: #fff;
-        }
-
-        .footer-bottom {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding-top: 20px;
-            text-align: center;
-            opacity: 0.6;
-            font-size: 12px;
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .nav {
-                display: none;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                right: 0;
-                background: #fff;
-                flex-direction: column;
-                padding: 20px;
-                box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-            }
-
-            .nav.active {
-                display: flex;
-            }
-
-            .menu-toggle {
-                display: flex;
-            }
-
-            .news-header {
-                flex-direction: column;
-                gap: 10px;
-            }
-
-            .footer-inner {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .page-header h1 {
-                font-size: 24px;
-            }
-
-            .news-title {
-                font-size: 18px;
-            }
-
-            .news-date {
-                font-size: 12px;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
+    <!-- Supabase SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.7"></script>
+    <script src="js/supabase-config.js"></script>
+    <script src="js/check-database.js"></script>
+    <script src="js/footer-loader.js"></script>
 </head>
 <body>
     <!-- Header -->
@@ -327,7 +45,7 @@
         </div>
 
         <div class="content">
-            <div class="news-list">
+            <div class="news-list" id="newsList">
                 <!-- News 1 -->
                 <article class="news-item">
                     <div class="news-header">
@@ -361,7 +79,7 @@
                     <div class="news-description">
                         <p>当社は、経営革新計画の承認を受けました。東京都より中小企業経営革新計画の承認企業として選定されましたのであり、今後もさらなる経営の充実と事業の拡大に努めてまいります。</p>
                         <p>詳細は以下のURLをご覧ください。</p>
-                        <p style="color: var(--primary);">https://www.metro.tokyo.lg.jp/management/innovation/2022/</p>
+                        <p style="color: var(--primary); font-weight: 500;">https://www.metro.tokyo.lg.jp/management/innovation/2022/</p>
                     </div>
                 </article>
 
@@ -419,17 +137,22 @@
     </main>
 
     <!-- Footer -->
-    <footer id="footer"></footer>
+    <div id="footer"></div>
+
+    <!-- Admin panel -->
+    <div id="adminPanel" style="display: none; position: fixed; bottom: 20px; right: 20px; background: white; padding: 15px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); z-index: 9998;">
+        <h4 style="margin: 0 0 10px 0; color: #333;">管理パネル</h4>
+        <button id="initData" style="margin: 5px; padding: 8px 15px; background: #4CAF50; color: white; border: none; border-radius: 4px; cursor: pointer;">初期化データ挿入</button>
+        <button id="toggleEdit" style="margin: 5px; padding: 8px 15px; background: #2196F3; color: white; border: none; border-radius: 4px; cursor: pointer;">編集モード</button>
+    </div>
+
+    <!-- Hidden admin link -->
+    <div style="position: fixed; bottom: 10px; right: 10px; z-index: 9999;">
+        <a href="#" id="adminLink" style="color: transparent; text-decoration: none; font-size: 0;">管理</a>
+    </div>
 
     <script>
-        // Load footer from external file
-        fetch('footer.html')
-            .then(response => response.text())
-            .then(html => {
-                document.getElementById('footer').outerHTML = html;
-            })
-            .catch(error => console.error('Error loading footer:', error));
-
+        // Menu toggle functionality
         const menuToggle = document.getElementById('menuToggle');
         const nav = document.getElementById('nav');
 
@@ -441,6 +164,371 @@
             link.addEventListener('click', () => {
                 nav.classList.remove('active');
             });
+        });
+
+        // Initialize news management system
+        document.addEventListener('DOMContentLoaded', async () => {
+            // Check for admin login
+            const isLoggedIn = localStorage.getItem('adminLoggedIn') === 'true';
+            const savedUser = localStorage.getItem('adminUser');
+
+            if (isLoggedIn && savedUser) {
+                enableEditMode();
+                document.getElementById('adminPanel').style.display = 'block';
+            }
+
+            // Initialize database check
+            if (window.checkDatabase) {
+                await window.checkDatabase();
+            }
+
+            // Load news from Supabase
+            await loadNews();
+
+            // Add multiple ways to trigger admin login
+
+            // Method 1: Double-click anywhere on the page
+            let lastClickTime = 0;
+            document.addEventListener('click', (e) => {
+                const currentTime = Date.now();
+                if (currentTime - lastClickTime < 300 && !isLoggedIn) {
+                    // Double-click detected
+                    showAdminLogin();
+                }
+                lastClickTime = currentTime;
+            });
+
+            // Method 2: Hidden admin link (click 3 times quickly)
+            let clickCount = 0;
+            document.getElementById('adminLink').addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                clickCount++;
+
+                if (clickCount === 3 && !isLoggedIn) {
+                    showAdminLogin();
+                    clickCount = 0;
+                } else if (clickCount > 0) {
+                    setTimeout(() => {
+                        clickCount = 0;
+                    }, 1000);
+                }
+            });
+
+            // Method 3: Keyboard shortcut (Ctrl+Shift+A - less likely to conflict)
+            document.addEventListener('keydown', (e) => {
+                if (e.ctrlKey && e.shiftKey && e.key === 'A') {
+                    e.preventDefault();
+                    if (!isLoggedIn) {
+                        showAdminLogin();
+                    }
+                }
+            });
+
+            // Handle admin panel buttons
+            document.getElementById('initData').onclick = () => {
+                // Load and run the initialization script
+                const script = document.createElement('script');
+                script.src = 'js/init-news-data.js';
+                document.head.appendChild(script);
+            };
+
+            document.getElementById('toggleEdit').onclick = () => {
+                if (isLoggedIn) {
+                    disableEditMode();
+                } else {
+                    showAdminLogin();
+                }
+            };
+        });
+
+        // Load news from Supabase
+        async function loadNews() {
+            try {
+                const { data: news, error } = await window.supabaseConfig.newsAPI.fetchAllNews();
+
+                if (error) {
+                    if (error.code === 'PGRST116') {
+                        // Table doesn't exist
+                        console.log('News table does not exist. Please create it first.');
+                        showNotification('データベーステーブルが存在しません。管理者パネルで初期化してください。', 'error');
+                        return;
+                    } else {
+                        console.error('Error loading news:', error);
+                        showNotification('ニュースの読み込みに失敗しました', 'error');
+                        return;
+                    }
+                }
+
+                const newsList = document.getElementById('newsList');
+                newsList.innerHTML = '';
+
+                if (!news || news.length === 0) {
+                    newsList.innerHTML = '<p style="text-align: center; color: #666;">ニュースがありません。</p>';
+                    return;
+                }
+
+                news.forEach(item => {
+                    const newsItem = createNewsElement(item);
+                    newsList.appendChild(newsItem);
+                });
+            } catch (error) {
+                console.error('Error:', error);
+                showNotification('エラーが発生しました', 'error');
+            }
+        }
+
+        // Create news element
+        function createNewsElement(item) {
+            const article = document.createElement('article');
+            article.className = 'news-item';
+            article.dataset.id = item.id;
+
+            article.innerHTML = `
+                <div class="news-header">
+                    <span class="news-date editable-news" data-field="date">${item.date || ''}</span>
+                    <h2 class="news-title editable-news" data-field="title">${item.title || ''}</h2>
+                </div>
+                <div class="news-description">
+                    <div class="editable-news" data-field="content">${item.content || ''}</div>
+                </div>
+            `;
+
+            return article;
+        }
+
+        // Enable edit mode for admin
+        function enableEditMode() {
+            const editableElements = document.querySelectorAll('.editable-news');
+
+            editableElements.forEach(element => {
+                element.contentEditable = true;
+                element.classList.add('editable');
+            });
+
+            // Add save indicator
+            showNotification('編集モードが有効になりました', 'info');
+        }
+
+        // Disable edit mode
+        function disableEditMode() {
+            const editableElements = document.querySelectorAll('.editable-news');
+
+            editableElements.forEach(element => {
+                element.contentEditable = false;
+                element.classList.remove('editable');
+            });
+
+            localStorage.removeItem('adminLoggedIn');
+            localStorage.removeItem('adminUser');
+            showNotification('編集モードを無効にしました', 'info');
+        }
+
+        // Auto-save on blur
+        document.addEventListener('blur', async (e) => {
+            if (e.target.classList.contains('editable-news')) {
+                const article = e.target.closest('.news-item');
+                const id = article.dataset.id;
+                const field = e.target.dataset.field;
+                const content = e.target.innerHTML;
+
+                await saveNews(id, field, content);
+            }
+        }, true);
+
+        // Save news to database
+        async function saveNews(id, field, content) {
+            try {
+                // Update the news item
+                const { data, error } = await window.supabaseConfig.newsAPI.updateNews(id, { [field]: content });
+
+                if (error) {
+                    console.error('Error saving news:', error);
+                    showNotification('保存に失敗しました', 'error');
+                    return;
+                }
+
+                showNotification('保存しました', 'success');
+            } catch (error) {
+                console.error('Error:', error);
+                showNotification('保存に失敗しました', 'error');
+            }
+        }
+
+        // Show admin login
+        function showAdminLogin() {
+            // Create a modal dialog instead of using prompt
+            const modal = document.createElement('div');
+            modal.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.5);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                z-index: 10000;
+            `;
+
+            const form = document.createElement('div');
+            form.style.cssText = `
+                background: white;
+                padding: 30px;
+                border-radius: 10px;
+                box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+                width: 300px;
+            `;
+
+            form.innerHTML = `
+                <h3 style="margin-top: 0; color: #333;">管理者ログイン</h3>
+                <input type="email" id="adminEmail" placeholder="メールアドレス" style="width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ddd; border-radius: 5px;">
+                <input type="password" id="adminPassword" placeholder="パスワード" style="width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ddd; border-radius: 5px;">
+                <div style="display: flex; gap: 10px; justify-content: flex-end;">
+                    <button id="cancelLogin" style="padding: 10px 20px; border: 1px solid #ddd; background: #f5f5f5; border-radius: 5px; cursor: pointer;">キャンセル</button>
+                    <button id="submitLogin" style="padding: 10px 20px; border: none; background: #4CAF50; color: white; border-radius: 5px; cursor: pointer;">ログイン</button>
+                </div>
+            `;
+
+            modal.appendChild(form);
+            document.body.appendChild(modal);
+
+            // Focus on email input
+            document.getElementById('adminEmail').focus();
+
+            // Handle form submission
+            document.getElementById('submitLogin').onclick = async () => {
+                const email = document.getElementById('adminEmail').value;
+                const password = document.getElementById('adminPassword').value;
+
+                if (!email || !password) {
+                    showNotification('メールアドレスとパスワードを入力してください', 'error');
+                    return;
+                }
+
+                try {
+                    // Try Supabase auth first, fallback to demo credentials
+                    let user;
+                    if (window.supabaseConfig && window.supabaseConfig.supabase) {
+                        const { data, error } = await window.supabaseConfig.supabase.auth.signInWithPassword({
+                            email,
+                            password,
+                        });
+
+                        if (!error && data.user) {
+                            user = data.user;
+                        } else {
+                            // Fallback to demo credentials
+                            if (email === 'admin@forestsoft.jp' && password === 'admin123') {
+                                user = { id: 'demo-admin', email: 'admin@forestsoft.jp' };
+                            }
+                        }
+                    } else {
+                        // Fallback to demo credentials
+                        if (email === 'admin@forestsoft.jp' && password === 'admin123') {
+                            user = { id: 'demo-admin', email: 'admin@forestsoft.jp' };
+                        }
+                    }
+
+                    if (user) {
+                        localStorage.setItem('adminLoggedIn', 'true');
+                        localStorage.setItem('adminUser', JSON.stringify(user));
+                        modal.remove();
+                        enableEditMode();
+                        showNotification('ログインしました', 'success');
+                    } else {
+                        showNotification('ログインに失敗しました', 'error');
+                    }
+                } catch (error) {
+                    console.error('Login error:', error);
+                    showNotification('ログインに失敗しました', 'error');
+                }
+            };
+
+            // Handle cancellation
+            document.getElementById('cancelLogin').onclick = () => {
+                modal.remove();
+            };
+
+            // Close on outside click
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.remove();
+                }
+            });
+        }
+
+        // Show notification
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.textContent = message;
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                padding: 15px 20px;
+                background: ${type === 'success' ? '#4CAF50' : type === 'error' ? '#f44336' : '#2196F3'};
+                color: white;
+                border-radius: 5px;
+                z-index: 10000;
+                animation: slideIn 0.3s ease;
+            `;
+
+            document.body.appendChild(notification);
+
+            setTimeout(() => {
+                notification.style.animation = 'slideOut 0.3s ease';
+                setTimeout(() => notification.remove(), 300);
+            }, 2000);
+        }
+
+        // Add CSS for edit mode
+        const style = document.createElement('style');
+        style.textContent = `
+            .editable-news {
+                cursor: text;
+                transition: all 0.3s ease;
+            }
+
+            .editable-news:hover {
+                border: 1px dashed rgba(255, 255, 255, 0.5);
+                padding: 5px;
+                border-radius: 3px;
+            }
+
+            @keyframes slideIn {
+                from {
+                    transform: translateX(100%);
+                    opacity: 0;
+                }
+                to {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+            }
+
+            @keyframes slideOut {
+                from {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+                to {
+                    transform: translateX(100%);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Add logout functionality (Ctrl+Shift+X)
+        document.addEventListener('keydown', (e) => {
+            if (e.ctrlKey && e.shiftKey && e.key === 'X' && localStorage.getItem('adminLoggedIn') === 'true') {
+                if (confirm('ログアウトしますか？')) {
+                    disableEditMode();
+                }
+            }
         });
     </script>
 </body>

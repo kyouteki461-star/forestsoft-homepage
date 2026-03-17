@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CORS Fix Solutions</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .solution {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin: 20px 0;
+        }
+        .solution h2 {
+            color: #2196F3;
+            margin-top: 0;
+        }
+        .code {
+            background: #f5f5f5;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+        }
+        .btn {
+            padding: 10px 20px;
+            margin: 10px 5px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .btn-primary {
+            background: #4CAF50;
+            color: white;
+        }
+        .btn-secondary {
+            background: #2196F3;
+            color: white;
+        }
+        .warning {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+        .success {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Supabase CORS Error Solutions</h1>
+
+    <div class="warning">
+        <strong>重要:</strong> CORS (Cross-Origin Resource Sharing) は、ブラウザセキュリティ機能です。ローカルファイルから直接APIにアクセスすることはできません。以下のいずれかの方法で解決してください。
+    </div>
+
+    <div class="solution">
+        <h2>方法1: ローカルサーバーを起動する (推奨)</h2>
+        <p>最も安全で推奨される方法です。Node.jsのhttp-serverを使います。</p>
+
+        <div class="code">
+            # npmをインストールしていない場合
+            npm install -g http-server
+
+            # このHTMLファイルがあるディレクトリで
+            cd /path/to/your/files
+            http-server -p 8080
+
+            # ブラウザで http://localhost:8080 にアクセス
+        </div>
+
+        <p><strong>利点:</strong></p>
+        <ul>
+            <li>CORSエラーなし</li>
+            <li>HTTPS対応可能</li>
+            <li>本番環境と同じ動作</li>
+        </ul>
+    </div>
+
+    <div class="solution">
+        <h2>方法2: VS Code Live Server拡張機能を使用</h2>
+        <p>VS Codeの拡張機能を使ってローカルサーバーを起動します。</p>
+
+        <div class="code">
+            # 1. VS Codeで Ctrl+Shift+X で拡張機能を開く
+            # 2. "Live Server" を検索してインストール
+            # 3. HTMLファイルを右クリック → "Open with Live Server"
+            # 4. ブラウザが自動的に開く
+        </div>
+    </div>
+
+    <div class="solution">
+        <h2>方法3: Pythonでローカルサーバー</h2>
+        <p>Pythonがインストールされている場合。</p>
+
+        <div class="code">
+            # Python 3
+            python -m http.server 8080
+
+            # Python 2
+            python -m SimpleHTTPServer 8080
+
+            # ブラウザで http://localhost:8080 にアクセス
+        </div>
+    </div>
+
+    <div class="solution">
+        <h2>方法4: PHPでローカルサーバー</h2>
+        <p>PHPがインストールされている場合。</p>
+
+        <div class="code">
+            # PHP内蔵のWebサーバー
+            php -S localhost:8080
+
+            # ブラウザで http://localhost:8080 にアクセス
+        </div>
+    </div>
+
+    <div class="solution">
+        <h2>方法5: Supabase CORS設定を変更 (開発用)</h2>
+        <p>SupabaseプロジェクトのCORS設定を変更できますが、セキュリティリスクがあります。</p>
+
+        <ol>
+            <li>Supabase Dashboardにログイン</li>
+            <li>プロジェクト設定 → API → Configuration</li>
+            <li>CORS originsに以下を追加:
+                <div class="code">
+                    http://localhost:8080
+                    https://*.github.io
+                    file:///*
+                </div>
+            </li>
+        </ol>
+
+        <div class="warning">
+            <strong>警告:</strong> file:///* を許可すると、すべてのローカルファイルからアクセスできるようになり、セキュリティ上のリスクがあります。開発環境のみで使用してください。
+        </div>
+    </div>
+
+    <div class="solution">
+        <h2>方法6: プロキシサーバーを使用</h2>
+        <p>ローカルプロキシサーバーを作成してCORSを回避します。</p>
+
+        <div class="code">
+            # proxy-server.js
+            const express = require('express');
+            const { createProxyMiddleware } = require('http-proxy-middleware');
+
+            const app = express();
+
+            app.use('/supabase', createProxyMiddleware({
+                target: 'https://huatolfthmihcpzjpyipd.supabase.co',
+                changeOrigin: true,
+                pathRewrite: { '^/supabase': '' }
+            }));
+
+            app.listen(3000, () => {
+                console.log('Proxy server running on port 3000');
+            });
+        </div>
+
+        <p>JavaScriptコード内でベースURLを変更:</p>
+        <div class="code">
+            const SUPABASE_URL = 'http://localhost:3000/supabase';
+        </div>
+    </div>
+
+    <div class="success">
+        <h3>おすすめのワークフロー</h3>
+        <ol>
+            <li><strong>開発時:</strong> VS Code Live Server または http-server を使用</li>
+            <li><strong>本番環境:</strong> GitHub Pagesなどのホスティングサービスを使用し、CORS設定を適切に構成</li>
+            <li><strong>長期的なプロジェクト:</strong> ローカル開発環境（Vite, Create React Appなど）を使用</li>
+        </ol>
+    </div>
+
+    <div class="solution">
+        <h2>環境ごとの推奨設定</h2>
+
+        <h4>ローカル開発環境の場合:</h4>
+        <div class="code">
+            # .env
+            SUPABASE_URL=http://localhost:3000/supabase
+            SUPABASE_ANON_KEY=your_anon_key
+        </div>
+
+        <h4>GitHub Pagesの場合:</h4>
+        <div class="code">
+            # Supabase DashboardでCORSに追加
+            https://*.github.io
+            https://kyouteki461-star.github.io
+        </div>
+    </div>
+
+    <h3>デモ用テストページ</h3>
+    <div class="code">
+        <!-- 修正版のHTMLファイル -->
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.7"></script>
+        </head>
+        <body>
+            <script>
+                const SUPABASE_URL = 'https://huatolfthmihcpzjpyipd.supabase.co';
+                const SUPABASE_ANON_KEY = 'sb_publishable_r5e7t2Kjwhs2AVp6fvybpg_FwUCrH8J';
+
+                // ローカルサーバーで実行する場合
+                // const SUPABASE_URL = 'http://localhost:3000/supabase';
+
+                const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+                async function test() {
+                    try {
+                        const { data, error } = await supabase
+                            .from('news')
+                            .select('*')
+                            .limit(1);
+
+                        if (error) {
+                            console.error('Error:', error);
+                        } else {
+                            console.log('Data:', data);
+                        }
+                    } catch (error) {
+                        console.error('Network error:', error);
+                    }
+                }
+
+                test();
+            </script>
+        </body>
+        </html>
+    </div>
+</body>
+</html>

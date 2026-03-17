@@ -5,403 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="https://www.forestsoft.jp/favicon.ico">
     <title>会社情報 - フォレストソフト株式会社</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: "Noto Sans JP", "Hiragino Kaku Gothic ProN", "Meiryo", "MS Gothic", sans-serif;
-            line-height: 1.7;
-            color: #333;
-            background: #fff;
-            font-size: 15px;
-        }
-
-        :root {
-            --primary: #4a9c7d;
-            --primary-dark: #2d6a4f;
-            --secondary: #6bc4a0;
-            --accent: #e8f7f0;
-            --text: #333333;
-            --text-light: #666666;
-            --bg-light: #f5f5f5;
-            --white: #ffffff;
-            --border: #e0e0e0;
-        }
-
-        /* Header */
-        .header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            background: #fff;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
-            z-index: 1000;
-        }
-
-        .header-inner {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 15px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            text-decoration: none;
-        }
-
-        .logo img {
-            height: 50px;
-            width: auto;
-        }
-
-        .nav {
-            display: flex;
-            list-style: none;
-            gap: 25px;
-        }
-
-        .nav a {
-            color: var(--text);
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 14px;
-            transition: color 0.3s ease;
-        }
-
-        .nav a:hover, .nav a.active {
-            color: var(--primary);
-        }
-
-        .menu-toggle {
-            display: none;
-            flex-direction: column;
-            gap: 5px;
-            cursor: pointer;
-            width: 30px;
-        }
-
-        .menu-toggle span {
-            width: 100%;
-            height: 3px;
-            background: var(--primary);
-            transition: all 0.3s ease;
-        }
-
-        /* Main Content */
-        .main {
-            padding-top: 100px;
-            min-height: 100vh;
-        }
-
-        .page-header {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: #fff;
-            padding: 60px 20px;
-            text-align: center;
-        }
-
-        .page-header h1 {
-            font-size: 32px;
-            margin-bottom: 10px;
-        }
-
-        .page-header p {
-            opacity: 0.9;
-            font-size: 14px;
-        }
-
-        .content {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 60px 20px;
-        }
-
-        .section {
-            margin-bottom: 60px;
-        }
-
-        .section h2 {
-            font-size: 24px;
-            color: var(--primary-dark);
-            margin-bottom: 30px;
-            text-align: center;
-            font-weight: 700;
-            padding-bottom: 10px;
-            border-bottom: 3px solid var(--primary);
-        }
-
-        .section p {
-            color: var(--text-light);
-            line-height: 2;
-            margin-bottom: 20px;
-        }
-
-        /* Company Info Styles */
-        .company-info-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 30px;
-        }
-
-        .info-block {
-            background: #fff;
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            padding: 30px;
-            margin-bottom: 20px;
-        }
-
-        .info-block h3 {
-            font-size: 20px;
-            color: var(--primary-dark);
-            margin-bottom: 20px;
-            font-weight: 600;
-        }
-
-        .info-block p {
-            color: var(--text-light);
-            line-height: 1.8;
-            margin-bottom: 15px;
-        }
-
-        .info-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 10px;
-        }
-
-        .info-table th,
-        .info-table td {
-            padding: 12px 15px;
-            text-align: left;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .info-table th {
-            background: var(--bg-light);
-            color: var(--primary-dark);
-            font-weight: 600;
-            width: 40%;
-        }
-
-        .info-table td {
-            color: var(--text-light);
-        }
-
-        .clients-list p {
-            color: var(--text-light);
-            line-height: 2;
-        }
-
-        .access-info {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 20px;
-        }
-
-        .access-item {
-            background: var(--bg-light);
-            padding: 20px;
-            border-radius: 8px;
-        }
-
-        .access-item h4 {
-            color: var(--primary-dark);
-            font-size: 16px;
-            margin-bottom: 15px;
-        }
-
-        .access-list {
-            list-style: none;
-            margin-bottom: 10px;
-        }
-
-        .access-list li {
-            padding: 8px 0;
-            border-bottom: 1px solid var(--border);
-            color: var(--text-light);
-        }
-
-        .access-list li:last-child {
-            border-bottom: none;
-        }
-
-        .contact-detail {
-            color: var(--text-light);
-            font-size: 14px;
-        }
-
-        .contact-detail .label {
-            font-weight: 600;
-            color: var(--primary-dark);
-        }
-
-        /* Map */
-        .map-container {
-            width: 100%;
-            height: 350px;
-            margin-top: 20px;
-            border-radius: 10px;
-            overflow: hidden;
-        }
-
-        .map-container iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-
-        .bank-list {
-            list-style: none;
-        }
-
-        .bank-list li {
-            padding: 8px 0;
-            border-bottom: 1px solid var(--border);
-            color: var(--text-light);
-        }
-
-        .bank-list li:last-child {
-            border-bottom: none;
-        }
-
-        .licenses {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-        }
-
-        .license-item {
-            background: var(--bg-light);
-            padding: 25px;
-            border-radius: 8px;
-            display: flex;
-            align-items: flex-start;
-            gap: 15px;
-        }
-
-        .license-icon {
-            font-size: 32px;
-        }
-
-        .license-item strong {
-            color: var(--primary-dark);
-            display: block;
-        }
-
-        .license-item p {
-            color: var(--text-light);
-            margin: 0;
-        }
-
-        /* Footer */
-        .footer {
-            background: var(--primary-dark);
-            color: #fff;
-            padding: 50px 20px 20px;
-        }
-
-        .footer-inner {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
-            gap: 40px;
-            padding-bottom: 30px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .footer-brand h3 {
-            font-size: 20px;
-            margin-bottom: 15px;
-        }
-
-        .footer-brand p {
-            opacity: 0.8;
-            font-size: 13px;
-            line-height: 1.8;
-        }
-
-        .footer-nav h4 {
-            margin-bottom: 15px;
-            font-size: 14px;
-            font-weight: 600;
-        }
-
-        .footer-nav ul {
-            list-style: none;
-        }
-
-        .footer-nav li {
-            margin-bottom: 10px;
-        }
-
-        .footer-nav a {
-            color: rgba(255, 255, 255, 0.7);
-            text-decoration: none;
-            font-size: 13px;
-            transition: color 0.3s ease;
-        }
-
-        .footer-nav a:hover {
-            color: #fff;
-        }
-
-        .footer-bottom {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding-top: 20px;
-            text-align: center;
-            opacity: 0.6;
-            font-size: 12px;
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .nav {
-                display: none;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                right: 0;
-                background: #fff;
-                flex-direction: column;
-                padding: 20px;
-                box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-            }
-
-            .nav.active {
-                display: flex;
-            }
-
-            .menu-toggle {
-                display: flex;
-            }
-
-            .company-info-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .page-header h1 {
-                font-size: 24px;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
+    <script src="js/footer-loader.js"></script>
 </head>
 <body>
     <!-- Header -->
@@ -469,7 +74,9 @@
             <!-- Business Description -->
             <section class="section">
                 <h2>事業内容</h2>
-                <p>コンピューターシステム・ソフトウェアの企画、開発、販売、保守および労働者派遣事業</p>
+                <div class="info-block">
+                    <p style="text-align: center; font-size: 16px;">コンピューターシステム・ソフトウェアの企画、開発、販売、保守および労働者派遣事業</p>
+                </div>
             </section>
 
             <!-- Major Clients -->
@@ -489,19 +96,19 @@
                     <table class="info-table">
                         <tr>
                             <th>2022年9月期</th>
-                            <td>96億円</td>
+                            <td>9.6億円</td>
                         </tr>
                         <tr>
                             <th>2023年9月期</th>
-                            <td>118億円</td>
+                            <td>11.8億円</td>
                         </tr>
                         <tr>
                             <th>2024年9月期</th>
-                            <td>105億円</td>
+                            <td>10.5億円</td>
                         </tr>
                         <tr>
                             <th>2025年9月期</th>
-                            <td>121億円</td>
+                            <td>12.1億円</td>
                         </tr>
                     </table>
                 </div>
@@ -568,17 +175,9 @@
     </main>
 
     <!-- Footer -->
-    <footer id="footer"></footer>
+    <div id="footer"></div>
 
     <script>
-        // Load footer from external file
-        fetch('footer.html')
-            .then(response => response.text())
-            .then(html => {
-                document.getElementById('footer').outerHTML = html;
-            })
-            .catch(error => console.error('Error loading footer:', error));
-
         const menuToggle = document.getElementById('menuToggle');
         const nav = document.getElementById('nav');
 

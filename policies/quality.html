@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="https://www.forestsoft.jp/favicon.ico">
+    <title>品質方針 - フォレストソフト株式会社</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-inner">
+            <a href="../index.html" class="logo">
+                <img src="https://www.forestsoft.jp/web/images/logo-black.png" alt="ForestSoft Logo" onerror="this.style.display='none'">
+            </a>
+            <ul class="nav" id="nav">
+                <li><a href="../capacity.html" class="active">資格情報</a></li>
+                <li><a href="../index.html">ホーム</a></li>
+                <li><a href="../about.html">企業紹介</a></li>
+                <li><a href="../news.html">ニュース</a></li>
+            </ul>
+            <div class="menu-toggle" id="menuToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+        <div class="page-header">
+            <h1>品質方針</h1>
+            <p>Quality Policy</p>
+        </div>
+
+        <div class="content">
+            <div class="section-title">
+                <h2>🎯 品質方針</h2>
+            </div>
+
+            <div class="content-block">
+                <h3>理念</h3>
+                <p>フォレストソフト株式会社は、お客様の要求事項を満たす高品質な技術力・サービス提供のできるソフトウェアハウスを目指す。</p>
+            </div>
+
+            <div class="content-block">
+                <h3>方針</h3>
+                <ul>
+                    <li>品質マネジメントを全社的に理解・共有することで、事業の継続的改善に努める。</li>
+                    <li>品質目標を策定・見直し、定期的に再評価を行う。</li>
+                    <li>お客様からの信頼を第一に考え、誠実に行動する。</li>
+                    <li>法令・規制その他の社会的基準及びお客様の要求事項を遵守する。</li>
+                </ul>
+            </div>
+
+            <div class="content-block">
+                <div class="contact-box">
+                    <h4>制定日</h4>
+                    <p>2015年11月1日</p>
+                    <p style="margin-top: 15px; margin-bottom: 0;">制定者：フォレストソフト株式会社</p>
+                    <p>代表取締役社長　朱傑</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-inner">
+            <div class="footer-brand">
+                <h3>🌲 フォレストソフト株式会社</h3>
+                <p>革新技術で世の中を動かす企業を目指します。<br>地域社会との調和・貢献に努めます。</p>
+            </div>
+            <div class="footer-nav">
+                <h4>会社情報</h4>
+                <ul>
+                    <li><a href="../about.html">企業紹介</a></li>
+                    <li><a href="../company.html">会社情報</a></li>
+                    <li><a href="../recruit.html">採用情報</a></li>
+                    <li><a href="../news.html">ニュース</a></li>
+                </ul>
+            </div>
+            <div class="footer-nav">
+                <h4>事業内容</h4>
+                <ul>
+                    <li><a href="../index.html#business">FMSサービス事業</a></li>
+                    <li><a href="../index.html#business">労働者派遣事業</a></li>
+                    <li><a href="../partner.html">ビジネスパートナー</a></li>
+                    <li><a href="../business.html">開発事例</a></li>
+                </ul>
+            </div>
+            <div class="footer-nav">
+                <h4>ポリシー・資料</h4>
+                <ul>
+                    <li><a href="../capacity.html">個人情報保護方針</a></li>
+                    <li><a href="../capacity.html">情報セキュリティ方針</a></li>
+                    <li><a href="../capacity.html">個人情報の取り扱い</a></li>
+                    <li><a href="../capacity.html">労働者派遣事業許可</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>Copyright(c) 2019 ForestSoft Co., Ltd. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        const menuToggle = document.getElementById('menuToggle');
+        const nav = document.getElementById('nav');
+
+        menuToggle.addEventListener('click', () => {
+            nav.classList.toggle('active');
+        });
+
+        document.querySelectorAll('.nav a').forEach(link => {
+            link.addEventListener('click', () => {
+                nav.classList.remove('active');
+            });
+        });
+    </script>
+</body>
+</html>

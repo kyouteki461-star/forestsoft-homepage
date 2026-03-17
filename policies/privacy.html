@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="https://www.forestsoft.jp/favicon.ico">
+    <title>プライバシーポリシー - フォレストソフト株式会社</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-inner">
+            <a href="../index.html" class="logo">
+                <img src="https://www.forestsoft.jp/web/images/logo-black.png" alt="ForestSoft Logo" onerror="this.style.display='none'">
+            </a>
+            <ul class="nav">
+                <li><a href="../capacity.html" class="active">資格情報</a></li>
+                <li><a href="../index.html">ホーム</a></li>
+                <li><a href="../about.html">企業紹介</a></li>
+                <li><a href="../news.html">ニュース</a></li>
+            </ul>
+            <div class="menu-toggle" id="menuToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+        <div class="page-header">
+            <h1>プライバシーポリシー</h1>
+            <p>Privacy Policy</p>
+        </div>
+
+        <div class="content">
+            <div class="section-title">
+                <h2>🔒 プライバシーポリシー</h2>
+            </div>
+
+            <div class="content-block">
+                <h3>個人情報の取得、利用及び提供に関して</h3>
+
+                <p>フォレストソフト株式会社は、IT関連サービスの事業活動を行っています。個人情報は重要な情報であり、その保護は重要な社会的責任と認識しております。</p>
+
+                <ul>
+                    <li>適法、公正な手段で個人情報を取得</li>
+                    <li>利用目的の達成に必要な範囲内で利用</li>
+                    <li>第三者提供は事前に本人の同意を取る</li>
+                </ul>
+
+                <h4>法令等に関して</h4>
+                <p>関連する法令等を常に把握し、周知・遵守いたします。</p>
+
+                <ul>
+                    <li>不正アクセス、漏えい等のリスクを防止する体制を構築</li>
+                    <li>継続いたします。</li>
+                </ul>
+
+                <div class="contact-box">
+                    <h4>苦情・相談に関して</h4>
+                    <p>個人情報問合せ窓口を設け、迅速な対応が可能な体制を構築します。</p>
+                </div>
+
+                <h4>継続的改善に関して</h4>
+                <p>個人情報保護マネジメントシステムの継続的改善に努めます。</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-inner">
+            <div class="footer-brand">
+                <h3>🌲 フォレストソフト株式会社</h3>
+                <p>革新技術で世の中を動かす企業を目指します。<br>地域社会との調和・貢献に努めます。</p>
+            </div>
+            <div class="footer-nav">
+                <h4>会社情報</h4>
+                <ul>
+                    <li><a href="../about.html">企業紹介</a></li>
+                    <li><a href="../company.html">会社情報</a></li>
+                    <li><a href="../recruit.html">採用情報</a></li>
+                    <li><a href="../news.html">ニュース</a></li>
+                </ul>
+            </div>
+            <div class="footer-nav">
+                <h4>事業内容</h4>
+                <ul>
+                    <li><a href="../index.html#business">FMSサービス事業</a></li>
+                    <li><a href="../index.html#business">労働者派遣事業</a></li>
+                    <li><a href="../partner.html">ビジネスパートナー</a></li>
+                    <li><a href="../business.html">開発事例</a></li>
+                </ul>
+            </div>
+            <div class="footer-nav">
+                <h4>ポリシー・資料</h4>
+                <ul>
+                    <li><a href="../capacity.html">個人情報保護方針</a></li>
+                    <li><a href="../capacity.html">情報セキュリティ方針</a></li>
+                    <li><a href="../capacity.html">個人情報の取り扱い</a></li>
+                    <li><a href="../capacity.html">労働者派遣事業許可</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>Copyright(c) 2019 ForestSoft Co., Ltd. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        const menuToggle = document.getElementById('menuToggle');
+        const nav = document.querySelector('.nav');
+
+        menuToggle.addEventListener('click', () => {
+            nav.classList.toggle('active');
+        });
+
+        document.querySelectorAll('.nav a').forEach(link => {
+            link.addEventListener('click', () => {
+                nav.classList.remove('active');
+            });
+        });
+    </script>
+</body>
+</html>
