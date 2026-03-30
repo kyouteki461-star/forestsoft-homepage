@@ -2212,6 +2212,18 @@ body::after {
     }
 }
 
+/* Hide admin links by default */
+.footer-nav li a[href^="https://pleasanter.forestsoft.jp"],
+.footer-nav li a[href^="https://www.forestsoft.jp/roundcube"] {
+    display: none;
+}
+
+/* Show admin links when logged in */
+.footer-nav.admin-visible li a[href^="https://pleasanter.forestsoft.jp"],
+.footer-nav.admin-visible li a[href^="https://www.forestsoft.jp/roundcube"] {
+    display: inline-block;
+}
+
 /* Footer Navigation Styling */
 .footer-nav ul {
     list-style: none;
