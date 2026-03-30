@@ -12,7 +12,6 @@
 
     let tapCount = 0;
     let tapTimer = null;
-    let isTripleTapMode = false;
 
     // Initialize after DOM is ready
     function init() {
@@ -28,15 +27,15 @@
 
         // Add click listeners for triple tap (only on mobile)
         if (isMobile()) {
-            console.log('Mobile device detected - enabling triple tap');
-            document.addEventListener('click', handleClick, true); // Use capture phase
+            console.log('Mobile device detected - enabling triple tap on empty areas');
+            document.addEventListener('click', handleClick);
         }
 
         // Use event delegation for login form
-        document.addEventListener('submit', handleLoginSubmit, true);
+        document.addEventListener('submit', handleLoginSubmit);
 
-        // Handle click outside to close - use capture phase
-        document.addEventListener('click', handleOutsideClick, true);
+        // Handle click outside to close
+        document.addEventListener('click', handleOutsideClick);
     }
 
     function isMobile() {
@@ -63,12 +62,19 @@
     }
 
     function handleClick(e) {
-        // Skip if clicking on login form or input elements
-        if (e.target.closest('.login-form') || e.target.tagName === 'INPUT' || e.target.tagName === 'BUTTON') {
+        // Skip if clicking on interactive elements
+        if (isInteractiveElement(e.target)) {
+            console.log('Clicked on interactive element - skipping');
+            tapCount = 0; // Reset count when clicking interactive elements
             return;
         }
 
-        console.log('Click detected on:', e.target);
+        // Skip if clicking on login form
+        if (e.target.closest('.login-form')) {
+            return;
+        }
+
+        console.log('Click on empty area - target:', e.target.tagName, e.target.className);
 
         // Triple tap detection
         clearTimeout(tapTimer);
@@ -77,7 +83,7 @@
         console.log('Tap count:', tapCount);
 
         if (tapCount === 3) {
-            console.log('TRIPLE TAP!');
+            console.log('TRIPLE TAP ON EMPTY AREA DETECTED!');
             showLoginForm();
             tapCount = 0;
         } else {
@@ -86,6 +92,44 @@
                 tapCount = 0;
             }, 1000);
         }
+    }
+
+    function isInteractiveElement(element) {
+        // Check if element is a button or link
+        if (element.tagName === 'BUTTON' ||
+            element.tagName === 'A' ||
+            element.tagName === 'INPUT' ||
+            element.tagName === 'SELECT' ||
+            element.tagName === 'TEXTAREA') {
+            return true;
+        }
+
+        // Check if element has clickable attributes
+        if (element.role === 'button' ||
+            element.getAttribute('role') === 'button' ||
+            element.onclick !== null) {
+            return true;
+        }
+
+        // Check if element is inside a navigation menu
+        if (element.closest('nav') ||
+            element.closest('.nav') ||
+            element.closest('.menu')) {
+            return true;
+        }
+
+        // Check common button/link classes
+        const buttonClasses = ['btn', 'button', 'nav-link', 'menu-item', 'clickable'];
+        const hasButtonClass = buttonClasses.some(cls =>
+            element.classList.contains(cls) ||
+            element.closest('.' + cls)
+        );
+
+        if (hasButtonClass) {
+            return true;
+        }
+
+        return false;
     }
 
     function handleOutsideClick(e) {
