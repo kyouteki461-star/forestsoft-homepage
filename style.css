@@ -2326,9 +2326,16 @@ body::after {
     .footer-nav h4 {
         margin-bottom: 10px;
     }
+
+    /* 修复手机版h4横线对齐问题 */
+    .footer-nav h4::after {
+        left: 50%; /* 居中 */
+        transform: translateX(-50%); /* 向左偏移50%实现居中 */
+    }
 }
 }
 
+/* Footer section h4 hover effect - 移到这里避免大括号问题 */
 .footer-nav:hover h4::after {
     width: 60px;
 }
