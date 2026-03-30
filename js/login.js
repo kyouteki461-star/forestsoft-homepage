@@ -25,13 +25,20 @@
         // Add keyboard listeners
         document.addEventListener('keydown', handleKeyPress);
 
-        // Add click listeners for triple tap
-        document.addEventListener('click', handleClick);
+        // Add click listeners for triple tap (only on mobile)
+        if (isMobile()) {
+            document.addEventListener('click', handleClick);
+        }
 
         // Use event delegation for login form
         document.addEventListener('submit', handleLoginSubmit);
 
-        // Note: Removed click outside handler to avoid conflicts
+        // Handle click outside to close
+        document.addEventListener('click', handleOutsideClick);
+    }
+
+    function isMobile() {
+        return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
     }
 
     function handleKeyPress(e) {
@@ -53,6 +60,7 @@
         // Triple tap detection - be more specific about targets
         const validTargets = [
             'BODY',
+            'HTML',
             'MAIN',
             'DIV.main',
             'DIV.content',
@@ -60,29 +68,70 @@
             'DIV.news-list',
             'DIV.hero',
             'DIV.section',
-            'DIV.test-area'
+            'DIV.test-area',
+            'DIV.mission-grid',
+            'DIV.strengths-grid',
+            'DIV.business-list',
+            'DIV.news-item',
+            'DIV.contact-section'
         ];
 
-        const isTargetValid = validTargets.some(selector => {
-            if (selector.startsWith('DIV.')) {
-                return e.target.matches(selector) || e.target.classList.contains(selector.substring(4));
+        let isTargetValid = false;
+
+        // Check if clicking on body
+        if (e.target.tagName === 'BODY' || e.target.tagName === 'HTML') {
+            isTargetValid = true;
+        }
+
+        // Check if clicking on main content areas
+        if (e.target.classList.contains('main') ||
+            e.target.classList.contains('content') ||
+            e.target.classList.contains('page-header') ||
+            e.target.classList.contains('news-list') ||
+            e.target.classList.contains('hero') ||
+            e.target.classList.contains('section')) {
+            isTargetValid = true;
+        }
+
+        // For other div elements, check class
+        if (e.target.tagName === 'DIV') {
+            const hasValidClass = validTargets.some(selector => {
+                if (selector.startsWith('DIV.')) {
+                    return e.target.classList.contains(selector.substring(4));
+                }
+                return false;
+            });
+            if (hasValidClass) {
+                isTargetValid = true;
             }
-            return e.target.tagName === selector;
-        });
+        }
 
         if (isTargetValid) {
+            console.log('Valid tap target, count:', tapCount + 1);
             clearTimeout(tapTimer);
 
             tapCount++;
 
             if (tapCount === 3) {
+                console.log('TRIPLE TAP DETECTED!');
                 showLoginForm();
                 tapCount = 0;
             } else {
                 tapTimer = setTimeout(() => {
+                    console.log('Reset tap count from', tapCount, 'to 0');
                     tapCount = 0;
                 }, 1000);
             }
+        }
+    }
+
+    function handleOutsideClick(e) {
+        const loginOverlay = document.querySelector('.login-overlay');
+        const loginForm = document.querySelector('.login-form');
+
+        // Close if clicking outside the login form
+        if (loginOverlay && loginForm && !loginForm.contains(e.target)) {
+            hideLoginForm();
         }
     }
 
@@ -135,7 +184,7 @@
                 </form>
                 <div style="margin-top: 15px; font-size: 12px; color: #666; text-align: center;">
                     <p>PC: Alt+W 表示 / Alt+S 閉じる</p>
-                    <p>Mobile: 3回タップ</p>
+                    <p>Mobile: 空白エリアを3回タップ</p>
                 </div>
             </div>
         `;

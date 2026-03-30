@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobile Login Test</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+        }
+        .test-area {
+            height: 400px;
+            background: #f0f0f0;
+            margin: 20px 0;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        .login-form {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            z-index: 1000;
+            width: 300px;
+        }
+        #debug {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            background: #333;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 12px;
+            font-family: monospace;
+        }
+    </style>
+</head>
+<body>
+    <h1>Mobile Test - 3 taps to show login</h1>
+
+    <div class="test-area">
+        <p>Tap this area 3 times quickly to show login form</p>
+    </div>
+
+    <div id="loginForm" class="login-form">
+        <h3>Login</h3>
+        <form onsubmit="return false;">
+            <input type="text" placeholder="Username" id="username">
+            <input type="password" placeholder="Password" id="password">
+            <button type="submit">Login</button>
+        </form>
+    </div>
+
+    <div id="debug">
+        Debug:<br>
+        <div id="log"></div>
+    </div>
+
+    <script src="js/login.js"></script>
+</body>
+</html>
