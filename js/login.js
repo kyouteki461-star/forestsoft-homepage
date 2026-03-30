@@ -12,6 +12,7 @@
 
     let tapCount = 0;
     let tapTimer = null;
+    let isTripleTapMode = false;
 
     // Initialize after DOM is ready
     function init() {
@@ -27,101 +28,63 @@
 
         // Add click listeners for triple tap (only on mobile)
         if (isMobile()) {
-            document.addEventListener('click', handleClick);
+            console.log('Mobile device detected - enabling triple tap');
+            document.addEventListener('click', handleClick, true); // Use capture phase
         }
 
         // Use event delegation for login form
-        document.addEventListener('submit', handleLoginSubmit);
+        document.addEventListener('submit', handleLoginSubmit, true);
 
-        // Handle click outside to close
-        document.addEventListener('click', handleOutsideClick);
+        // Handle click outside to close - use capture phase
+        document.addEventListener('click', handleOutsideClick, true);
     }
 
     function isMobile() {
-        return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        console.log('Mobile detection:', isMobile);
+        return isMobile;
     }
 
     function handleKeyPress(e) {
         // Prevent default for Alt+W and Alt+S
-        if (e.altKey && e.key === 'w') {
+        if (e.altKey && e.key.toLowerCase() === 'w') {
             e.preventDefault();
+            console.log('Alt+W pressed');
             showLoginForm();
             return;
         }
 
-        if (e.altKey && e.key === 's') {
+        if (e.altKey && e.key.toLowerCase() === 's') {
             e.preventDefault();
+            console.log('Alt+S pressed');
             hideLoginForm();
             return;
         }
     }
 
     function handleClick(e) {
-        // Triple tap detection - be more specific about targets
-        const validTargets = [
-            'BODY',
-            'HTML',
-            'MAIN',
-            'DIV.main',
-            'DIV.content',
-            'DIV.page-header',
-            'DIV.news-list',
-            'DIV.hero',
-            'DIV.section',
-            'DIV.test-area',
-            'DIV.mission-grid',
-            'DIV.strengths-grid',
-            'DIV.business-list',
-            'DIV.news-item',
-            'DIV.contact-section'
-        ];
-
-        let isTargetValid = false;
-
-        // Check if clicking on body
-        if (e.target.tagName === 'BODY' || e.target.tagName === 'HTML') {
-            isTargetValid = true;
+        // Skip if clicking on login form or input elements
+        if (e.target.closest('.login-form') || e.target.tagName === 'INPUT' || e.target.tagName === 'BUTTON') {
+            return;
         }
 
-        // Check if clicking on main content areas
-        if (e.target.classList.contains('main') ||
-            e.target.classList.contains('content') ||
-            e.target.classList.contains('page-header') ||
-            e.target.classList.contains('news-list') ||
-            e.target.classList.contains('hero') ||
-            e.target.classList.contains('section')) {
-            isTargetValid = true;
-        }
+        console.log('Click detected on:', e.target);
 
-        // For other div elements, check class
-        if (e.target.tagName === 'DIV') {
-            const hasValidClass = validTargets.some(selector => {
-                if (selector.startsWith('DIV.')) {
-                    return e.target.classList.contains(selector.substring(4));
-                }
-                return false;
-            });
-            if (hasValidClass) {
-                isTargetValid = true;
-            }
-        }
+        // Triple tap detection
+        clearTimeout(tapTimer);
 
-        if (isTargetValid) {
-            console.log('Valid tap target, count:', tapCount + 1);
-            clearTimeout(tapTimer);
+        tapCount++;
+        console.log('Tap count:', tapCount);
 
-            tapCount++;
-
-            if (tapCount === 3) {
-                console.log('TRIPLE TAP DETECTED!');
-                showLoginForm();
+        if (tapCount === 3) {
+            console.log('TRIPLE TAP!');
+            showLoginForm();
+            tapCount = 0;
+        } else {
+            tapTimer = setTimeout(() => {
+                console.log('Reset tap count from', tapCount, 'to 0');
                 tapCount = 0;
-            } else {
-                tapTimer = setTimeout(() => {
-                    console.log('Reset tap count from', tapCount, 'to 0');
-                    tapCount = 0;
-                }, 1000);
-            }
+            }, 1000);
         }
     }
 
@@ -129,13 +92,20 @@
         const loginOverlay = document.querySelector('.login-overlay');
         const loginForm = document.querySelector('.login-form');
 
-        // Close if clicking outside the login form
-        if (loginOverlay && loginForm && !loginForm.contains(e.target)) {
+        // Only if login form is visible
+        if (!loginOverlay) return;
+
+        // Check if clicking outside the login form
+        if (!loginForm.contains(e.target)) {
+            console.log('Click outside login form - closing');
+            e.preventDefault();
+            e.stopPropagation();
             hideLoginForm();
         }
     }
 
     function handleLoginSubmit(e) {
+        // Check if the event is from our login form
         if (e.target && e.target.id === 'loginForm') {
             e.preventDefault();
 
@@ -143,6 +113,7 @@
             const password = e.target.querySelector('#password').value;
 
             if (username === 'admin' && password === 'password') {
+                console.log('Login successful');
                 localStorage.setItem('adminLoggedIn', 'true');
                 hideLoginForm();
                 showAdminLinks();
@@ -151,6 +122,7 @@
                 e.target.querySelector('#username').value = '';
                 e.target.querySelector('#password').value = '';
             } else {
+                console.log('Login failed');
                 alert('IDまたはパスワードが正しくありません');
             }
         }
@@ -166,21 +138,39 @@
         // Create overlay
         const overlay = document.createElement('div');
         overlay.className = 'login-overlay';
+        overlay.style.cssText = `
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        `;
 
         // Create form HTML
         const formHTML = `
-            <div class="login-form">
-                <h3>管理者ログイン</h3>
+            <div class="login-form" style="
+                background: white;
+                padding: 2rem;
+                border-radius: 8px;
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+                min-width: 300px;
+            ">
+                <h3 style="margin: 0 0 1rem 0; color: #333;">管理者ログイン</h3>
                 <form id="loginForm">
-                    <div class="form-group">
-                        <label for="username">ID:</label>
-                        <input type="text" id="username" name="username" required autofocus>
+                    <div class="form-group" style="margin-bottom: 1rem;">
+                        <label style="display: block; margin-bottom: 0.5rem; color: #555; font-weight: 500;">ID:</label>
+                        <input type="text" id="username" name="username" required autofocus style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 4px; font-size: 1rem; box-sizing: border-box;">
                     </div>
-                    <div class="form-group">
-                        <label for="password">パスワード:</label>
-                        <input type="password" id="password" name="password" required>
+                    <div class="form-group" style="margin-bottom: 1rem;">
+                        <label style="display: block; margin-bottom: 0.5rem; color: #555; font-weight: 500;">パスワード:</label>
+                        <input type="password" id="password" name="password" required style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 4px; font-size: 1rem; box-sizing: border-box;">
                     </div>
-                    <button type="submit" class="login-btn">ログイン</button>
+                    <button type="submit" class="login-btn" style="width: 100%; padding: 0.75rem; background-color: #2c5f2d; color: white; border: none; border-radius: 4px; font-size: 1rem; cursor: pointer;">ログイン</button>
                 </form>
                 <div style="margin-top: 15px; font-size: 12px; color: #666; text-align: center;">
                     <p>PC: Alt+W 表示 / Alt+S 閉じる</p>
@@ -198,7 +188,6 @@
             if (input) input.focus();
         }, 100);
 
-        // Log for debugging
         console.log('Login form shown');
     }
 
