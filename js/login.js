@@ -1,4 +1,4 @@
-// Login functionality - Simplified and fixed
+// Login functionality - Fixed click outside
 
 (function() {
     'use strict';
@@ -23,6 +23,9 @@
 
         // Form submission
         document.addEventListener('submit', handleLogin);
+
+        // Click outside to close login form
+        document.addEventListener('click', handleOutsideClick, true); // Use capture phase
     }
 
     function handleKeyPress(e) {
@@ -66,6 +69,18 @@
                 console.log('Resetting tap count');
                 tapCount = 0;
             }, 1000);
+        }
+    }
+
+    function handleOutsideClick(e) {
+        const loginForm = document.querySelector('.login-form');
+
+        // Check if clicking outside the login form
+        if (loginForm && !loginForm.contains(e.target)) {
+            console.log('Click outside login form - closing');
+            e.preventDefault();
+            e.stopPropagation();
+            hideLoginForm();
         }
     }
 
