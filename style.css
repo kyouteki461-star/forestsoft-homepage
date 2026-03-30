@@ -1827,24 +1827,25 @@ body::after {
     display: block; 
 }
 
-/* 5列导航区域 */
+/* 5列导航区域 - 修复自适应问题 */
 .footer-inner {
     max-width: 1200px;
     margin: 0 auto;
     display: flex;
-    flex-wrap: nowrap;
+    flex-wrap: wrap; /* 允许换行 */
     justify-content: space-between;
     align-items: flex-start;
-    gap: 15px;
+    gap: 20px; /* 增加间距 */
     /* 这是上面的分割线 */
     padding-bottom: 40px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2); 
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-/* 每一列的样式保持不变... */
+/* 每一列的样式 - 修复自适应问题 */
 .footer-nav {
-    flex: 1 0 auto;
-    min-width: max-content;
+    flex: 1 1 200px; /* 允许收缩和增长，最小宽度200px */
+    min-width: 200px; /* 确保最小宽度 */
+    max-width: 300px; /* 限制最大宽度 */
 }
 
 /* 底部版权区域 - 核心修复在这里 */
@@ -2281,6 +2282,39 @@ body::after {
     height: 2px;
     background: rgba(255, 255, 255, 0.4);
     transition: width 0.3s ease;
+}
+
+/* 手机版适配 - 修复footer换行问题 */
+@media (max-width: 768px) {
+    .footer-inner {
+        flex-direction: column; /* 垂直排列 */
+        align-items: center; /* 居中对齐 */
+        text-align: center; /* 文字居中 */
+    }
+
+    .footer-brand {
+        margin-bottom: 30px;
+    }
+
+    .footer-nav {
+        margin-bottom: 20px;
+        width: 100%; /* 占满宽度 */
+    }
+
+    .footer-nav ul {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .footer-nav li {
+        margin: 5px 0;
+    }
+
+    .footer-nav h4 {
+        margin-bottom: 10px;
+    }
+}
 }
 
 .footer-nav:hover h4::after {
