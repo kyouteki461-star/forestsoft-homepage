@@ -6,6 +6,8 @@
     <link rel="icon" href="../images/favicon.ico">
     <title>環境方針・社会貢献 - フォレストソフト株式会社</title>
     <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../css/login.css">
+    <script src="../js/policies-footer-loader.js"></script>
 </head>
 <body>
     <!-- Header -->
@@ -71,44 +73,7 @@
     </main>
 
     <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-inner">
-            <div class="footer-brand">
-                <h3>🌲 フォレストソフト株式会社</h3>
-                <p>革新技術で世の中を動かす企業を目指します。<br>地域社会との調和・貢献に努めます。</p>
-            </div>
-            <div class="footer-nav">
-                <h4>会社情報</h4>
-                <ul>
-                    <li><a href="../about.html">企業紹介</a></li>
-                    <li><a href="../company.html">会社情報</a></li>
-                    <li><a href="../recruit.html">採用情報</a></li>
-                    <li><a href="../news.html">ニュース</a></li>
-                </ul>
-            </div>
-            <div class="footer-nav">
-                <h4>事業内容</h4>
-                <ul>
-                    <li><a href="../index.html#business">FMSサービス事業</a></li>
-                    <li><a href="../index.html#business">労働者派遣事業</a></li>
-                    <li><a href="../partner.html">ビジネスパートナー</a></li>
-                    <li><a href="../business.html">開発事例</a></li>
-                </ul>
-            </div>
-            <div class="footer-nav">
-                <h4>ポリシー・資料</h4>
-                <ul>
-                    <li><a href="../capacity.html">個人情報保護方針</a></li>
-                    <li><a href="../capacity.html">情報セキュリティ方針</a></li>
-                    <li><a href="../capacity.html">個人情報の取り扱い</a></li>
-                    <li><a href="../capacity.html">労働者派遣事業許可</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>Copyright(c) 2019 ForestSoft Co., Ltd. All Rights Reserved.</p>
-        </div>
-    </footer>
+    <div id="footer"></div>
 
     <script>
         const menuToggle = document.getElementById('menuToggle');
@@ -121,6 +86,20 @@
         document.querySelectorAll('.nav a').forEach(link => {
             link.addEventListener('click', () => {
                 nav.classList.remove('active');
+            });
+        });
+
+        // News expand/collapse functionality
+        document.querySelectorAll('.expand-button').forEach(button => {
+            button.addEventListener('click', () => {
+                const newsItem = button.closest('.news-item');
+                const newsContent = newsItem.querySelector('.news-content');
+                const isExpanded = newsContent.classList.contains('expanded');
+
+                // Toggle expanded state
+                newsContent.classList.toggle('expanded');
+                button.textContent = isExpanded ? '+' : '-';
+                button.classList.toggle('expanded');
             });
         });
     </script>
