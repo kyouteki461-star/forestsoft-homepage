@@ -20,7 +20,8 @@
       "Bash(done)",
       "Bash(ls -la *.html)",
       "Bash(grep -l \"login.js\" *.html)",
-      "Bash(grep:*)"
+      "Bash(grep:*)",
+      "Bash(sed:*)"
     ]
   }
 }
