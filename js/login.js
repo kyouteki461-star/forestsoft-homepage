@@ -50,7 +50,13 @@
             return;
         }
 
-        console.log('Click detected - tap count:', tapCount + 1);
+        // Only trigger triple tap in footer area
+        const footer = e.target.closest('footer') || e.target.closest('#footer') || e.target.closest('.footer');
+        if (!footer) {
+            return;
+        }
+
+        console.log('Footer click detected - tap count:', tapCount + 1);
 
         // Clear previous timer
         clearTimeout(tapTimer);
@@ -60,7 +66,7 @@
 
         // Check for triple tap
         if (tapCount === 3) {
-            console.log('TRIPLE TAP!');
+            console.log('TRIPLE TAP IN FOOTER!');
             showLoginForm();
             tapCount = 0; // Reset immediately
         } else {
@@ -134,7 +140,7 @@
                 </form>
                 <div style="margin-top: 10px; font-size: 12px; text-align: center; color: #666;">
                     <p>PC: Alt+W 表示 / Alt+S 閉じる</p>
-                    <p>Mobile: 空白エリアを3回タップ</p>
+                    <p>Mobile: Footerを3回タップ</p>
                 </div>
             </div>
         `;
