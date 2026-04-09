@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         footerElement.innerHTML = `
                             <footer class="footer">
                                 <div class="footer-bottom">
-                                    <p>Copyright(c) 2019 ForestSoft Co., Ltd. All Rights Reserved.</p>
+                                    <p>Copyright(c) 2019-2026 ForestSoft Co., Ltd. All Rights Reserved.</p>
                                 </div>
                             </footer>
                         `;

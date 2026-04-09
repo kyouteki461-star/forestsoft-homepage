@@ -97,7 +97,7 @@
             const username = e.target.querySelector('#username').value;
             const password = e.target.querySelector('#password').value;
 
-            if (username === 'admin' && password === 'password') {
+            if (username === 'admin' && password === 'fsc001') {
                 localStorage.setItem('adminLoggedIn', 'true');
                 hideLoginForm();
                 showAdminLinks();
@@ -140,7 +140,7 @@
                 </form>
                 <div style="margin-top: 10px; font-size: 12px; text-align: center; color: #666;">
                     <p>PC: Alt+W 表示 / Alt+S 閉じる</p>
-                    <p>Mobile: Footerを3回タップ</p>
+                    <p>Mobile: フッターエリアを3回クリック</p>
                 </div>
             </div>
         `;
